@@ -33,9 +33,9 @@ add_action('widgets_init', 'lowermedia_wp_social_init');
 #   //This function adds information to the end of the post,,,,,  && !is_home()
 */
 function lowermedia_add_wp_social($content) {
-	if ( is_active_sidebar( 'lowermedia_wp_social_widget' ) ) : 
+	//if ( is_active_sidebar( 'lowermedia_wp_social_widget' ) ) : 
 		return dynamic_sidebar('lowermedia_wp_social_widget_area').$content;
-	endif;
+	//endif;
 }
 add_filter('the_content', 'lowermedia_add_wp_social');
 

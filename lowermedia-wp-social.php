@@ -3,7 +3,7 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: .4
+Version: .5
 Author: Pete Lower
 Author URI: http://petelower.com
 License: A "Slug" license name e.g. GPL2
@@ -38,7 +38,7 @@ function lowermedia_add_wp_social($output) {
 		return $output;
 }
 
-add_filter('wp_head', 'lowermedia_add_wp_social', 1000);
+add_filter('wp_head', 'lowermedia_add_wp_social', 1000);//1000 is there to make sure this is loaded very lastly to the head
 
 
 /*############################################################################################
@@ -46,26 +46,150 @@ add_filter('wp_head', 'lowermedia_add_wp_social', 1000);
 #   ADD POST CONTENT
 #   //This function adds information to the end of the post,,,,,  && !is_home()
 */
-// class lowermedia_wp_social extends WP_Widget {
-//         public function __construct() {
-// 			// widget actual processes
-// 			parent::WP_Widget(false,"LowerMedia WP Social Widget","description=Social Media Icon Holder Widget");
-// 		}
 
-//         public function form( $instance ) {
-//                // outputs the options form on admin
-//         	echo "Enter Social Media Links";
-//         }
+class SocialMediaIcons extends WP_Widget
+{
+  function SocialMediaIcons()
+  {
+    $widget_ops = array('classname' => 'SocialMediaIcons', 'description' => 'Displays Social Media Icons' );
+    $this->WP_Widget('SocialMediaIcons', 'Social Media Icons', $widget_ops);
+  }
+ 
+  function form($instance)
+  {
+    $instance = wp_parse_args( (array) $instance, array( 'facebook' => '', 'twitter'=>'', 'linkedin' => '', 'googleplus'=>'' ) );
+    $facebook = $instance['facebook'];
+    $twitter = $instance['twitter'];
+    $linkedin = $instance['linkedin'];
+    $googleplus = $instance['googleplus'];
+?>
+  <p>
+  	<label for="<?php echo $this->get_field_id('facebook'); ?>">
+  		Facebook Link: 	<br/>http://facebook.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('facebook'); ?>" 
+				  		name="<?php echo $this->get_field_name('facebook'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($facebook); ?>" 
+			  		/>
+	</label>
+	<label for="<?php echo $this->get_field_id('twitter'); ?>">
+		Twitter Link: 	<br/>http://twitter.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('twitter'); ?>" 
+				  		name="<?php echo $this->get_field_name('twitter'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($twitter); ?>" 
+			  		/>
+	</label>
+	<label for="<?php echo $this->get_field_id('linkedin'); ?>">
+		LinkedIn Link: 	<br/>http://linkedin.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('linkedin'); ?>" 
+				  		name="<?php echo $this->get_field_name('linkedin'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($linkedin); ?>" 
+			  		/>
+	</label>
+	<label for="<?php echo $this->get_field_id('googleplus'); ?>">
+		Google+ Link: 	<br/>http://plus.google.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('googleplus'); ?>" 
+				  		name="<?php echo $this->get_field_name('googleplus'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($googleplus); ?>" 
+			  		/>
+  	</label>
+  </p>
+<?php
+  }
+ 
+  function update($new_instance, $old_instance)
+  {
+    $instance = $old_instance;
+    $instance['facebook'] = $new_instance['facebook'];
+    $instance['twitter'] = $new_instance['twitter'];
+    $instance['linkedin'] = $new_instance['linkedin'];
+    $instance['googleplus'] = $new_instance['googleplus'];
+    return $instance;
+  }
+ 
+  function widget($args, $instance)
+  {
+    extract($args, EXTR_SKIP);
+ 
+    echo $before_widget;
+    $facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
+    $facebook_link="'http://facebook.com/".$facebook."'";
 
-//         public function update( $new_instance, $old_instance ) {
-//                // processes widget options to be saved
-//         }
+    $twitter = empty($instance['twitter']) ? ' ' : apply_filters('widget_twitter', $instance['twitter']);
+    $twitter_link="'http://twitter.com/".$twitter."'";
 
-//         public function widget( $args, $instance ) {
-//                // outputs the content of the widget
-//         }
+    $linkedin = empty($instance['linkedin']) ? ' ' : apply_filters('widget_linkedin', $instance['linkedin']);
+    $linkedin_link="'http://linkedin.com/".$linkedin."'";
 
-// }
-// register_widget( 'lowermedia_wp_social' );
+    $googleplus = empty($instance['googleplus']) ? ' ' : apply_filters('widget_googleplus', $instance['googleplus']);
+    $googleplus_link="'http://plus.google.com/".$googleplus."'";
+ 
+
+    // WIDGET CODE GOES HERE
+    echo <<<EOT
+	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="">
+	<div class="widget-inner" style="">
+		<ul class="social-icons-list" style="list-style:none;">
+EOT;
+
+if (!empty($instance['facebook'])) {
+    //echo $before_facebook . $facebook . $after_facebook;;
+		echo <<<EOT
+			<li class="facebook" style="background-image: url(&quot;https://www.facebookbrand.com/img/assets/asset.f.logo.lg.png&quot;); opacity: 0.5; background-size: 30px auto; height: 30px; width: 30px;margin: 20% 10%;">
+				<a href=$facebook_link style="width: 30px; position: absolute; font-size: 0px; height: 31px;">
+					Facebook
+				</a>
+			</li>
+EOT;
+	}
+
+if (!empty($instance['twitter'])) {
+    //echo $before_facebook . $facebook . $after_facebook;;
+		echo <<<EOT
+			<li class="twitter" style="background-image: url(&quot;https://abs.twimg.com/a/1367451715/images/resources/twitter-bird-white-on-blue.png&quot;); opacity: 0.5; background-size: 30px auto; height: 30px; width: 30px;margin: 20% 10%;">
+				<a href=$twitter_link style="width: 30px; position: absolute; font-size: 0px; height: 31px;" >
+					Twitter
+				</a>
+			</li>
+EOT;
+	}
+
+if (!empty($instance['linkedin'])) {
+    //echo $before_facebook . $facebook . $after_facebook;;
+		echo <<<EOT
+		<li class="google+" style="background-image: url(&quot;https://ssl.gstatic.com/s2/oz/images/faviconr3.ico&quot;); opacity: 0.5; background-size: 30px auto; height: 30px; width: 30px;margin: 20% 10%;">
+			<a href=$googleplus_link  style="width: 30px; position: absolute; font-size: 0px; height: 31px;">
+				Google+
+			</a>
+		</li>
+EOT;
+	}
+
+if (!empty($instance['googleplus'])) {
+    //echo $before_facebook . $facebook . $after_facebook;;
+		echo <<<EOT
+		<li class="linkedin+" style="background-image: url(&quot;http://developer.linkedin.com/sites/default/files/LinkedIn_Logo60px.png&quot;); opacity: 0.5; background-size: 36px auto; height: 30px; width: 30px;margin: 20% 10%;">
+			<a href=$linkedin_link  style="width: 30px; position: absolute; font-size: 0px; height: 31px;">
+				LinkedIn
+			</a>
+		</li>
+EOT;
+
+	echo "</ul></div></section>";
+
+	}
+ 
+    echo $after_widget;
+  }
+ 
+}
+add_action( 'widgets_init', create_function('', 'return register_widget("SocialMediaIcons");') );
 
 ?>

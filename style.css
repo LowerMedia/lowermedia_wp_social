@@ -1,0 +1,28 @@
+.social-icons-list {
+	list-style:none;
+}
+
+.social-icons-list li {
+	opacity: 0.5;
+	background-size: 30px auto; 
+	height: 30px; 
+	width: 30px;
+	margin: 20% 10%;
+}
+
+.social-icons-list .facebook {
+	background-image: url(https://www.facebookbrand.com/img/assets/asset.f.logo.lg.png); 
+}
+
+.social-icons-list .twitter {
+	background-image: url(https://abs.twimg.com/a/1367451715/images/resources/twitter-bird-white-on-blue.png);
+}
+
+.social-icons-list .linkedin {
+	background-image: url(https://ssl.gstatic.com/s2/oz/images/faviconr3.ico);
+}
+
+.social-icons-list .googleplus {
+	background-image: url(http://developer.linkedin.com/sites/default/files/LinkedIn_Logo60px.png); 
+	background-size: 36px auto;
+}

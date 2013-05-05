@@ -3,11 +3,31 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: .5
+Version: .8
 Author: Pete Lower
 Author URI: http://petelower.com
 License: A "Slug" license name e.g. GPL2
 */
+
+/*############################################################################################
+#
+#   REGISTER PLUGIN STYLES
+#   //These functions enques and registers the plugin stylesheet
+*/
+
+/**
+ * Register with hook 'wp_enqueue_scripts', which can be used for front end CSS and JavaScript
+ */
+add_action( 'wp_enqueue_scripts', 'lowermedia_add_my_stylesheet' );
+
+/**
+ * Enqueue plugin style-file
+ */
+function lowermedia_add_my_stylesheet() {
+    // Respects SSL, Style.css is relative to the current file
+    wp_register_style( 'lowermedia-style', plugins_url('style.css', __FILE__) );
+    wp_enqueue_style( 'lowermedia-style' );
+}
 
 /*############################################################################################
 #
@@ -57,13 +77,24 @@ class SocialMediaIcons extends WP_Widget
  
   function form($instance)
   {
-    $instance = wp_parse_args( (array) $instance, array( 'facebook' => '', 'twitter'=>'', 'linkedin' => '', 'googleplus'=>'' ) );
+    $instance = wp_parse_args( (array) $instance, array( 'margin_top_var' => '','facebook' => '', 'twitter'=>'', 'linkedin' => '', 'googleplus'=>'' ) );
+    
+    $margin_top_var = $instance['margin_top_var'];
     $facebook = $instance['facebook'];
     $twitter = $instance['twitter'];
     $linkedin = $instance['linkedin'];
     $googleplus = $instance['googleplus'];
 ?>
   <p>
+  	<label for="<?php echo $this->get_field_id('margin_top_var'); ?>">
+  		Add Top Margin: 	<br/>(px, em, %)<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('margin_top_var'); ?>" 
+				  		name="<?php echo $this->get_field_name('margin_top_var'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($margin_top_var); ?>" 
+			  		/>
+	</label></br>
   	<label for="<?php echo $this->get_field_id('facebook'); ?>">
   		Facebook Link: 	<br/>http://facebook.com/<input 
 				  		class="widefat" 
@@ -72,7 +103,7 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($facebook); ?>" 
 			  		/>
-	</label>
+	</label></br>
 	<label for="<?php echo $this->get_field_id('twitter'); ?>">
 		Twitter Link: 	<br/>http://twitter.com/<input 
 				  		class="widefat" 
@@ -81,7 +112,7 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($twitter); ?>" 
 			  		/>
-	</label>
+	</label><br/>
 	<label for="<?php echo $this->get_field_id('linkedin'); ?>">
 		LinkedIn Link: 	<br/>http://linkedin.com/<input 
 				  		class="widefat" 
@@ -90,7 +121,7 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($linkedin); ?>" 
 			  		/>
-	</label>
+	</label><br/>
 	<label for="<?php echo $this->get_field_id('googleplus'); ?>">
 		Google+ Link: 	<br/>http://plus.google.com/<input 
 				  		class="widefat" 
@@ -99,7 +130,7 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($googleplus); ?>" 
 			  		/>
-  	</label>
+  	</label><br/>
   </p>
 <?php
   }
@@ -107,6 +138,7 @@ class SocialMediaIcons extends WP_Widget
   function update($new_instance, $old_instance)
   {
     $instance = $old_instance;
+    $instance['margin_top_var'] = $new_instance['margin_top_var'];
     $instance['facebook'] = $new_instance['facebook'];
     $instance['twitter'] = $new_instance['twitter'];
     $instance['linkedin'] = $new_instance['linkedin'];
@@ -134,15 +166,15 @@ class SocialMediaIcons extends WP_Widget
 
     // WIDGET CODE GOES HERE
     echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="">
+	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var">
 	<div class="widget-inner" style="">
-		<ul class="social-icons-list" style="list-style:none;">
+		<ul class="social-icons-list" style="">
 EOT;
 
 if (!empty($instance['facebook'])) {
     //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
-			<li class="facebook" style="background-image: url(&quot;https://www.facebookbrand.com/img/assets/asset.f.logo.lg.png&quot;); opacity: 0.5; background-size: 30px auto; height: 30px; width: 30px;margin: 20% 10%;">
+			<li class="facebook" style="">
 				<a href=$facebook_link style="width: 30px; position: absolute; font-size: 0px; height: 31px;">
 					Facebook
 				</a>
@@ -153,7 +185,7 @@ EOT;
 if (!empty($instance['twitter'])) {
     //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
-			<li class="twitter" style="background-image: url(&quot;https://abs.twimg.com/a/1367451715/images/resources/twitter-bird-white-on-blue.png&quot;); opacity: 0.5; background-size: 30px auto; height: 30px; width: 30px;margin: 20% 10%;">
+			<li class="twitter" style="">
 				<a href=$twitter_link style="width: 30px; position: absolute; font-size: 0px; height: 31px;" >
 					Twitter
 				</a>
@@ -164,7 +196,7 @@ EOT;
 if (!empty($instance['linkedin'])) {
     //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
-		<li class="google+" style="background-image: url(&quot;https://ssl.gstatic.com/s2/oz/images/faviconr3.ico&quot;); opacity: 0.5; background-size: 30px auto; height: 30px; width: 30px;margin: 20% 10%;">
+		<li class="googleplus" style="">
 			<a href=$googleplus_link  style="width: 30px; position: absolute; font-size: 0px; height: 31px;">
 				Google+
 			</a>
@@ -175,7 +207,7 @@ EOT;
 if (!empty($instance['googleplus'])) {
     //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
-		<li class="linkedin+" style="background-image: url(&quot;http://developer.linkedin.com/sites/default/files/LinkedIn_Logo60px.png&quot;); opacity: 0.5; background-size: 36px auto; height: 30px; width: 30px;margin: 20% 10%;">
+		<li class="linkedin" style="">
 			<a href=$linkedin_link  style="width: 30px; position: absolute; font-size: 0px; height: 31px;">
 				LinkedIn
 			</a>

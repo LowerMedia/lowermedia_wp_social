@@ -81,6 +81,7 @@ class SocialMediaIcons extends WP_Widget
     	(array) $instance, 
     	array( 
     		'margin_top_var' => '',
+    		'margin_left_var' => '',
     		'facebook' => '',
     		'twitter'=>'',
     		'linkedin' => '',
@@ -95,6 +96,7 @@ class SocialMediaIcons extends WP_Widget
     );
     
     $margin_top_var = $instance['margin_top_var'];
+    $margin_left_var = $instance['margin_left_var'];
     $facebook = $instance['facebook'];
     $twitter = $instance['twitter'];
     $linkedin = $instance['linkedin'];
@@ -116,6 +118,15 @@ class SocialMediaIcons extends WP_Widget
 				  		name="<?php echo $this->get_field_name('margin_top_var'); ?>" 
 				  		type="text" 
 				  		value="<?php echo attribute_escape($margin_top_var); ?>" 
+			  		/>
+	</label></br></br>
+	<label for="<?php echo $this->get_field_id('margin_left_var'); ?>">
+  		Add Left Margin: 	<br/>(px, em, %)<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('margin_left_var'); ?>" 
+				  		name="<?php echo $this->get_field_name('margin_left_var'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($margin_left_var); ?>" 
 			  		/>
 	</label></br></br>
   	<label for="<?php echo $this->get_field_id('facebook'); ?>">
@@ -217,14 +228,14 @@ class SocialMediaIcons extends WP_Widget
   {
     $instance = $old_instance;
     $instance['margin_top_var'] = $new_instance['margin_top_var'];
+    $instance['margin_left_var'] = $new_instance['margin_left_var'];
     $instance['facebook'] = $new_instance['facebook'];
     $instance['twitter'] = $new_instance['twitter'];
     $instance['linkedin'] = $new_instance['linkedin'];
     $instance['googleplus'] = $new_instance['googleplus'];
     $instance['github'] = $new_instance['github'];
-
     $instance['wordpress'] = $new_instance['wordpress'];
-    $instance['drupal'] = $new_instance['twitter'];
+    $instance['drupal'] = $new_instance['drupal'];
     $instance['instagram'] = $new_instance['instagram'];
     $instance['pinterest'] = $new_instance['pinterest'];
     $instance['yelp'] = $new_instance['yelp'];
@@ -237,7 +248,8 @@ class SocialMediaIcons extends WP_Widget
  
     echo $before_widget;
 
-	$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_facebook', $instance['margin_top_var']);
+	$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
+	$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
 
     $facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
     $facebook_link="'http://facebook.com/".$facebook."'";
@@ -273,7 +285,7 @@ class SocialMediaIcons extends WP_Widget
 
     // WIDGET CODE GOES HERE
     echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var">
+	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var;margin-left:$margin_left_var;">
 	<div class="widget-inner" style="">
 		<ul class="social-icons-list" style="">
 EOT;

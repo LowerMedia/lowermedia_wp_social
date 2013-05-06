@@ -6,7 +6,8 @@ Description: WordPress plugin that, when activated, creates a new widget area an
 Version: 1
 Author: Pete Lower
 Author URI: http://petelower.com
-License: A "Slug" license name e.g. GPL2
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 /*############################################################################################
@@ -84,6 +85,7 @@ class SocialMediaIcons extends WP_Widget
     		'margin_left_var' => '',
     		'facebook' => '',
     		'twitter'=>'',
+    		'youtube'=>'',
     		'linkedin' => '',
     		'googleplus'=>'',
     		'github'=>'',
@@ -99,6 +101,7 @@ class SocialMediaIcons extends WP_Widget
     $margin_left_var = $instance['margin_left_var'];
     $facebook = $instance['facebook'];
     $twitter = $instance['twitter'];
+    $youtube = $instance['youtube'];
     $linkedin = $instance['linkedin'];
     $googleplus = $instance['googleplus'];
     $github = $instance['github'];
@@ -145,6 +148,15 @@ class SocialMediaIcons extends WP_Widget
 				  		name="<?php echo $this->get_field_name('twitter'); ?>" 
 				  		type="text" 
 				  		value="<?php echo attribute_escape($twitter); ?>" 
+			  		/>
+	</label><br/></br>
+	<label for="<?php echo $this->get_field_id('youtube'); ?>">
+		YouTube Link: 	<br/>http://youtube.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('youtube'); ?>" 
+				  		name="<?php echo $this->get_field_name('youtube'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($youtube); ?>" 
 			  		/>
 	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('linkedin'); ?>">
@@ -231,6 +243,7 @@ class SocialMediaIcons extends WP_Widget
     $instance['margin_left_var'] = $new_instance['margin_left_var'];
     $instance['facebook'] = $new_instance['facebook'];
     $instance['twitter'] = $new_instance['twitter'];
+    $instance['youtube'] = $new_instance['youtube'];
     $instance['linkedin'] = $new_instance['linkedin'];
     $instance['googleplus'] = $new_instance['googleplus'];
     $instance['github'] = $new_instance['github'];
@@ -256,6 +269,9 @@ class SocialMediaIcons extends WP_Widget
 
     $twitter = empty($instance['twitter']) ? ' ' : apply_filters('widget_twitter', $instance['twitter']);
     $twitter_link="'http://twitter.com/".$twitter."'";
+
+    $youtube = empty($instance['youtube']) ? ' ' : apply_filters('widget_youtube', $instance['youtube']);
+    $youtube_link="'http://youtube.com/".$youtube."'";
 
     $linkedin = empty($instance['linkedin']) ? ' ' : apply_filters('widget_linkedin', $instance['linkedin']);
     $linkedin_link="'http://linkedin.com/".$linkedin."'";
@@ -307,6 +323,17 @@ if (!empty($instance['twitter'])) {
 			<li class="twitter" >
 				<a href=$twitter_link >
 					Twitter
+				</a>
+			</li>
+EOT;
+	}
+
+if (!empty($instance['youtube'])) {
+    //echo $before_facebook . $facebook . $after_facebook;;
+		echo <<<EOT
+			<li class="youtube" >
+				<a href=$youtube_link >
+					YouTube
 				</a>
 			</li>
 EOT;

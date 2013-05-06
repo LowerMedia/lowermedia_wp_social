@@ -25,6 +25,14 @@
 	background-image: url(https://abs.twimg.com/a/1367451715/images/resources/twitter-bird-white-on-blue.png);
 }
 
+.social-icons-list .youtube {
+	background-image: url(https://www.youtube.com/yt/brand/media/image/yt-brand-yt-stackedlogo.png);
+	background-position: 0 0;
+    background-size: 150px auto;
+    height: 32px;
+    width: 32px;
+}
+
 .social-icons-list .linkedin {
 	background-image: url(http://developer.linkedin.com/sites/default/files/LinkedIn_Logo60px.png);
 	background-size: 36px auto;

@@ -10,6 +10,13 @@
 	margin: 20% 10%;
 }
 
+.social-icons-list li a {
+	width: 30px; 
+	position: absolute; 
+	font-size: 0px; 
+	height: 31px;
+}
+
 .social-icons-list .facebook {
 	background-image: url(https://www.facebookbrand.com/img/assets/asset.f.logo.lg.png); 
 }
@@ -25,4 +32,34 @@
 .social-icons-list .googleplus {
 	background-image: url(http://developer.linkedin.com/sites/default/files/LinkedIn_Logo60px.png); 
 	background-size: 36px auto;
+}
+
+.social-icons-list .github {
+	background-image: url(https://secure.gravatar.com/avatar/a194cc0fc5901b719ef4e8666036971d?s=140&d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png);
+}
+
+.social-icons-list .wordpress {
+	background-image: url(http://s.wordpress.org/about/images/logos/wordpress-logo-32.png); 
+}
+
+.social-icons-list .drupal {
+	background-image: url(https://drupal.org/files/druplicon.small_.png);
+	background-size: 28px auto;
+    height: 32px;
+    width: 28px;
+}
+
+.social-icons-list .instagram {
+	background-image: url(https://upload.wikimedia.org/wikipedia/en/2/28/Instagram_logo.png);
+	background-size: 130px 35px;
+    height: 35px;
+}
+
+.social-icons-list .pinterest {
+	background-image: url(http://business.pinterest.com/assets/img/brand/pinterest_badge_red.png); 
+}
+
+.social-icons-list .yelp {
+	background-image: url(https://farm5.staticflickr.com/4035/4208665825_4992916e78_t.jpg); 
+	height:35px;
 }

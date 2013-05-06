@@ -3,7 +3,7 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: .8
+Version: .94
 Author: Pete Lower
 Author URI: http://petelower.com
 License: A "Slug" license name e.g. GPL2
@@ -77,13 +77,36 @@ class SocialMediaIcons extends WP_Widget
  
   function form($instance)
   {
-    $instance = wp_parse_args( (array) $instance, array( 'margin_top_var' => '','facebook' => '', 'twitter'=>'', 'linkedin' => '', 'googleplus'=>'' ) );
+    $instance = wp_parse_args( 
+    	(array) $instance, 
+    	array( 
+    		'margin_top_var' => '',
+    		'facebook' => '',
+    		'twitter'=>'',
+    		'linkedin' => '',
+    		'googleplus'=>'',
+    		'github'=>'',
+    		'wordpress' => '',
+    		'drupal'=>'',
+    		'instagram' => '',
+    		'pinterest'=>'',
+    		'yelp'=>'' 
+    	) 
+    );
     
     $margin_top_var = $instance['margin_top_var'];
     $facebook = $instance['facebook'];
     $twitter = $instance['twitter'];
     $linkedin = $instance['linkedin'];
     $googleplus = $instance['googleplus'];
+    $github = $instance['github'];
+    $wordpress = $instance['wordpress'];
+    $drupal = $instance['drupal'];
+    $instagram = $instance['instagram'];
+    $pinterest = $instance['pinterest'];
+    $yelp = $instance['yelp'];
+
+    //extract($instance);
 ?>
   <p>
   	<label for="<?php echo $this->get_field_id('margin_top_var'); ?>">
@@ -94,7 +117,7 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($margin_top_var); ?>" 
 			  		/>
-	</label></br>
+	</label></br></br>
   	<label for="<?php echo $this->get_field_id('facebook'); ?>">
   		Facebook Link: 	<br/>http://facebook.com/<input 
 				  		class="widefat" 
@@ -103,7 +126,7 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($facebook); ?>" 
 			  		/>
-	</label></br>
+	</label></br></br>
 	<label for="<?php echo $this->get_field_id('twitter'); ?>">
 		Twitter Link: 	<br/>http://twitter.com/<input 
 				  		class="widefat" 
@@ -112,7 +135,7 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($twitter); ?>" 
 			  		/>
-	</label><br/>
+	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('linkedin'); ?>">
 		LinkedIn Link: 	<br/>http://linkedin.com/<input 
 				  		class="widefat" 
@@ -121,7 +144,7 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($linkedin); ?>" 
 			  		/>
-	</label><br/>
+	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('googleplus'); ?>">
 		Google+ Link: 	<br/>http://plus.google.com/<input 
 				  		class="widefat" 
@@ -130,7 +153,62 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($googleplus); ?>" 
 			  		/>
-  	</label><br/>
+  	</label><br/></br>
+  	<label for="<?php echo $this->get_field_id('github'); ?>">
+		GitHub Link: 	<br/>https://github.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('github'); ?>" 
+				  		name="<?php echo $this->get_field_name('github'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($github); ?>" 
+			  		/>
+  	</label><br/></br>
+
+  	<label for="<?php echo $this->get_field_id('wordpress'); ?>">
+  		WordPress Link: 	<br/>http://profiles.wordpress.org/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('wordpress'); ?>" 
+				  		name="<?php echo $this->get_field_name('wordpress'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($wordpress); ?>" 
+			  		/>
+	</label></br></br>
+	<label for="<?php echo $this->get_field_id('drupal'); ?>">
+		Drupal Link: 	<br/>http://drupal.org/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('drupal'); ?>" 
+				  		name="<?php echo $this->get_field_name('drupal'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($drupal); ?>" 
+			  		/>
+	</label><br/></br>
+	<label for="<?php echo $this->get_field_id('instagram'); ?>">
+		Instagram Link: 	<br/>http://instagram.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('instagram'); ?>" 
+				  		name="<?php echo $this->get_field_name('instagram'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($instagram); ?>" 
+			  		/>
+	</label><br/></br>
+	<label for="<?php echo $this->get_field_id('pinterest'); ?>">
+		Pinterest Link: 	<br/>http://pinterest.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('pinterest'); ?>" 
+				  		name="<?php echo $this->get_field_name('pinterest'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($pinterest); ?>" 
+			  		/>
+  	</label><br/></br>
+  	<label for="<?php echo $this->get_field_id('yelp'); ?>">
+		Yelp Link: 	<br/>http://yelp.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('yelp'); ?>" 
+				  		name="<?php echo $this->get_field_name('yelp'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($yelp); ?>" 
+			  		/>
+  	</label><br/></br>
   </p>
 <?php
   }
@@ -143,6 +221,13 @@ class SocialMediaIcons extends WP_Widget
     $instance['twitter'] = $new_instance['twitter'];
     $instance['linkedin'] = $new_instance['linkedin'];
     $instance['googleplus'] = $new_instance['googleplus'];
+    $instance['github'] = $new_instance['github'];
+
+    $instance['wordpress'] = $new_instance['wordpress'];
+    $instance['drupal'] = $new_instance['twitter'];
+    $instance['instagram'] = $new_instance['instagram'];
+    $instance['pinterest'] = $new_instance['pinterest'];
+    $instance['yelp'] = $new_instance['yelp'];
     return $instance;
   }
  
@@ -151,6 +236,9 @@ class SocialMediaIcons extends WP_Widget
     extract($args, EXTR_SKIP);
  
     echo $before_widget;
+
+	$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_facebook', $instance['margin_top_var']);
+
     $facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
     $facebook_link="'http://facebook.com/".$facebook."'";
 
@@ -162,6 +250,25 @@ class SocialMediaIcons extends WP_Widget
 
     $googleplus = empty($instance['googleplus']) ? ' ' : apply_filters('widget_googleplus', $instance['googleplus']);
     $googleplus_link="'http://plus.google.com/".$googleplus."'";
+
+    $github = empty($instance['github']) ? ' ' : apply_filters('widget_googleplus', $instance['github']);
+    $github_link="'https://github.com/".$github."'";
+
+
+    $wordpress = empty($instance['wordpress']) ? ' ' : apply_filters('widget_wordpress', $instance['wordpress']);
+    $wordpress="'http://wordpress.org/".$wordpress."'";
+
+    $drupal = empty($instance['drupal']) ? ' ' : apply_filters('widget_drupal', $instance['drupal']);
+    $drupal_link="'http://drupal.org/".$drupal."'";
+
+    $instagram = empty($instance['instagram']) ? ' ' : apply_filters('widget_instagram', $instance['instagram']);
+    $instagram_link="'http://instagram.com/".$instagram."'";
+
+    $pinterest = empty($instance['pinterest']) ? ' ' : apply_filters('widget_pinterest', $instance['pinterest']);
+    $pinterest_link="'http://pinterest.com/".$pinterest."'";
+
+    $yelp = empty($instance['yelp']) ? ' ' : apply_filters('widget_yelp', $instance['yelp']);
+    $yelp_link="'https://yelp.com/".$yelp."'";
  
 
     // WIDGET CODE GOES HERE
@@ -174,8 +281,8 @@ EOT;
 if (!empty($instance['facebook'])) {
     //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
-			<li class="facebook" style="">
-				<a href=$facebook_link style="width: 30px; position: absolute; font-size: 0px; height: 31px;">
+			<li class="facebook" >
+				<a href=$facebook_link >
 					Facebook
 				</a>
 			</li>
@@ -185,8 +292,8 @@ EOT;
 if (!empty($instance['twitter'])) {
     //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
-			<li class="twitter" style="">
-				<a href=$twitter_link style="width: 30px; position: absolute; font-size: 0px; height: 31px;" >
+			<li class="twitter" >
+				<a href=$twitter_link >
 					Twitter
 				</a>
 			</li>
@@ -196,8 +303,8 @@ EOT;
 if (!empty($instance['linkedin'])) {
     //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
-		<li class="googleplus" style="">
-			<a href=$googleplus_link  style="width: 30px; position: absolute; font-size: 0px; height: 31px;">
+		<li class="googleplus" >
+			<a href=$googleplus_link  >
 				Google+
 			</a>
 		</li>
@@ -207,21 +314,78 @@ EOT;
 if (!empty($instance['googleplus'])) {
     //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
-		<li class="linkedin" style="">
-			<a href=$linkedin_link  style="width: 30px; position: absolute; font-size: 0px; height: 31px;">
+		<li class="linkedin" >
+			<a href=$linkedin_link >
 				LinkedIn
 			</a>
 		</li>
 EOT;
-
-	echo "</ul></div></section>";
-
 	}
+
+if (!empty($instance['github'])) {
+    //echo $before_facebook . $facebook . $after_facebook;;
+		echo <<<EOT
+		<li class="github" >
+			<a href=$github_link >
+				GitHub
+			</a>
+		</li>
+EOT;
+	}
+
+if (!empty($instance['wordpress'])) {
+    //echo $before_facebook . $wordpress . $after_facebook;;
+		echo <<<EOT
+			<li class="wordpress" >
+				<a href=$wordpress_link >
+					WordPress
+				</a>
+			</li>
+EOT;
+	}
+
+if (!empty($instance['drupal'])) {
+		echo <<<EOT
+			<li class="drupal" >
+				<a href=$drupal_link >
+					Drupal
+				</a>
+			</li>
+EOT;
+	}
+
+if (!empty($instance['instagram'])) {
+		echo <<<EOT
+		<li class="instagram" >
+			<a href=$instagram_link  >
+				Instagram
+			</a>
+		</li>
+EOT;
+	}
+
+if (!empty($instance['pinterest'])) {
+		echo <<<EOT
+		<li class="pinterest" >
+			<a href=$pinterest_link >
+				Pinterest
+			</a>
+		</li>
+EOT;
+	}
+if (!empty($instance['yelp'])) {
+		echo <<<EOT
+		<li class="yelp" >
+			<a href=$yelp_link >
+				Yelp
+			</a>
+		</li>
+EOT;
+	}
+	echo "</ul></div></section>";
  
     echo $after_widget;
   }
- 
 }
 add_action( 'widgets_init', create_function('', 'return register_widget("SocialMediaIcons");') );
-
 ?>

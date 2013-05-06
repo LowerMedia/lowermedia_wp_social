@@ -26,12 +26,12 @@
 }
 
 .social-icons-list .linkedin {
-	background-image: url(https://ssl.gstatic.com/s2/oz/images/faviconr3.ico);
+	background-image: url(http://developer.linkedin.com/sites/default/files/LinkedIn_Logo60px.png);
+	background-size: 36px auto;
 }
 
 .social-icons-list .googleplus {
-	background-image: url(http://developer.linkedin.com/sites/default/files/LinkedIn_Logo60px.png); 
-	background-size: 36px auto;
+	background-image: url(https://ssl.gstatic.com/s2/oz/images/faviconr3.ico);
 }
 
 .social-icons-list .github {

@@ -3,7 +3,7 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: .94
+Version: 1
 Author: Pete Lower
 Author URI: http://petelower.com
 License: A "Slug" license name e.g. GPL2
@@ -256,7 +256,7 @@ class SocialMediaIcons extends WP_Widget
 
 
     $wordpress = empty($instance['wordpress']) ? ' ' : apply_filters('widget_wordpress', $instance['wordpress']);
-    $wordpress="'http://wordpress.org/".$wordpress."'";
+    $wordpress_link="'http://profiles.wordpress.org/".$wordpress."'";
 
     $drupal = empty($instance['drupal']) ? ' ' : apply_filters('widget_drupal', $instance['drupal']);
     $drupal_link="'http://drupal.org/".$drupal."'";
@@ -268,7 +268,7 @@ class SocialMediaIcons extends WP_Widget
     $pinterest_link="'http://pinterest.com/".$pinterest."'";
 
     $yelp = empty($instance['yelp']) ? ' ' : apply_filters('widget_yelp', $instance['yelp']);
-    $yelp_link="'https://yelp.com/".$yelp."'";
+    $yelp_link="'http://yelp.com/".$yelp."'";
  
 
     // WIDGET CODE GOES HERE

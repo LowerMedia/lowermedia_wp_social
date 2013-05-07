@@ -83,6 +83,7 @@ class SocialMediaIcons extends WP_Widget
     	array( 
     		'margin_top_var' => '',
     		'margin_left_var' => '',
+    		'opacity_var' => '',
     		'facebook' => '',
     		'twitter'=>'',
     		'youtube'=>'',
@@ -99,6 +100,7 @@ class SocialMediaIcons extends WP_Widget
     
     $margin_top_var = $instance['margin_top_var'];
     $margin_left_var = $instance['margin_left_var'];
+    $opacity_var = $instance['opacity_var'];
     $facebook = $instance['facebook'];
     $twitter = $instance['twitter'];
     $youtube = $instance['youtube'];
@@ -130,6 +132,15 @@ class SocialMediaIcons extends WP_Widget
 				  		name="<?php echo $this->get_field_name('margin_left_var'); ?>" 
 				  		type="text" 
 				  		value="<?php echo attribute_escape($margin_left_var); ?>" 
+			  		/>
+	</label></br></br>
+	<label for="<?php echo $this->get_field_id('opacity_var'); ?>">
+  		Add Opacity: 	<br/>(.01-.9)<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('opacity_var'); ?>" 
+				  		name="<?php echo $this->get_field_name('opacity_var'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($opacity_var); ?>" 
 			  		/>
 	</label></br></br>
   	<label for="<?php echo $this->get_field_id('facebook'); ?>">
@@ -241,6 +252,7 @@ class SocialMediaIcons extends WP_Widget
     $instance = $old_instance;
     $instance['margin_top_var'] = $new_instance['margin_top_var'];
     $instance['margin_left_var'] = $new_instance['margin_left_var'];
+    $instance['opacity_var'] = $new_instance['opacity_var'];
     $instance['facebook'] = $new_instance['facebook'];
     $instance['twitter'] = $new_instance['twitter'];
     $instance['youtube'] = $new_instance['youtube'];
@@ -263,6 +275,7 @@ class SocialMediaIcons extends WP_Widget
 
 	$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
 	$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
+	$opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
 
     $facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
     $facebook_link="'http://facebook.com/".$facebook."'";
@@ -301,7 +314,7 @@ class SocialMediaIcons extends WP_Widget
 
     // WIDGET CODE GOES HERE
     echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var;margin-left:$margin_left_var;">
+	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var;margin-left:$margin_left_var;opacity:$opacity_var;">
 	<div class="widget-inner" style="">
 		<ul class="social-icons-list" style="">
 EOT;

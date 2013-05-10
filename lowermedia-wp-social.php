@@ -270,10 +270,12 @@ class SocialMediaIcons extends WP_Widget
  
     echo $before_widget;
 
-	$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
-	$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
-	$opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
+    //Style Variables
+	 $margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
+	 $margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
+	 $opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
 
+	 //Icon Variables
     $facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
     $facebook_link="'http://facebook.com/".$facebook."'";
 
@@ -291,7 +293,6 @@ class SocialMediaIcons extends WP_Widget
 
     $github = empty($instance['github']) ? ' ' : apply_filters('widget_googleplus', $instance['github']);
     $github_link="'https://github.com/".$github."'";
-
 
     $wordpress = empty($instance['wordpress']) ? ' ' : apply_filters('widget_wordpress', $instance['wordpress']);
     $wordpress_link="'http://profiles.wordpress.org/".$wordpress."'";
@@ -311,16 +312,15 @@ class SocialMediaIcons extends WP_Widget
 
     // WIDGET CODE GOES HERE
     echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var;margin-left:$margin_left_var;opacity:$opacity_var;">
+	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var;margin-left:$margin_left_var;">
 	<div class="widget-inner" style="">
 		<ul class="social-icons-list" style="">
 EOT;
 
 if (!empty($instance['facebook'])) {
-    //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
-			<li class="facebook" >
-				<a href=$facebook_link >
+			<li class="facebook">
+				<a href=$facebook_link style="opacity:$opacity_var;">
 					Facebook
 				</a>
 			</li>
@@ -328,10 +328,9 @@ EOT;
 	}
 
 if (!empty($instance['twitter'])) {
-    //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
 			<li class="twitter" >
-				<a href=$twitter_link >
+				<a href=$twitter_link style="opacity:$opacity_var;">
 					Twitter
 				</a>
 			</li>
@@ -339,10 +338,9 @@ EOT;
 	}
 
 if (!empty($instance['youtube'])) {
-    //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
 			<li class="youtube" >
-				<a href=$youtube_link >
+				<a href=$youtube_link style="opacity:$opacity_var;">
 					YouTube
 				</a>
 			</li>
@@ -350,10 +348,9 @@ EOT;
 	}
 
 if (!empty($instance['linkedin'])) {
-    //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
 		<li class="googleplus" >
-			<a href=$googleplus_link  >
+			<a href=$googleplus_link style="opacity:$opacity_var;">
 				Google+
 			</a>
 		</li>
@@ -361,10 +358,9 @@ EOT;
 	}
 
 if (!empty($instance['googleplus'])) {
-    //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
 		<li class="linkedin" >
-			<a href=$linkedin_link >
+			<a href=$linkedin_link style="opacity:$opacity_var;">
 				LinkedIn
 			</a>
 		</li>
@@ -372,10 +368,9 @@ EOT;
 	}
 
 if (!empty($instance['github'])) {
-    //echo $before_facebook . $facebook . $after_facebook;;
 		echo <<<EOT
 		<li class="github" >
-			<a href=$github_link >
+			<a href=$github_link style="opacity:$opacity_var;">
 				GitHub
 			</a>
 		</li>
@@ -383,10 +378,9 @@ EOT;
 	}
 
 if (!empty($instance['wordpress'])) {
-    //echo $before_facebook . $wordpress . $after_facebook;;
 		echo <<<EOT
 			<li class="wordpress" >
-				<a href=$wordpress_link >
+				<a href=$wordpress_link style="opacity:$opacity_var;">
 					WordPress
 				</a>
 			</li>
@@ -396,7 +390,7 @@ EOT;
 if (!empty($instance['drupal'])) {
 		echo <<<EOT
 			<li class="drupal" >
-				<a href=$drupal_link >
+				<a href=$drupal_link style="opacity:$opacity_var;">
 					Drupal
 				</a>
 			</li>
@@ -406,7 +400,7 @@ EOT;
 if (!empty($instance['instagram'])) {
 		echo <<<EOT
 		<li class="instagram" >
-			<a href=$instagram_link  >
+			<a href=$instagram_link style="opacity:$opacity_var;">
 				Instagram
 			</a>
 		</li>
@@ -416,7 +410,7 @@ EOT;
 if (!empty($instance['pinterest'])) {
 		echo <<<EOT
 		<li class="pinterest" >
-			<a href=$pinterest_link >
+			<a href=$pinterest_link style="opacity:$opacity_var;">
 				Pinterest
 			</a>
 		</li>
@@ -425,7 +419,7 @@ EOT;
 if (!empty($instance['yelp'])) {
 		echo <<<EOT
 		<li class="yelp" >
-			<a href=$yelp_link >
+			<a href=$yelp_link style="opacity:$opacity_var;">
 				Yelp
 			</a>
 		</li>

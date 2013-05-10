@@ -2,15 +2,17 @@
 	list-style:none;
 }
 
+.social-icons-list:hover {
+	opacity: 1;
+}
+
 .social-icons-list li {
 	background-size: 30px auto; 
 	height: 30px; 
 	width: 30px;
 	margin: 20% 10%;
 }
-.social-icons-list li:hover {
-	opacity: 1;
-}
+
 .social-icons-list li a {
 	width: 30px; 
 	position: absolute; 

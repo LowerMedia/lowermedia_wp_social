@@ -319,8 +319,8 @@ EOT;
 
 if (!empty($instance['facebook'])) {
 		echo <<<EOT
-			<li class="facebook">
-				<a href=$facebook_link style="opacity:$opacity_var;">
+			<li class="facebook" style="opacity:$opacity_var;">
+				<a href=$facebook_link >
 					Facebook
 				</a>
 			</li>
@@ -329,8 +329,8 @@ EOT;
 
 if (!empty($instance['twitter'])) {
 		echo <<<EOT
-			<li class="twitter" >
-				<a href=$twitter_link style="opacity:$opacity_var;">
+			<li class="twitter" style="opacity:$opacity_var;">
+				<a href=$twitter_link >
 					Twitter
 				</a>
 			</li>
@@ -339,8 +339,8 @@ EOT;
 
 if (!empty($instance['youtube'])) {
 		echo <<<EOT
-			<li class="youtube" >
-				<a href=$youtube_link style="opacity:$opacity_var;">
+			<li class="youtube" style="opacity:$opacity_var;">
+				<a href=$youtube_link >
 					YouTube
 				</a>
 			</li>
@@ -349,8 +349,8 @@ EOT;
 
 if (!empty($instance['linkedin'])) {
 		echo <<<EOT
-		<li class="googleplus" >
-			<a href=$googleplus_link style="opacity:$opacity_var;">
+		<li class="googleplus" style="opacity:$opacity_var;">
+			<a href=$googleplus_link  >
 				Google+
 			</a>
 		</li>
@@ -359,8 +359,8 @@ EOT;
 
 if (!empty($instance['googleplus'])) {
 		echo <<<EOT
-		<li class="linkedin" >
-			<a href=$linkedin_link style="opacity:$opacity_var;">
+		<li class="linkedin" style="opacity:$opacity_var;">
+			<a href=$linkedin_link >
 				LinkedIn
 			</a>
 		</li>
@@ -369,8 +369,8 @@ EOT;
 
 if (!empty($instance['github'])) {
 		echo <<<EOT
-		<li class="github" >
-			<a href=$github_link style="opacity:$opacity_var;">
+		<li class="github" style="opacity:$opacity_var;">
+			<a href=$github_link >
 				GitHub
 			</a>
 		</li>
@@ -379,8 +379,8 @@ EOT;
 
 if (!empty($instance['wordpress'])) {
 		echo <<<EOT
-			<li class="wordpress" >
-				<a href=$wordpress_link style="opacity:$opacity_var;">
+			<li class="wordpress" style="opacity:$opacity_var;">
+				<a href=$wordpress_link >
 					WordPress
 				</a>
 			</li>
@@ -389,8 +389,8 @@ EOT;
 
 if (!empty($instance['drupal'])) {
 		echo <<<EOT
-			<li class="drupal" >
-				<a href=$drupal_link style="opacity:$opacity_var;">
+			<li class="drupal" style="opacity:$opacity_var;">
+				<a href=$drupal_link >
 					Drupal
 				</a>
 			</li>
@@ -399,8 +399,8 @@ EOT;
 
 if (!empty($instance['instagram'])) {
 		echo <<<EOT
-		<li class="instagram" >
-			<a href=$instagram_link style="opacity:$opacity_var;">
+		<li class="instagram" style="opacity:$opacity_var;">
+			<a href=$instagram_link  >
 				Instagram
 			</a>
 		</li>
@@ -409,8 +409,8 @@ EOT;
 
 if (!empty($instance['pinterest'])) {
 		echo <<<EOT
-		<li class="pinterest" >
-			<a href=$pinterest_link style="opacity:$opacity_var;">
+		<li class="pinterest" style="opacity:$opacity_var;">
+			<a href=$pinterest_link >
 				Pinterest
 			</a>
 		</li>
@@ -418,8 +418,8 @@ EOT;
 	}
 if (!empty($instance['yelp'])) {
 		echo <<<EOT
-		<li class="yelp" >
-			<a href=$yelp_link style="opacity:$opacity_var;">
+		<li class="yelp" style="opacity:$opacity_var;">
+			<a href=$yelp_link >
 				Yelp
 			</a>
 		</li>

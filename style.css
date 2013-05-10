@@ -69,6 +69,27 @@
 }
 
 .social-icons-list .yelp {
-	background-image: url("icons/yelp.png"); 
-	height:35px;
+	background-image: url("icons/yelp.png");
+}
+.social-icons-list .email {
+	background-image: url("icons/email.png");
+}
+.social-icons-list .rss {
+	background-image: url("icons/rss.png"); 
+}
+
+.social-icons-list .soundcloud {
+	background-image: url("icons/soundcloud.png");
+}
+
+.social-icons-list .blogger {
+	background-image: url("icons/blogger.png");
+}
+
+.social-icons-list .reverbnation {
+	background-image: url("icons/reverbnation.png"); 
+}
+
+.social-icons-list .bandcamp {
+	background-image: url("icons/bandcamp.png");
 }

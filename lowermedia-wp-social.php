@@ -91,7 +91,12 @@ class SocialMediaIcons extends WP_Widget
     		'drupal'=>'',
     		'instagram' => '',
     		'pinterest'=>'',
-    		'yelp'=>'' 
+    		'email'=>'',
+    		'rss'=>'',
+    		'soundcloud' => '',
+    		'blogger'=>'',
+    		'reverbnation' => '',
+    		'bandcamp'=>''
     	) 
     );
     
@@ -109,6 +114,13 @@ class SocialMediaIcons extends WP_Widget
     $instagram = $instance['instagram'];
     $pinterest = $instance['pinterest'];
     $yelp = $instance['yelp'];
+    
+    $email = $instance['email'];
+    $rss = $instance['rss'];
+    $soundcloud = $instance['soundcloud'];
+    $blogger = $instance['blogger'];
+    $reverbnation = $instance['reverbnation'];
+    $bandcamp = $instance['bandcamp'];
 
     //extract($instance);
 ?>
@@ -194,7 +206,6 @@ class SocialMediaIcons extends WP_Widget
 				  		value="<?php echo attribute_escape($github); ?>" 
 			  		/>
   	</label><br/></br>
-
   	<label for="<?php echo $this->get_field_id('wordpress'); ?>">
   		WordPress Link: 	<br/>http://profiles.wordpress.org/<input 
 				  		class="widefat" 
@@ -240,6 +251,62 @@ class SocialMediaIcons extends WP_Widget
 				  		value="<?php echo attribute_escape($yelp); ?>" 
 			  		/>
   	</label><br/></br>
+  	
+  	<label for="<?php echo $this->get_field_id('email'); ?>">
+		Email Link: 	<br/>(Provide Full Link)<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('email'); ?>" 
+				  		name="<?php echo $this->get_field_name('email'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($email); ?>" 
+			  		/>
+  	</label><br/></br>
+  	<label for="<?php echo $this->get_field_id('rss'); ?>">
+  		RSS Link: 	<br/>(Provide Full Link)<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('rss'); ?>" 
+				  		name="<?php echo $this->get_field_name('rss'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($rss); ?>" 
+			  		/>
+	</label></br></br>
+	<label for="<?php echo $this->get_field_id('soundcloud'); ?>">
+		SoundCloud Link: 	<br/>https://soundcloud.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('soundcloud'); ?>" 
+				  		name="<?php echo $this->get_field_name('soundcloud'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($soundcloud); ?>" 
+			  		/>
+	</label><br/></br>
+	<label for="<?php echo $this->get_field_id('blogger'); ?>">
+		Blogger Link: 	<br/>http://{yourchosenname}.blogspot.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('blogger'); ?>" 
+				  		name="<?php echo $this->get_field_name('blogger'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($blogger); ?>" 
+			  		/>
+	</label><br/></br>
+	<label for="<?php echo $this->get_field_id('reverbnation'); ?>">
+		Reverbnation Link: 	<br/>http://reverbnation.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('reverbnation'); ?>" 
+				  		name="<?php echo $this->get_field_name('reverbnation'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($reverbnation); ?>" 
+			  		/>
+  	</label><br/></br>
+  	<label for="<?php echo $this->get_field_id('bandcamp'); ?>">
+		BandCamp Link: 	<br/>http://{yourchosenname}.bandcamp.com/<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('bandcamp'); ?>" 
+				  		name="<?php echo $this->get_field_name('bandcamp'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($bandcamp); ?>" 
+			  		/>
+  	</label><br/></br>
+
   </p>
 <?php
   }
@@ -261,6 +328,12 @@ class SocialMediaIcons extends WP_Widget
     $instance['instagram'] = $new_instance['instagram'];
     $instance['pinterest'] = $new_instance['pinterest'];
     $instance['yelp'] = $new_instance['yelp'];
+    $instance['email'] = $new_instance['email'];
+    $instance['rss'] = $new_instance['rss'];
+    $instance['soundcloud'] = $new_instance['soundcloud'];
+    $instance['blogger'] = $new_instance['blogger'];
+    $instance['reverbnation'] = $new_instance['reverbnation'];
+    $instance['bandcamp'] = $new_instance['bandcamp'];
     return $instance;
   }
  
@@ -291,7 +364,7 @@ class SocialMediaIcons extends WP_Widget
     $googleplus = empty($instance['googleplus']) ? ' ' : apply_filters('widget_googleplus', $instance['googleplus']);
     $googleplus_link="'http://plus.google.com/".$googleplus."'";
 
-    $github = empty($instance['github']) ? ' ' : apply_filters('widget_googleplus', $instance['github']);
+    $github = empty($instance['github']) ? ' ' : apply_filters('widget_github', $instance['github']);
     $github_link="'https://github.com/".$github."'";
 
     $wordpress = empty($instance['wordpress']) ? ' ' : apply_filters('widget_wordpress', $instance['wordpress']);
@@ -308,6 +381,24 @@ class SocialMediaIcons extends WP_Widget
 
     $yelp = empty($instance['yelp']) ? ' ' : apply_filters('widget_yelp', $instance['yelp']);
     $yelp_link="'http://yelp.com/".$yelp."'";
+    
+    $email = empty($instance['email']) ? ' ' : apply_filters('widget_email', $instance['email']);
+    $email_link="'mailto:".$email."'";
+
+    $rss = empty($instance['rss']) ? ' ' : apply_filters('widget_rss', $instance['rss']);
+    $rss_link="'".$rss."'";
+
+    $soundcloud = empty($instance['soundcloud']) ? ' ' : apply_filters('widget_soundcloud', $instance['soundcloud']);
+    $soundcloud_link="'http://soundcloud.com/".$soundcloud."'";
+
+    $blogger = empty($instance['blogger']) ? ' ' : apply_filters('widget_blogger', $instance['blogger']);
+    $blogger_link="'http://".$blogger.".blogspot.com/'";
+
+    $reverbnation = empty($instance['reverbnation']) ? ' ' : apply_filters('widget_reverbnation', $instance['reverbnation']);
+    $reverbnation_link="'http://reverbnation.com/".$reverbnation."'";
+
+    $bandcamp = empty($instance['bandcamp']) ? ' ' : apply_filters('widget_bandcamp', $instance['bandcamp']);
+    $bandcamp_link="'http://".$bandcamp.".bandcamp.com/'";
  
 
     // WIDGET CODE GOES HERE
@@ -316,7 +407,6 @@ class SocialMediaIcons extends WP_Widget
 	<div class="widget-inner" style="">
 		<ul class="social-icons-list" style="">
 EOT;
-
 if (!empty($instance['facebook'])) {
 		echo <<<EOT
 			<li class="facebook" style="opacity:$opacity_var;">
@@ -326,7 +416,6 @@ if (!empty($instance['facebook'])) {
 			</li>
 EOT;
 	}
-
 if (!empty($instance['twitter'])) {
 		echo <<<EOT
 			<li class="twitter" style="opacity:$opacity_var;">
@@ -336,7 +425,6 @@ if (!empty($instance['twitter'])) {
 			</li>
 EOT;
 	}
-
 if (!empty($instance['youtube'])) {
 		echo <<<EOT
 			<li class="youtube" style="opacity:$opacity_var;">
@@ -346,7 +434,6 @@ if (!empty($instance['youtube'])) {
 			</li>
 EOT;
 	}
-
 if (!empty($instance['linkedin'])) {
 		echo <<<EOT
 		<li class="googleplus" style="opacity:$opacity_var;">
@@ -356,7 +443,6 @@ if (!empty($instance['linkedin'])) {
 		</li>
 EOT;
 	}
-
 if (!empty($instance['googleplus'])) {
 		echo <<<EOT
 		<li class="linkedin" style="opacity:$opacity_var;">
@@ -366,7 +452,6 @@ if (!empty($instance['googleplus'])) {
 		</li>
 EOT;
 	}
-
 if (!empty($instance['github'])) {
 		echo <<<EOT
 		<li class="github" style="opacity:$opacity_var;">
@@ -376,7 +461,6 @@ if (!empty($instance['github'])) {
 		</li>
 EOT;
 	}
-
 if (!empty($instance['wordpress'])) {
 		echo <<<EOT
 			<li class="wordpress" style="opacity:$opacity_var;">
@@ -386,7 +470,6 @@ if (!empty($instance['wordpress'])) {
 			</li>
 EOT;
 	}
-
 if (!empty($instance['drupal'])) {
 		echo <<<EOT
 			<li class="drupal" style="opacity:$opacity_var;">
@@ -396,7 +479,6 @@ if (!empty($instance['drupal'])) {
 			</li>
 EOT;
 	}
-
 if (!empty($instance['instagram'])) {
 		echo <<<EOT
 		<li class="instagram" style="opacity:$opacity_var;">
@@ -406,7 +488,6 @@ if (!empty($instance['instagram'])) {
 		</li>
 EOT;
 	}
-
 if (!empty($instance['pinterest'])) {
 		echo <<<EOT
 		<li class="pinterest" style="opacity:$opacity_var;">
@@ -425,9 +506,62 @@ if (!empty($instance['yelp'])) {
 		</li>
 EOT;
 	}
-	echo "</ul></div></section>";
- 
-    echo $after_widget;
+if (!empty($instance['email'])) {
+		echo <<<EOT
+		<li class="email" style="opacity:$opacity_var;">
+			<a href=$email_link >
+				Email
+			</a>
+		</li>
+EOT;
+}
+if (!empty($instance['rss'])) {
+		echo <<<EOT
+			<li class="rss" style="opacity:$opacity_var;">
+				<a href=$rss_link >
+					RSS
+				</a>
+			</li>
+EOT;
+	}
+if (!empty($instance['soundcloud'])) {
+		echo <<<EOT
+			<li class="soundcloud" style="opacity:$opacity_var;">
+				<a href=$soundcloud_link >
+					SoundCloud
+				</a>
+			</li>
+EOT;
+	}
+if (!empty($instance['blogger'])) {
+		echo <<<EOT
+		<li class="blogger" style="opacity:$opacity_var;">
+			<a href=$blogger_link  >
+				Blogger
+			</a>
+		</li>
+EOT;
+	}
+if (!empty($instance['reverbnation'])) {
+		echo <<<EOT
+		<li class="reverbnation" style="opacity:$opacity_var;">
+			<a href=$reverbnation_link >
+				Reverbnation
+			</a>
+		</li>
+EOT;
+	}
+if (!empty($instance['bandcamp'])) {
+		echo <<<EOT
+		<li class="bandcamp" style="opacity:$opacity_var;">
+			<a href=$bandcamp_link >
+				Bandcamp
+			</a>
+		</li>
+EOT;
+	}
+	
+	echo "</ul></div></section>".$after_widget;
   }
 }
 add_action( 'widgets_init', create_function('', 'return register_widget("SocialMediaIcons");') );

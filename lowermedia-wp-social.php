@@ -1,4 +1,4 @@
-at <?php
+<?php
 /*
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net

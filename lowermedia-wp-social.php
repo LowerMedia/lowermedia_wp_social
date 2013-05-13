@@ -3,7 +3,7 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: 1
+Version: 1.51
 Author: Pete Lower
 Author URI: http://petelower.com
 License: GPLv2 or later
@@ -36,7 +36,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	    register_sidebar( array(
 			'name' => 'Social Media Area',
 			'id' => 'lowermedia_wp_social_widget_area',
-			'before_widget' => '<div id="lowermedia-wp-social-wrap" style="position:fixed;">',
+			'before_widget' => '<div id="lowermedia-wp-social-wrap" style="position:fixed;z-index:-9999">',
 			'after_widget' => '</div>',
 			'before_title' => '<h2 class="rounded">',
 			'after_title' => '</h2>',
@@ -80,6 +80,7 @@ class SocialMediaIcons extends WP_Widget
     	array( 
     		'margin_top_var' => '',
     		'margin_left_var' => '',
+    		'default_bkgrnd_var' => '',
     		'opacity_var' => '',
     		'facebook' => '',
     		'twitter'=>'',
@@ -102,7 +103,9 @@ class SocialMediaIcons extends WP_Widget
     
     $margin_top_var = $instance['margin_top_var'];
     $margin_left_var = $instance['margin_left_var'];
+    $default_bkgrnd_var = $instance['default_bkgrnd_var'];
     $opacity_var = $instance['opacity_var'];
+
     $facebook = $instance['facebook'];
     $twitter = $instance['twitter'];
     $youtube = $instance['youtube'];
@@ -124,7 +127,7 @@ class SocialMediaIcons extends WP_Widget
 
     //extract($instance);
 ?>
-  <p>
+  <p><hr /></br><center><strong>ADD STYLE INFO BELOW</strong></center></br><hr />
   	<label for="<?php echo $this->get_field_id('margin_top_var'); ?>">
   		Add Top Margin: 	<br/>(px, em, %)<input 
 				  		class="widefat" 
@@ -135,12 +138,21 @@ class SocialMediaIcons extends WP_Widget
 			  		/>
 	</label></br></br>
 	<label for="<?php echo $this->get_field_id('margin_left_var'); ?>">
-  		Add Left Margin: 	<br/>(px, em, %)<input 
+  		Add Left Padding: 	<br/>(px, em, %)<input 
 				  		class="widefat" 
 				  		id="<?php echo $this->get_field_id('margin_left_var'); ?>" 
 				  		name="<?php echo $this->get_field_name('margin_left_var'); ?>" 
 				  		type="text" 
 				  		value="<?php echo attribute_escape($margin_left_var); ?>" 
+			  		/>
+	</label></br></br>
+	<label for="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>">
+  		Use Default Background: 	<br/>(yes or anything else for no)<input 
+				  		class="widefat" 
+				  		id="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>" 
+				  		name="<?php echo $this->get_field_name('default_bkgrnd_var'); ?>" 
+				  		type="text" 
+				  		value="<?php echo attribute_escape($default_bkgrnd_var); ?>" 
 			  		/>
 	</label></br></br>
 	<label for="<?php echo $this->get_field_id('opacity_var'); ?>">
@@ -151,7 +163,8 @@ class SocialMediaIcons extends WP_Widget
 				  		type="text" 
 				  		value="<?php echo attribute_escape($opacity_var); ?>" 
 			  		/>
-	</label></br></br>
+	</label></br>
+	<hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
   	<label for="<?php echo $this->get_field_id('facebook'); ?>">
   		Facebook Link: 	<br/>http://facebook.com/<input 
 				  		class="widefat" 
@@ -316,6 +329,7 @@ class SocialMediaIcons extends WP_Widget
     $instance = $old_instance;
     $instance['margin_top_var'] = $new_instance['margin_top_var'];
     $instance['margin_left_var'] = $new_instance['margin_left_var'];
+    $instance['default_bkgrnd_var'] = $new_instance['default_bkgrnd_var'];
     $instance['opacity_var'] = $new_instance['opacity_var'];
     $instance['facebook'] = $new_instance['facebook'];
     $instance['twitter'] = $new_instance['twitter'];
@@ -343,10 +357,16 @@ class SocialMediaIcons extends WP_Widget
  
     echo $before_widget;
 
-    //Style Variables
+    //Format Style Variables
 	 $margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
 	 $margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
+	 $default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
 	 $opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
+
+	 $dbv_style;
+	 if ($default_bkgrnd_var=="yes"){
+	 	$dbv_style ="padding-left: 10px;background: grey;border-radius: 0px 20px 20px 0px;border: 2px solid darkgray;border-left: none;width: 45px;padding-top: 10px;padding-bottom: 10px;";
+	 }
 
 	 //Icon Variables
     $facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
@@ -403,7 +423,7 @@ class SocialMediaIcons extends WP_Widget
 
     // WIDGET CODE GOES HERE
     echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var;margin-left:$margin_left_var;">
+	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var;padding-left:$margin_left_var;$dbv_style">
 	<div class="widget-inner" style="">
 		<ul class="social-icons-list" style="">
 EOT;

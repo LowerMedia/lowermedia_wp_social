@@ -3,7 +3,7 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: 1.53
+Version: 1.54
 Author: Pete Lower
 Author URI: http://petelower.com
 License: GPLv2 or later
@@ -362,10 +362,12 @@ class SocialMediaIcons extends WP_Widget
 	 $default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
 	 $opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
 
-	 $dbv_style;
-	 if ($default_bkgrnd_var=="yes"){
-	 	$dbv_style ="padding-left: 10px;background: grey;border-radius: 0px 20px 20px 0px;border: 2px solid darkgray;border-left: none;width: 45px;padding-top: 10px;padding-bottom: 10px;";
-	 }
+	 //ternary operator
+	 $dbv_style = $default_bkgrnd_var=="yes" ?$dbv_style ="padding-left: 10px;background: grey;border-radius: 0px 20px 20px 0px;border: 2px solid darkgray;border-left: none;width: 45px;padding-top: 10px;padding-bottom: 10px;":'';
+	 
+	 // if ($default_bkgrnd_var=="yes"){
+	 // 	$dbv_style ="padding-left: 10px;background: grey;border-radius: 0px 20px 20px 0px;border: 2px solid darkgray;border-left: none;width: 45px;padding-top: 10px;padding-bottom: 10px;";
+	 // }
 
 	 //Icon Variables
     $facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);

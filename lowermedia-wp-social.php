@@ -3,7 +3,7 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: 1.51
+Version: 1.53
 Author: Pete Lower
 Author URI: http://petelower.com
 License: GPLv2 or later
@@ -29,7 +29,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 /*############################################################################################
 #
-#   REGISTER WDIGETS
+#   REGISTER SIDEBAR AREA FOR WIDGET
 #   //This function creates and registers the social media icon holder widget
 */
 	function lowermedia_wp_social_init() {
@@ -47,22 +47,21 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 /*############################################################################################
 #
-#   ADD POST CONTENT
-#   //This function adds information to the end of the post
+#   ADD WIDGET AREA OUTPUT TO THE END OF THE WP_HEAD (BEGINING OF BODY TAG)
+#   //This function adds to the begining of the body tag
 */
 
 	function lowermedia_add_wp_social($output) {
-			$output = dynamic_sidebar('lowermedia_wp_social_widget_area');
-			return $output;
+		$output = dynamic_sidebar('lowermedia_wp_social_widget_area');
+		return $output;
 	}
-	
 	add_filter('wp_head', 'lowermedia_add_wp_social', 1000);//1000 is used to make sure this is loaded very lastly to the head
 
 
 /*############################################################################################
 #
-#   ADD POST CONTENT
-#   //This function adds information to the end of the post,,,,,  && !is_home()
+#   CREATE CLASS THAT EXTENDS WP_WIDGET
+#   
 */
 
 class SocialMediaIcons extends WP_Widget
@@ -134,7 +133,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('margin_top_var'); ?>" 
 				  		name="<?php echo $this->get_field_name('margin_top_var'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($margin_top_var); ?>" 
+				  		value="<?php echo esc_attr($margin_top_var); ?>" 
 			  		/>
 	</label></br></br>
 	<label for="<?php echo $this->get_field_id('margin_left_var'); ?>">
@@ -143,7 +142,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('margin_left_var'); ?>" 
 				  		name="<?php echo $this->get_field_name('margin_left_var'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($margin_left_var); ?>" 
+				  		value="<?php echo esc_attr($margin_left_var); ?>" 
 			  		/>
 	</label></br></br>
 	<label for="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>">
@@ -152,7 +151,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>" 
 				  		name="<?php echo $this->get_field_name('default_bkgrnd_var'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($default_bkgrnd_var); ?>" 
+				  		value="<?php echo esc_attr($default_bkgrnd_var); ?>" 
 			  		/>
 	</label></br></br>
 	<label for="<?php echo $this->get_field_id('opacity_var'); ?>">
@@ -161,7 +160,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('opacity_var'); ?>" 
 				  		name="<?php echo $this->get_field_name('opacity_var'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($opacity_var); ?>" 
+				  		value="<?php echo esc_attr($opacity_var); ?>" 
 			  		/>
 	</label></br>
 	<hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
@@ -171,7 +170,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('facebook'); ?>" 
 				  		name="<?php echo $this->get_field_name('facebook'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($facebook); ?>" 
+				  		value="<?php echo esc_attr($facebook); ?>" 
 			  		/>
 	</label></br></br>
 	<label for="<?php echo $this->get_field_id('twitter'); ?>">
@@ -180,7 +179,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('twitter'); ?>" 
 				  		name="<?php echo $this->get_field_name('twitter'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($twitter); ?>" 
+				  		value="<?php echo esc_attr($twitter); ?>" 
 			  		/>
 	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('youtube'); ?>">
@@ -189,7 +188,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('youtube'); ?>" 
 				  		name="<?php echo $this->get_field_name('youtube'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($youtube); ?>" 
+				  		value="<?php echo esc_attr($youtube); ?>" 
 			  		/>
 	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('linkedin'); ?>">
@@ -198,7 +197,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('linkedin'); ?>" 
 				  		name="<?php echo $this->get_field_name('linkedin'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($linkedin); ?>" 
+				  		value="<?php echo esc_attr($linkedin); ?>" 
 			  		/>
 	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('googleplus'); ?>">
@@ -207,7 +206,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('googleplus'); ?>" 
 				  		name="<?php echo $this->get_field_name('googleplus'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($googleplus); ?>" 
+				  		value="<?php echo esc_attr($googleplus); ?>" 
 			  		/>
   	</label><br/></br>
   	<label for="<?php echo $this->get_field_id('github'); ?>">
@@ -216,7 +215,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('github'); ?>" 
 				  		name="<?php echo $this->get_field_name('github'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($github); ?>" 
+				  		value="<?php echo esc_attr($github); ?>" 
 			  		/>
   	</label><br/></br>
   	<label for="<?php echo $this->get_field_id('wordpress'); ?>">
@@ -225,7 +224,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('wordpress'); ?>" 
 				  		name="<?php echo $this->get_field_name('wordpress'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($wordpress); ?>" 
+				  		value="<?php echo esc_attr($wordpress); ?>" 
 			  		/>
 	</label></br></br>
 	<label for="<?php echo $this->get_field_id('drupal'); ?>">
@@ -234,7 +233,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('drupal'); ?>" 
 				  		name="<?php echo $this->get_field_name('drupal'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($drupal); ?>" 
+				  		value="<?php echo esc_attr($drupal); ?>" 
 			  		/>
 	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('instagram'); ?>">
@@ -243,7 +242,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('instagram'); ?>" 
 				  		name="<?php echo $this->get_field_name('instagram'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($instagram); ?>" 
+				  		value="<?php echo esc_attr($instagram); ?>" 
 			  		/>
 	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('pinterest'); ?>">
@@ -252,7 +251,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('pinterest'); ?>" 
 				  		name="<?php echo $this->get_field_name('pinterest'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($pinterest); ?>" 
+				  		value="<?php echo esc_attr($pinterest); ?>" 
 			  		/>
   	</label><br/></br>
   	<label for="<?php echo $this->get_field_id('yelp'); ?>">
@@ -261,7 +260,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('yelp'); ?>" 
 				  		name="<?php echo $this->get_field_name('yelp'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($yelp); ?>" 
+				  		value="<?php echo esc_attr($yelp); ?>" 
 			  		/>
   	</label><br/></br>
   	
@@ -271,7 +270,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('email'); ?>" 
 				  		name="<?php echo $this->get_field_name('email'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($email); ?>" 
+				  		value="<?php echo esc_attr($email); ?>" 
 			  		/>
   	</label><br/></br>
   	<label for="<?php echo $this->get_field_id('rss'); ?>">
@@ -280,7 +279,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('rss'); ?>" 
 				  		name="<?php echo $this->get_field_name('rss'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($rss); ?>" 
+				  		value="<?php echo esc_attr($rss); ?>" 
 			  		/>
 	</label></br></br>
 	<label for="<?php echo $this->get_field_id('soundcloud'); ?>">
@@ -289,7 +288,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('soundcloud'); ?>" 
 				  		name="<?php echo $this->get_field_name('soundcloud'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($soundcloud); ?>" 
+				  		value="<?php echo esc_attr($soundcloud); ?>" 
 			  		/>
 	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('blogger'); ?>">
@@ -298,7 +297,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('blogger'); ?>" 
 				  		name="<?php echo $this->get_field_name('blogger'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($blogger); ?>" 
+				  		value="<?php echo esc_attr($blogger); ?>" 
 			  		/>
 	</label><br/></br>
 	<label for="<?php echo $this->get_field_id('reverbnation'); ?>">
@@ -307,7 +306,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('reverbnation'); ?>" 
 				  		name="<?php echo $this->get_field_name('reverbnation'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($reverbnation); ?>" 
+				  		value="<?php echo esc_attr($reverbnation); ?>" 
 			  		/>
   	</label><br/></br>
   	<label for="<?php echo $this->get_field_id('bandcamp'); ?>">
@@ -316,7 +315,7 @@ class SocialMediaIcons extends WP_Widget
 				  		id="<?php echo $this->get_field_id('bandcamp'); ?>" 
 				  		name="<?php echo $this->get_field_name('bandcamp'); ?>" 
 				  		type="text" 
-				  		value="<?php echo attribute_escape($bandcamp); ?>" 
+				  		value="<?php echo esc_attr($bandcamp); ?>" 
 			  		/>
   	</label><br/></br>
 
@@ -327,27 +326,27 @@ class SocialMediaIcons extends WP_Widget
   function update($new_instance, $old_instance)
   {
     $instance = $old_instance;
-    $instance['margin_top_var'] = $new_instance['margin_top_var'];
-    $instance['margin_left_var'] = $new_instance['margin_left_var'];
-    $instance['default_bkgrnd_var'] = $new_instance['default_bkgrnd_var'];
-    $instance['opacity_var'] = $new_instance['opacity_var'];
-    $instance['facebook'] = $new_instance['facebook'];
-    $instance['twitter'] = $new_instance['twitter'];
-    $instance['youtube'] = $new_instance['youtube'];
-    $instance['linkedin'] = $new_instance['linkedin'];
-    $instance['googleplus'] = $new_instance['googleplus'];
-    $instance['github'] = $new_instance['github'];
-    $instance['wordpress'] = $new_instance['wordpress'];
-    $instance['drupal'] = $new_instance['drupal'];
-    $instance['instagram'] = $new_instance['instagram'];
-    $instance['pinterest'] = $new_instance['pinterest'];
-    $instance['yelp'] = $new_instance['yelp'];
-    $instance['email'] = $new_instance['email'];
-    $instance['rss'] = $new_instance['rss'];
-    $instance['soundcloud'] = $new_instance['soundcloud'];
-    $instance['blogger'] = $new_instance['blogger'];
-    $instance['reverbnation'] = $new_instance['reverbnation'];
-    $instance['bandcamp'] = $new_instance['bandcamp'];
+    $instance['margin_top_var'] = strip_tags($new_instance['margin_top_var']);
+    $instance['margin_left_var'] = strip_tags($new_instance['margin_left_var']);
+    $instance['default_bkgrnd_var'] = strip_tags($new_instance['default_bkgrnd_var']);
+    $instance['opacity_var'] = strip_tags($new_instance['opacity_var']);
+    $instance['facebook'] = strip_tags($new_instance['facebook']);
+    $instance['twitter'] = strip_tags($new_instance['twitter']);
+    $instance['youtube'] = strip_tags($new_instance['youtube']);
+    $instance['linkedin'] = strip_tags($new_instance['linkedin']);
+    $instance['googleplus'] = strip_tags($new_instance['googleplus']);
+    $instance['github'] = strip_tags($new_instance['github']);
+    $instance['wordpress'] = strip_tags($new_instance['wordpress']);
+    $instance['drupal'] = strip_tags($new_instance['drupal']);
+    $instance['instagram'] = strip_tags($new_instance['instagram']);
+    $instance['pinterest'] = strip_tags($new_instance['pinterest']);
+    $instance['yelp'] = strip_tags($new_instance['yelp']);
+    $instance['email'] = strip_tags($new_instance['email']);
+    $instance['rss'] = strip_tags($new_instance['rss']);
+    $instance['soundcloud'] = strip_tags($new_instance['soundcloud']);
+    $instance['blogger'] = strip_tags($new_instance['blogger']);
+    $instance['reverbnation'] = strip_tags($new_instance['reverbnation']);
+    $instance['bandcamp'] = strip_tags($new_instance['bandcamp']);
     return $instance;
   }
  

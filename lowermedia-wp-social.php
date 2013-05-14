@@ -3,7 +3,7 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: 1.54
+Version: 1.55
 Author: Pete Lower
 Author URI: http://petelower.com
 License: GPLv2 or later

@@ -3,7 +3,7 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: 1.63
+Version: 2.0
 Author: Pete Lower
 Author URI: http://petelower.com
 License: GPLv2 or later
@@ -36,7 +36,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	    register_sidebar( array(
 			'name' => 'Social Media Area',
 			'id' => 'lowermedia_wp_social_widget_area',
-			'before_widget' => '<div id="lowermedia-wp-social-wrap" style="">',
+			'before_widget' => '<div id="lowermedia-wp-social-wrap">',
 			'after_widget' => '</div>',
 			'before_title' => '<h2 class="rounded">',
 			'after_title' => '</h2>',
@@ -60,71 +60,75 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 /*############################################################################################
 #
-#   CREATE CLASS THAT EXTENDS WP_WIDGET
+#   CREATE SOCIALMEDIAICONS CLASS THAT EXTENDS WP_WIDGET
 #   
 */
 
 class SocialMediaIcons extends WP_Widget
 {
-  function SocialMediaIcons()
-  {
-    $widget_ops = array('classname' => 'SocialMediaIcons', 'description' => 'Displays Social Media Icons' );
-    $this->WP_Widget('SocialMediaIcons', 'Social Media Icons', $widget_ops);
-  }
+  
+	function SocialMediaIcons()
+	{
+		$widget_ops = array('classname' => 'SocialMediaIcons', 'description' => 'Displays Social Media Icons' );
+		$this->WP_Widget('SocialMediaIcons', 'Social Media Icons', $widget_ops);
+	}
  
-  function form($instance)
-  {
-    $instance = wp_parse_args( 
-    	(array) $instance, 
-    	array( 
-    		'margin_top_var' => '',
-    		'margin_left_var' => '',
-    		'default_bkgrnd_var' => '',
-    		'position_var' => '',
-    		'opacity_var' => '',
-    		'facebook' => '',
-    		'twitter'=>'',
-    		'youtube'=>'',
-    		'linkedin' => '',
-    		'googleplus'=>'',
-    		'github'=>'',
-    		'wordpress' => '',
-    		'drupal'=>'',
-    		'instagram' => '',
-    		'pinterest'=>'',
-    		'email'=>'',
-    		'rss'=>'',
-    		'soundcloud' => '',
-    		'blogger'=>'',
-    		'reverbnation' => '',
-    		'bandcamp'=>''
-    	) 
-    );
-    
-    $margin_top_var = $instance['margin_top_var'];
-    $margin_left_var = $instance['margin_left_var'];
-    $default_bkgrnd_var = $instance['default_bkgrnd_var'];
-    $position_var = $instance['position_var'];
-    $opacity_var = $instance['opacity_var'];
 
-    $facebook = $instance['facebook'];
-    $twitter = $instance['twitter'];
-    $youtube = $instance['youtube'];
-    $linkedin = $instance['linkedin'];
-    $googleplus = $instance['googleplus'];
-    $github = $instance['github'];
-    $wordpress = $instance['wordpress'];
-    $drupal = $instance['drupal'];
-    $instagram = $instance['instagram'];
-    $pinterest = $instance['pinterest'];
-    $yelp = $instance['yelp'];
+
+	function form($instance)
+	{
+		$instance = wp_parse_args
+		( 
+			(array) $instance, 
+			array( 
+				'margin_top_var' => '',
+				'margin_left_var' => '',
+				'default_bkgrnd_var' => '',
+				'position_var' => '',
+				'opacity_var' => '',
+				'facebook' => '',
+				'twitter'=>'',
+				'youtube'=>'',
+				'linkedin' => '',
+				'googleplus'=>'',
+				'github'=>'',
+				'wordpress' => '',
+				'drupal'=>'',
+				'instagram' => '',
+				'pinterest'=>'',
+				'email'=>'',
+				'rss'=>'',
+				'soundcloud' => '',
+				'blogger'=>'',
+				'reverbnation' => '',
+				'bandcamp'=>''
+			)
+		);
     
-    $email = $instance['email'];
-    $rss = $instance['rss'];
-    $soundcloud = $instance['soundcloud'];
-    $blogger = $instance['blogger'];
-    $reverbnation = $instance['reverbnation'];
-    $bandcamp = $instance['bandcamp'];
+	    $margin_top_var = $instance['margin_top_var'];
+	    $margin_left_var = $instance['margin_left_var'];
+	    $default_bkgrnd_var = $instance['default_bkgrnd_var'];
+	    $position_var = $instance['position_var'];
+	    $opacity_var = $instance['opacity_var'];
+
+	    $facebook = $instance['facebook'];
+	    $twitter = $instance['twitter'];
+	    $youtube = $instance['youtube'];
+	    $linkedin = $instance['linkedin'];
+	    $googleplus = $instance['googleplus'];
+	    $github = $instance['github'];
+	    $wordpress = $instance['wordpress'];
+	    $drupal = $instance['drupal'];
+	    $instagram = $instance['instagram'];
+	    $pinterest = $instance['pinterest'];
+	    $yelp = $instance['yelp'];
+	    
+	    $email = $instance['email'];
+	    $rss = $instance['rss'];
+	    $soundcloud = $instance['soundcloud'];
+	    $blogger = $instance['blogger'];
+	    $reverbnation = $instance['reverbnation'];
+	    $bandcamp = $instance['bandcamp'];
 
     //extract($instance);
 ?>
@@ -150,7 +154,7 @@ class SocialMediaIcons extends WP_Widget
 				  		/>
 		</label></br></br>
 		<label for="<?php echo $this->get_field_id('position_var'); ?>">
-	  		Use Default Background: 	<br/>(enter 'top' for top position w/ background, 'side' for side position w/ background, or leave empty for no background and side position)<input 
+	  		Use Default Background: 	<br/>(top or side)<input 
 					  		class="widefat" 
 					  		id="<?php echo $this->get_field_id('position_var'); ?>" 
 					  		name="<?php echo $this->get_field_name('position_var'); ?>" 
@@ -167,15 +171,17 @@ class SocialMediaIcons extends WP_Widget
 					  		value="<?php echo esc_attr($opacity_var); ?>" 
 				  		/>
 		</label></br><br/>
-		<label for="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>">
-			Check For Background Styling: <input
-				type="checkbox"
-				id="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>"
-				name="<?php echo $this->get_field_name('default_bkgrnd_var'); ?>"
-				<?php checked(isset($instance['default_bkgrnd_var']) ? 'on' : 'off'); ?> 
-				/> 
 
-		</label>	
+	<label for="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>">
+		<?php _e('Check For Background Styling:'); ?>
+		<input 
+			id="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>"
+			name="<?php echo $this->get_field_name('default_bkgrnd_var'); ?>"
+			type="checkbox" 
+			value="1" 
+			<?php if ( $instance['default_bkgrnd_var'] ) echo 'checked="checked"'; ?>
+		/>
+	</label><?php echo $instance['default_bkgrnd_var']; ?>
 
 	<hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
   	
@@ -280,7 +286,7 @@ class SocialMediaIcons extends WP_Widget
 	  	</label><br/></br>
 	  	
 	  	<label for="<?php echo $this->get_field_id('email'); ?>">
-			Email Link: 	<br/>(Provide Full Link)<input 
+			Email Link: 	<br/>(Provide Email Address)<input 
 					  		class="widefat" 
 					  		id="<?php echo $this->get_field_id('email'); ?>" 
 					  		name="<?php echo $this->get_field_name('email'); ?>" 
@@ -335,130 +341,111 @@ class SocialMediaIcons extends WP_Widget
 	  	</label><br/></br>
   </p>
 <?php
-  }
+	}
  
-  function update($new_instance, $old_instance)
-  {
-  	//strip tags for security
-    $instance = $old_instance;
-    $instance['margin_top_var'] = strip_tags($new_instance['margin_top_var']);
-    $instance['margin_left_var'] = strip_tags($new_instance['margin_left_var']);
-    $instance['default_bkgrnd_var'] = strip_tags($new_instance['default_bkgrnd_var']);
-	$instance['position_var'] = strip_tags($new_instance['position_var']);
-    $instance['opacity_var'] = strip_tags($new_instance['opacity_var']);
-    $instance['facebook'] = strip_tags($new_instance['facebook']);
-    $instance['twitter'] = strip_tags($new_instance['twitter']);
-    $instance['youtube'] = strip_tags($new_instance['youtube']);
-    $instance['linkedin'] = strip_tags($new_instance['linkedin']);
-    $instance['googleplus'] = strip_tags($new_instance['googleplus']);
-    $instance['github'] = strip_tags($new_instance['github']);
-    $instance['wordpress'] = strip_tags($new_instance['wordpress']);
-    $instance['drupal'] = strip_tags($new_instance['drupal']);
-    $instance['instagram'] = strip_tags($new_instance['instagram']);
-    $instance['pinterest'] = strip_tags($new_instance['pinterest']);
-    $instance['yelp'] = strip_tags($new_instance['yelp']);
-    $instance['email'] = strip_tags($new_instance['email']);
-    $instance['rss'] = strip_tags($new_instance['rss']);
-    $instance['soundcloud'] = strip_tags($new_instance['soundcloud']);
-    $instance['blogger'] = strip_tags($new_instance['blogger']);
-    $instance['reverbnation'] = strip_tags($new_instance['reverbnation']);
-    $instance['bandcamp'] = strip_tags($new_instance['bandcamp']);
-    return $instance;
-  }
+	function update($new_instance, $old_instance)
+		{
+			//strip tags for security
+			$instance = $old_instance;
+			$instance['margin_top_var'] = strip_tags($new_instance['margin_top_var']);
+			$instance['margin_left_var'] = strip_tags($new_instance['margin_left_var']);
+			$instance['default_bkgrnd_var'] = strip_tags($new_instance['default_bkgrnd_var']);
+			$instance['position_var'] = strip_tags($new_instance['position_var']);
+			$instance['opacity_var'] = strip_tags($new_instance['opacity_var']);
+			$instance['facebook'] = strip_tags($new_instance['facebook']);
+			$instance['twitter'] = strip_tags($new_instance['twitter']);
+			$instance['youtube'] = strip_tags($new_instance['youtube']);
+			$instance['linkedin'] = strip_tags($new_instance['linkedin']);
+			$instance['googleplus'] = strip_tags($new_instance['googleplus']);
+			$instance['github'] = strip_tags($new_instance['github']);
+			$instance['wordpress'] = strip_tags($new_instance['wordpress']);
+			$instance['drupal'] = strip_tags($new_instance['drupal']);
+			$instance['instagram'] = strip_tags($new_instance['instagram']);
+			$instance['pinterest'] = strip_tags($new_instance['pinterest']);
+			$instance['yelp'] = strip_tags($new_instance['yelp']);
+			$instance['email'] = strip_tags($new_instance['email']);
+			$instance['rss'] = strip_tags($new_instance['rss']);
+			$instance['soundcloud'] = strip_tags($new_instance['soundcloud']);
+			$instance['blogger'] = strip_tags($new_instance['blogger']);
+			$instance['reverbnation'] = strip_tags($new_instance['reverbnation']);
+			$instance['bandcamp'] = strip_tags($new_instance['bandcamp']);
+			return $instance;
+		}
  
   function widget($args, $instance)
-  {
-    extract($args, EXTR_SKIP);
- 
-    echo $before_widget;
+	{
+	extract($args, EXTR_SKIP);
 
-    //Format Style Variables
-	 $margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
-	 $margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
-	 $default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
-	 $position_var = empty($instance['position_var']) ? ' ' : apply_filters('widget_position_var', $instance['position_var']);
-	 $opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
+	echo $before_widget;
 
-	 //ternary operator, if defalut background var equals yes apply styles
-	 //$dbv_style = $default_bkgrnd_var=="top" ? $default_bkgrnd_var=="side" ? $dbv_style =$bckgrnd_style_styles.$side_position_style ? $dbv_style =$bckgrnd_style_styles.$top_position_style:'';
+	//Format Style Variables
+	$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
+	$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
+	$default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
+	$position_var = empty($instance['position_var']) ? ' ' : apply_filters('widget_position_var', $instance['position_var']);
+	$opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
 
-	 if ($position_var == "top") {
+	//Ternary statements to assign css classes to html tags in output, background styles, sections styles (top or side), and ul styles inline/margins
+	$css_class_var_bkgrnd = $default_bkgrnd_var == 1 ? $css_class_var_bkgrnd = " lm-wps-bkgrnd " : "";
+	$css_class_var_section = $position_var == "top" ? $css_class_var_section = " lm-wps-top " : " lm-wps-side ";
+	$css_class_var_ul = $position_var == "top" ? $css_class_var_ul = " lm-wps-top-ul " : " lm-wps-side-ul ";
 
-	 	$css_class_var_section = " lm-wps-bkgrnd lm-wps-top ";
-	 	$css_class_var_ul = " lm-wps-top-ul  ";
+	//Icon Variables
+	$facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
+	$facebook_link="'http://facebook.com/".$facebook."'";
 
-	 } else if ($position_var == "side") {
+	$twitter = empty($instance['twitter']) ? ' ' : apply_filters('widget_twitter', $instance['twitter']);
+	$twitter_link="'http://twitter.com/".$twitter."'";
 
-	 	$css_class_var_section = " lm-wps-bkgrnd lm-wps-side ";
-	 	$css_class_var_ul = " lm-wps-side-ul  ";
+	$youtube = empty($instance['youtube']) ? ' ' : apply_filters('widget_youtube', $instance['youtube']);
+	$youtube_link="'http://youtube.com/".$youtube."'";
 
-	 } else {
+	$linkedin = empty($instance['linkedin']) ? ' ' : apply_filters('widget_linkedin', $instance['linkedin']);
+	$linkedin_link="'http://linkedin.com/".$linkedin."'";
 
-	 	$css_class_var_section = " lm-wps-side ";
-	 	$css_class_var_ul = " lm-wps-side-ul  ";
+	$googleplus = empty($instance['googleplus']) ? ' ' : apply_filters('widget_googleplus', $instance['googleplus']);
+	$googleplus_link="'http://plus.google.com/".$googleplus."'";
 
-	 }
+	$github = empty($instance['github']) ? ' ' : apply_filters('widget_github', $instance['github']);
+	$github_link="'https://github.com/".$github."'";
 
-	 // if ($default_bkgrnd_var=="yes"){
-	 // 	$dbv_style ="padding-left: 10px;background: grey;border-radius: 0px 20px 20px 0px;border: 2px solid darkgray;border-left: none;width: 45px;padding-top: 10px;padding-bottom: 10px;";
-	 // }
+	$wordpress = empty($instance['wordpress']) ? ' ' : apply_filters('widget_wordpress', $instance['wordpress']);
+	$wordpress_link="'http://profiles.wordpress.org/".$wordpress."'";
 
-	 //Icon Variables
-    $facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
-    $facebook_link="'http://facebook.com/".$facebook."'";
+	$drupal = empty($instance['drupal']) ? ' ' : apply_filters('widget_drupal', $instance['drupal']);
+	$drupal_link="'http://drupal.org/".$drupal."'";
 
-    $twitter = empty($instance['twitter']) ? ' ' : apply_filters('widget_twitter', $instance['twitter']);
-    $twitter_link="'http://twitter.com/".$twitter."'";
+	$instagram = empty($instance['instagram']) ? ' ' : apply_filters('widget_instagram', $instance['instagram']);
+	$instagram_link="'http://instagram.com/".$instagram."'";
 
-    $youtube = empty($instance['youtube']) ? ' ' : apply_filters('widget_youtube', $instance['youtube']);
-    $youtube_link="'http://youtube.com/".$youtube."'";
+	$pinterest = empty($instance['pinterest']) ? ' ' : apply_filters('widget_pinterest', $instance['pinterest']);
+	$pinterest_link="'http://pinterest.com/".$pinterest."'";
 
-    $linkedin = empty($instance['linkedin']) ? ' ' : apply_filters('widget_linkedin', $instance['linkedin']);
-    $linkedin_link="'http://linkedin.com/".$linkedin."'";
+	$yelp = empty($instance['yelp']) ? ' ' : apply_filters('widget_yelp', $instance['yelp']);
+	$yelp_link="'http://yelp.com/".$yelp."'";
 
-    $googleplus = empty($instance['googleplus']) ? ' ' : apply_filters('widget_googleplus', $instance['googleplus']);
-    $googleplus_link="'http://plus.google.com/".$googleplus."'";
+	$email = empty($instance['email']) ? ' ' : apply_filters('widget_email', $instance['email']);
+	$email_link="'mailto:".$email."'";
 
-    $github = empty($instance['github']) ? ' ' : apply_filters('widget_github', $instance['github']);
-    $github_link="'https://github.com/".$github."'";
+	$rss = empty($instance['rss']) ? ' ' : apply_filters('widget_rss', $instance['rss']);
+	$rss_link="'".$rss."'";
 
-    $wordpress = empty($instance['wordpress']) ? ' ' : apply_filters('widget_wordpress', $instance['wordpress']);
-    $wordpress_link="'http://profiles.wordpress.org/".$wordpress."'";
+	$soundcloud = empty($instance['soundcloud']) ? ' ' : apply_filters('widget_soundcloud', $instance['soundcloud']);
+	$soundcloud_link="'http://soundcloud.com/".$soundcloud."'";
 
-    $drupal = empty($instance['drupal']) ? ' ' : apply_filters('widget_drupal', $instance['drupal']);
-    $drupal_link="'http://drupal.org/".$drupal."'";
+	$blogger = empty($instance['blogger']) ? ' ' : apply_filters('widget_blogger', $instance['blogger']);
+	$blogger_link="'http://".$blogger.".blogspot.com/'";
 
-    $instagram = empty($instance['instagram']) ? ' ' : apply_filters('widget_instagram', $instance['instagram']);
-    $instagram_link="'http://instagram.com/".$instagram."'";
+	$reverbnation = empty($instance['reverbnation']) ? ' ' : apply_filters('widget_reverbnation', $instance['reverbnation']);
+	$reverbnation_link="'http://reverbnation.com/".$reverbnation."'";
 
-    $pinterest = empty($instance['pinterest']) ? ' ' : apply_filters('widget_pinterest', $instance['pinterest']);
-    $pinterest_link="'http://pinterest.com/".$pinterest."'";
+	$bandcamp = empty($instance['bandcamp']) ? ' ' : apply_filters('widget_bandcamp', $instance['bandcamp']);
+	$bandcamp_link="'http://".$bandcamp.".bandcamp.com/'";
 
-    $yelp = empty($instance['yelp']) ? ' ' : apply_filters('widget_yelp', $instance['yelp']);
-    $yelp_link="'http://yelp.com/".$yelp."'";
-    
-    $email = empty($instance['email']) ? ' ' : apply_filters('widget_email', $instance['email']);
-    $email_link="'mailto:".$email."'";
 
-    $rss = empty($instance['rss']) ? ' ' : apply_filters('widget_rss', $instance['rss']);
-    $rss_link="'".$rss."'";
-
-    $soundcloud = empty($instance['soundcloud']) ? ' ' : apply_filters('widget_soundcloud', $instance['soundcloud']);
-    $soundcloud_link="'http://soundcloud.com/".$soundcloud."'";
-
-    $blogger = empty($instance['blogger']) ? ' ' : apply_filters('widget_blogger', $instance['blogger']);
-    $blogger_link="'http://".$blogger.".blogspot.com/'";
-
-    $reverbnation = empty($instance['reverbnation']) ? ' ' : apply_filters('widget_reverbnation', $instance['reverbnation']);
-    $reverbnation_link="'http://reverbnation.com/".$reverbnation."'";
-
-    $bandcamp = empty($instance['bandcamp']) ? ' ' : apply_filters('widget_bandcamp', $instance['bandcamp']);
-    $bandcamp_link="'http://".$bandcamp.".bandcamp.com/'";
- 
-
-    // WIDGET CODE GOES HERE
-    echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons $css_class_var_section" id="social-icons-widget-2" style="margin-top:$margin_top_var;padding-left:$margin_left_var;$dbv_style">
+	// WIDGET BACKEND HTML CODE 
+	echo <<<EOT
+	<section class="widget-1 widget-first widget social-icons $css_class_var_section $css_class_var_bkgrnd " id="social-icons-widget-2" style="margin-top:$margin_top_var;padding-left:$margin_left_var;">
 	<div class="widget-inner" >
 		<ul class="social-icons-list $css_class_var_ul" >
 EOT;

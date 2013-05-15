@@ -181,7 +181,7 @@ class SocialMediaIcons extends WP_Widget
 			value="1" 
 			<?php if ( $instance['default_bkgrnd_var'] ) echo 'checked="checked"'; ?>
 		/>
-	</label><?php echo $instance['default_bkgrnd_var']; ?>
+	</label>
 
 	<hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
   	

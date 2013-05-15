@@ -1,4 +1,4 @@
-#container {
+#container, #page, #wrapper, #page-wrap {
 	z-index: 2;
 	position: relative;
 }
@@ -9,6 +9,37 @@
 	margin:0;
 }
 
+.lm-wps-bkgrnd {
+	background: grey;
+	border: 2px solid darkgray;
+	padding:10px;
+}
+
+.lm-wps-top {
+	position: fixed;
+	min-width: 245px;
+	height: 40px;
+	border-radius: 0px 0px 20px 20px;
+	border-top:none;
+	z-index: 10;
+}
+
+.lm-wps-top-ul li{
+	display:inline-block;
+}
+
+.lm-wps-side {
+	position:fixed;
+	width: 45px;
+	z-index:1;
+	border-radius: 0px 20px 20px 0px;
+	border-left: none;
+}
+
+.lm-wps-side-ul li {
+	margin: 20% 10%;
+}
+
 .social-icons-list:hover {
 	opacity: 1;
 }
@@ -17,7 +48,6 @@
 	background-size: 30px auto; 
 	height: 30px; 
 	width: 30px;
-	margin: 20% 10%;
 	padding:0;
 }
 

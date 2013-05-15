@@ -3,7 +3,7 @@
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: 1.55
+Version: 1.63
 Author: Pete Lower
 Author URI: http://petelower.com
 License: GPLv2 or later
@@ -36,7 +36,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	    register_sidebar( array(
 			'name' => 'Social Media Area',
 			'id' => 'lowermedia_wp_social_widget_area',
-			'before_widget' => '<div id="lowermedia-wp-social-wrap" style="position:fixed;z-index:-9999">',
+			'before_widget' => '<div id="lowermedia-wp-social-wrap" style="">',
 			'after_widget' => '</div>',
 			'before_title' => '<h2 class="rounded">',
 			'after_title' => '</h2>',
@@ -80,6 +80,7 @@ class SocialMediaIcons extends WP_Widget
     		'margin_top_var' => '',
     		'margin_left_var' => '',
     		'default_bkgrnd_var' => '',
+    		'position_var' => '',
     		'opacity_var' => '',
     		'facebook' => '',
     		'twitter'=>'',
@@ -103,6 +104,7 @@ class SocialMediaIcons extends WP_Widget
     $margin_top_var = $instance['margin_top_var'];
     $margin_left_var = $instance['margin_left_var'];
     $default_bkgrnd_var = $instance['default_bkgrnd_var'];
+    $position_var = $instance['position_var'];
     $opacity_var = $instance['opacity_var'];
 
     $facebook = $instance['facebook'];
@@ -126,209 +128,223 @@ class SocialMediaIcons extends WP_Widget
 
     //extract($instance);
 ?>
-  <p><hr /></br><center><strong>ADD STYLE INFO BELOW</strong></center></br><hr />
-  	<label for="<?php echo $this->get_field_id('margin_top_var'); ?>">
-  		Add Top Margin: 	<br/>(px, em, %)<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('margin_top_var'); ?>" 
-				  		name="<?php echo $this->get_field_name('margin_top_var'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($margin_top_var); ?>" 
-			  		/>
-	</label></br></br>
-	<label for="<?php echo $this->get_field_id('margin_left_var'); ?>">
-  		Add Left Padding: 	<br/>(px, em, %)<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('margin_left_var'); ?>" 
-				  		name="<?php echo $this->get_field_name('margin_left_var'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($margin_left_var); ?>" 
-			  		/>
-	</label></br></br>
-	<label for="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>">
-  		Use Default Background: 	<br/>(yes or anything else for no)<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>" 
-				  		name="<?php echo $this->get_field_name('default_bkgrnd_var'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($default_bkgrnd_var); ?>" 
-			  		/>
-	</label></br></br>
-	<label for="<?php echo $this->get_field_id('opacity_var'); ?>">
-  		Add Opacity: 	<br/>(.01-.9)<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('opacity_var'); ?>" 
-				  		name="<?php echo $this->get_field_name('opacity_var'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($opacity_var); ?>" 
-			  		/>
-	</label></br>
-	<hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
-  	<label for="<?php echo $this->get_field_id('facebook'); ?>">
-  		Facebook Link: 	<br/>http://facebook.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('facebook'); ?>" 
-				  		name="<?php echo $this->get_field_name('facebook'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($facebook); ?>" 
-			  		/>
-	</label></br></br>
-	<label for="<?php echo $this->get_field_id('twitter'); ?>">
-		Twitter Link: 	<br/>http://twitter.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('twitter'); ?>" 
-				  		name="<?php echo $this->get_field_name('twitter'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($twitter); ?>" 
-			  		/>
-	</label><br/></br>
-	<label for="<?php echo $this->get_field_id('youtube'); ?>">
-		YouTube Link: 	<br/>http://youtube.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('youtube'); ?>" 
-				  		name="<?php echo $this->get_field_name('youtube'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($youtube); ?>" 
-			  		/>
-	</label><br/></br>
-	<label for="<?php echo $this->get_field_id('linkedin'); ?>">
-		LinkedIn Link: 	<br/>http://linkedin.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('linkedin'); ?>" 
-				  		name="<?php echo $this->get_field_name('linkedin'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($linkedin); ?>" 
-			  		/>
-	</label><br/></br>
-	<label for="<?php echo $this->get_field_id('googleplus'); ?>">
-		Google+ Link: 	<br/>http://plus.google.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('googleplus'); ?>" 
-				  		name="<?php echo $this->get_field_name('googleplus'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($googleplus); ?>" 
-			  		/>
-  	</label><br/></br>
-  	<label for="<?php echo $this->get_field_id('github'); ?>">
-		GitHub Link: 	<br/>https://github.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('github'); ?>" 
-				  		name="<?php echo $this->get_field_name('github'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($github); ?>" 
-			  		/>
-  	</label><br/></br>
-  	<label for="<?php echo $this->get_field_id('wordpress'); ?>">
-  		WordPress Link: 	<br/>http://profiles.wordpress.org/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('wordpress'); ?>" 
-				  		name="<?php echo $this->get_field_name('wordpress'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($wordpress); ?>" 
-			  		/>
-	</label></br></br>
-	<label for="<?php echo $this->get_field_id('drupal'); ?>">
-		Drupal Link: 	<br/>http://drupal.org/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('drupal'); ?>" 
-				  		name="<?php echo $this->get_field_name('drupal'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($drupal); ?>" 
-			  		/>
-	</label><br/></br>
-	<label for="<?php echo $this->get_field_id('instagram'); ?>">
-		Instagram Link: 	<br/>http://instagram.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('instagram'); ?>" 
-				  		name="<?php echo $this->get_field_name('instagram'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($instagram); ?>" 
-			  		/>
-	</label><br/></br>
-	<label for="<?php echo $this->get_field_id('pinterest'); ?>">
-		Pinterest Link: 	<br/>http://pinterest.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('pinterest'); ?>" 
-				  		name="<?php echo $this->get_field_name('pinterest'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($pinterest); ?>" 
-			  		/>
-  	</label><br/></br>
-  	<label for="<?php echo $this->get_field_id('yelp'); ?>">
-		Yelp Link: 	<br/>http://yelp.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('yelp'); ?>" 
-				  		name="<?php echo $this->get_field_name('yelp'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($yelp); ?>" 
-			  		/>
-  	</label><br/></br>
-  	
-  	<label for="<?php echo $this->get_field_id('email'); ?>">
-		Email Link: 	<br/>(Provide Full Link)<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('email'); ?>" 
-				  		name="<?php echo $this->get_field_name('email'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($email); ?>" 
-			  		/>
-  	</label><br/></br>
-  	<label for="<?php echo $this->get_field_id('rss'); ?>">
-  		RSS Link: 	<br/>(Provide Full Link)<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('rss'); ?>" 
-				  		name="<?php echo $this->get_field_name('rss'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($rss); ?>" 
-			  		/>
-	</label></br></br>
-	<label for="<?php echo $this->get_field_id('soundcloud'); ?>">
-		SoundCloud Link: 	<br/>https://soundcloud.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('soundcloud'); ?>" 
-				  		name="<?php echo $this->get_field_name('soundcloud'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($soundcloud); ?>" 
-			  		/>
-	</label><br/></br>
-	<label for="<?php echo $this->get_field_id('blogger'); ?>">
-		Blogger Link: 	<br/>http://{yourchosenname}.blogspot.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('blogger'); ?>" 
-				  		name="<?php echo $this->get_field_name('blogger'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($blogger); ?>" 
-			  		/>
-	</label><br/></br>
-	<label for="<?php echo $this->get_field_id('reverbnation'); ?>">
-		Reverbnation Link: 	<br/>http://reverbnation.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('reverbnation'); ?>" 
-				  		name="<?php echo $this->get_field_name('reverbnation'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($reverbnation); ?>" 
-			  		/>
-  	</label><br/></br>
-  	<label for="<?php echo $this->get_field_id('bandcamp'); ?>">
-		BandCamp Link: 	<br/>http://{yourchosenname}.bandcamp.com/<input 
-				  		class="widefat" 
-				  		id="<?php echo $this->get_field_id('bandcamp'); ?>" 
-				  		name="<?php echo $this->get_field_name('bandcamp'); ?>" 
-				  		type="text" 
-				  		value="<?php echo esc_attr($bandcamp); ?>" 
-			  		/>
-  	</label><br/></br>
+  <p>
+  	<hr /></br><center><strong>ADD STYLE INFO BELOW</strong></center></br><hr />
+	  	
+	  	<label for="<?php echo $this->get_field_id('margin_top_var'); ?>">
+	  		Add Top Margin: 	<br/>(px, em, %)<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('margin_top_var'); ?>" 
+					  		name="<?php echo $this->get_field_name('margin_top_var'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($margin_top_var); ?>" 
+				  		/>
+		</label></br></br>
+		<label for="<?php echo $this->get_field_id('margin_left_var'); ?>">
+	  		Add Left Padding: 	<br/>(px, em, %)<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('margin_left_var'); ?>" 
+					  		name="<?php echo $this->get_field_name('margin_left_var'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($margin_left_var); ?>" 
+				  		/>
+		</label></br></br>
+		<label for="<?php echo $this->get_field_id('position_var'); ?>">
+	  		Use Default Background: 	<br/>(enter 'top' for top position w/ background, 'side' for side position w/ background, or leave empty for no background and side position)<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('position_var'); ?>" 
+					  		name="<?php echo $this->get_field_name('position_var'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($position_var); ?>" 
+				  		/>
+		</label></br></br>
+		<label for="<?php echo $this->get_field_id('opacity_var'); ?>">
+	  		Add Opacity: 	<br/>(.01-.9)<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('opacity_var'); ?>" 
+					  		name="<?php echo $this->get_field_name('opacity_var'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($opacity_var); ?>" 
+				  		/>
+		</label></br><br/>
+		<label for="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>">
+			Check For Background Styling: <input
+				type="checkbox"
+				id="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>"
+				name="<?php echo $this->get_field_name('default_bkgrnd_var'); ?>"
+				<?php checked(isset($instance['default_bkgrnd_var']) ? 'on' : 'off'); ?> 
+				/> 
 
+		</label>	
+
+	<hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
+  	
+	  	<label for="<?php echo $this->get_field_id('facebook'); ?>">
+	  		Facebook Link: 	<br/>http://facebook.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('facebook'); ?>" 
+					  		name="<?php echo $this->get_field_name('facebook'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($facebook); ?>" 
+				  		/>
+		</label></br></br>
+		<label for="<?php echo $this->get_field_id('twitter'); ?>">
+			Twitter Link: 	<br/>http://twitter.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('twitter'); ?>" 
+					  		name="<?php echo $this->get_field_name('twitter'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($twitter); ?>" 
+				  		/>
+		</label><br/></br>
+		<label for="<?php echo $this->get_field_id('youtube'); ?>">
+			YouTube Link: 	<br/>http://youtube.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('youtube'); ?>" 
+					  		name="<?php echo $this->get_field_name('youtube'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($youtube); ?>" 
+				  		/>
+		</label><br/></br>
+		<label for="<?php echo $this->get_field_id('linkedin'); ?>">
+			LinkedIn Link: 	<br/>http://linkedin.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('linkedin'); ?>" 
+					  		name="<?php echo $this->get_field_name('linkedin'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($linkedin); ?>" 
+				  		/>
+		</label><br/></br>
+		<label for="<?php echo $this->get_field_id('googleplus'); ?>">
+			Google+ Link: 	<br/>http://plus.google.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('googleplus'); ?>" 
+					  		name="<?php echo $this->get_field_name('googleplus'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($googleplus); ?>" 
+				  		/>
+	  	</label><br/></br>
+	  	<label for="<?php echo $this->get_field_id('github'); ?>">
+			GitHub Link: 	<br/>https://github.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('github'); ?>" 
+					  		name="<?php echo $this->get_field_name('github'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($github); ?>" 
+				  		/>
+	  	</label><br/></br>
+	  	<label for="<?php echo $this->get_field_id('wordpress'); ?>">
+	  		WordPress Link: 	<br/>http://profiles.wordpress.org/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('wordpress'); ?>" 
+					  		name="<?php echo $this->get_field_name('wordpress'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($wordpress); ?>" 
+				  		/>
+		</label></br></br>
+		<label for="<?php echo $this->get_field_id('drupal'); ?>">
+			Drupal Link: 	<br/>http://drupal.org/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('drupal'); ?>" 
+					  		name="<?php echo $this->get_field_name('drupal'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($drupal); ?>" 
+				  		/>
+		</label><br/></br>
+		<label for="<?php echo $this->get_field_id('instagram'); ?>">
+			Instagram Link: 	<br/>http://instagram.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('instagram'); ?>" 
+					  		name="<?php echo $this->get_field_name('instagram'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($instagram); ?>" 
+				  		/>
+		</label><br/></br>
+		<label for="<?php echo $this->get_field_id('pinterest'); ?>">
+			Pinterest Link: 	<br/>http://pinterest.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('pinterest'); ?>" 
+					  		name="<?php echo $this->get_field_name('pinterest'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($pinterest); ?>" 
+				  		/>
+	  	</label><br/></br>
+	  	<label for="<?php echo $this->get_field_id('yelp'); ?>">
+			Yelp Link: 	<br/>http://yelp.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('yelp'); ?>" 
+					  		name="<?php echo $this->get_field_name('yelp'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($yelp); ?>" 
+				  		/>
+	  	</label><br/></br>
+	  	
+	  	<label for="<?php echo $this->get_field_id('email'); ?>">
+			Email Link: 	<br/>(Provide Full Link)<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('email'); ?>" 
+					  		name="<?php echo $this->get_field_name('email'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($email); ?>" 
+				  		/>
+	  	</label><br/></br>
+	  	<label for="<?php echo $this->get_field_id('rss'); ?>">
+	  		RSS Link: 	<br/>(Provide Full Link)<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('rss'); ?>" 
+					  		name="<?php echo $this->get_field_name('rss'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($rss); ?>" 
+				  		/>
+		</label></br></br>
+		<label for="<?php echo $this->get_field_id('soundcloud'); ?>">
+			SoundCloud Link: 	<br/>https://soundcloud.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('soundcloud'); ?>" 
+					  		name="<?php echo $this->get_field_name('soundcloud'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($soundcloud); ?>" 
+				  		/>
+		</label><br/></br>
+		<label for="<?php echo $this->get_field_id('blogger'); ?>">
+			Blogger Link: 	<br/>http://{yourchosenname}.blogspot.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('blogger'); ?>" 
+					  		name="<?php echo $this->get_field_name('blogger'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($blogger); ?>" 
+				  		/>
+		</label><br/></br>
+		<label for="<?php echo $this->get_field_id('reverbnation'); ?>">
+			Reverbnation Link: 	<br/>http://reverbnation.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('reverbnation'); ?>" 
+					  		name="<?php echo $this->get_field_name('reverbnation'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($reverbnation); ?>" 
+				  		/>
+	  	</label><br/></br>
+	  	<label for="<?php echo $this->get_field_id('bandcamp'); ?>">
+			BandCamp Link: 	<br/>http://{yourchosenname}.bandcamp.com/<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('bandcamp'); ?>" 
+					  		name="<?php echo $this->get_field_name('bandcamp'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($bandcamp); ?>" 
+				  		/>
+	  	</label><br/></br>
   </p>
 <?php
   }
  
   function update($new_instance, $old_instance)
   {
+  	//strip tags for security
     $instance = $old_instance;
     $instance['margin_top_var'] = strip_tags($new_instance['margin_top_var']);
     $instance['margin_left_var'] = strip_tags($new_instance['margin_left_var']);
     $instance['default_bkgrnd_var'] = strip_tags($new_instance['default_bkgrnd_var']);
+	$instance['position_var'] = strip_tags($new_instance['position_var']);
     $instance['opacity_var'] = strip_tags($new_instance['opacity_var']);
     $instance['facebook'] = strip_tags($new_instance['facebook']);
     $instance['twitter'] = strip_tags($new_instance['twitter']);
@@ -360,11 +376,29 @@ class SocialMediaIcons extends WP_Widget
 	 $margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
 	 $margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
 	 $default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
+	 $position_var = empty($instance['position_var']) ? ' ' : apply_filters('widget_position_var', $instance['position_var']);
 	 $opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
 
-	 //ternary operator
-	 $dbv_style = $default_bkgrnd_var=="yes" ?$dbv_style ="padding-left: 10px;background: grey;border-radius: 0px 20px 20px 0px;border: 2px solid darkgray;border-left: none;width: 45px;padding-top: 10px;padding-bottom: 10px;":'';
-	 
+	 //ternary operator, if defalut background var equals yes apply styles
+	 //$dbv_style = $default_bkgrnd_var=="top" ? $default_bkgrnd_var=="side" ? $dbv_style =$bckgrnd_style_styles.$side_position_style ? $dbv_style =$bckgrnd_style_styles.$top_position_style:'';
+
+	 if ($position_var == "top") {
+
+	 	$css_class_var_section = " lm-wps-bkgrnd lm-wps-top ";
+	 	$css_class_var_ul = " lm-wps-top-ul  ";
+
+	 } else if ($position_var == "side") {
+
+	 	$css_class_var_section = " lm-wps-bkgrnd lm-wps-side ";
+	 	$css_class_var_ul = " lm-wps-side-ul  ";
+
+	 } else {
+
+	 	$css_class_var_section = " lm-wps-side ";
+	 	$css_class_var_ul = " lm-wps-side-ul  ";
+
+	 }
+
 	 // if ($default_bkgrnd_var=="yes"){
 	 // 	$dbv_style ="padding-left: 10px;background: grey;border-radius: 0px 20px 20px 0px;border: 2px solid darkgray;border-left: none;width: 45px;padding-top: 10px;padding-bottom: 10px;";
 	 // }
@@ -424,9 +458,9 @@ class SocialMediaIcons extends WP_Widget
 
     // WIDGET CODE GOES HERE
     echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons" id="social-icons-widget-2" style="margin-top:$margin_top_var;padding-left:$margin_left_var;$dbv_style">
-	<div class="widget-inner" style="">
-		<ul class="social-icons-list" style="">
+	<section class="widget-1 widget-first widget social-icons $css_class_var_section" id="social-icons-widget-2" style="margin-top:$margin_top_var;padding-left:$margin_left_var;$dbv_style">
+	<div class="widget-inner" >
+		<ul class="social-icons-list $css_class_var_ul" >
 EOT;
 if (!empty($instance['facebook'])) {
 		echo <<<EOT

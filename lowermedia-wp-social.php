@@ -4,6 +4,7 @@ Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
 Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
 Version: 2.0
+Stable tag: 2.0
 Author: Pete Lower
 Author URI: http://petelower.com
 License: GPLv2 or later
@@ -154,7 +155,7 @@ class SocialMediaIcons extends WP_Widget
 				  		/>
 		</label></br></br>
 		<label for="<?php echo $this->get_field_id('position_var'); ?>">
-	  		Use Default Background: 	<br/>(top or side)<input 
+	  		Position: 	<br/>(top or side)<input 
 					  		class="widefat" 
 					  		id="<?php echo $this->get_field_id('position_var'); ?>" 
 					  		name="<?php echo $this->get_field_name('position_var'); ?>" 

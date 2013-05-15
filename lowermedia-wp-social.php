@@ -2,9 +2,9 @@
 /*
 Plugin Name: LowerMedia WP Social
 Plugin URI: http://lowermedia.net
-Description: WordPress plugin that, when activated, creates a new widget area and new text widget for social media profiles.
-Version: 2.0
-Stable tag: 2.0
+Description: Social Media Toolbar Made Easy! Creates widget and widget area to display social media profile links at the top or left of your website.
+Version: 2.0.3
+Stable: 2.0.3
 Author: Pete Lower
 Author URI: http://petelower.com
 License: GPLv2 or later

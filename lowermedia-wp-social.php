@@ -49,7 +49,7 @@ class lowermedia_wp_social_admin {
     }
 	
     public function page_init(){		
-	register_setting('lowermedia_wps_option_group', 'lmwps_enable', array($this, 'check_enable'));
+	register_setting('lowermedia_wps_option_group', 'lmwps_wps_options', array($this, 'check_enable'));
 	//register_setting('lowermedia_wps_option_group', '{NAME HERE}', array($this, 'check_{FUNCTION NAME HERE}'));
 		
         add_settings_section(
@@ -109,11 +109,11 @@ class lowermedia_wp_social_admin {
         ?>
 	        <input 
 		        type="checkbox" 
-		        id="lmopt_enable" 
-		        name="lmwps_enable_option[lmwps_enable]" 
+		        id="lmwps_enable" 
+		        name="lmwps_wps_options[lmwps_enable]" 
 		        value="1" 
 		        <?php 
-		        if ( get_option('lmwps_enable') ) {echo 'checked="checked"'; }
+		        if ( get_option('lmwps_enable_option') ) {echo 'checked="checked"'; }
 	        ?> 
         />
 
@@ -165,7 +165,10 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 */
 
 	function lowermedia_add_wp_social($output) {
-		$output = dynamic_sidebar('lowermedia_wp_social_widget_area');
+
+		if ( get_option('lmwps_enable')) {
+			$output = dynamic_sidebar('lowermedia_wp_social_widget_area');
+		}
 		return $output;
 	}
 	add_filter('wp_head', 'lowermedia_add_wp_social', 1000);//1000 is used to make sure this is loaded very lastly to the head

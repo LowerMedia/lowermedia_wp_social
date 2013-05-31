@@ -85,6 +85,7 @@ class SocialMediaIcons extends WP_Widget
 				'margin_top_var' => '',
 				'margin_left_var' => '',
 				'default_bkgrnd_var' => '',
+				'rounded_corders_var' => '',
 				'position_var' => '',
 				'opacity_var' => '',
 				'facebook' => '',
@@ -109,6 +110,7 @@ class SocialMediaIcons extends WP_Widget
 	    $margin_top_var = $instance['margin_top_var'];
 	    $margin_left_var = $instance['margin_left_var'];
 	    $default_bkgrnd_var = $instance['default_bkgrnd_var'];
+	    $default_bkgrnd_var = $instance['rounded_corners_var'];
 	    $position_var = $instance['position_var'];
 	    $opacity_var = $instance['opacity_var'];
 
@@ -181,6 +183,17 @@ class SocialMediaIcons extends WP_Widget
 			type="checkbox" 
 			value="1" 
 			<?php if ( $instance['default_bkgrnd_var'] ) echo 'checked="checked"'; ?>
+		/>
+	</label>
+
+	<label for="<?php echo $this->get_field_id('rounded_corners_var'); ?>">
+		<?php _e('Check For Rounded Corners:'); ?>
+		<input 
+			id="<?php echo $this->get_field_id('rounded_corners_var'); ?>"
+			name="<?php echo $this->get_field_name('rounded_corners_var'); ?>"
+			type="checkbox" 
+			value="1" 
+			<?php if ( $instance['rounded_corners_var'] ) echo 'checked="checked"'; ?>
 		/>
 	</label>
 
@@ -351,6 +364,7 @@ class SocialMediaIcons extends WP_Widget
 			$instance['margin_top_var'] = strip_tags($new_instance['margin_top_var']);
 			$instance['margin_left_var'] = strip_tags($new_instance['margin_left_var']);
 			$instance['default_bkgrnd_var'] = strip_tags($new_instance['default_bkgrnd_var']);
+			$instance['rounded_corners_var'] = strip_tags($new_instance['rounded_corners_var']);
 			$instance['position_var'] = strip_tags($new_instance['position_var']);
 			$instance['opacity_var'] = strip_tags($new_instance['opacity_var']);
 			$instance['facebook'] = strip_tags($new_instance['facebook']);
@@ -383,14 +397,18 @@ class SocialMediaIcons extends WP_Widget
 	$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
 	$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
 	$default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
+	$rounded_corners_var = empty($instance['rounded_corners_var']) ? ' ' : apply_filters('widget_rounded_corners_var', $instance['rounded_corners_var']);
 	$position_var = empty($instance['position_var']) ? ' ' : apply_filters('widget_position_var', $instance['position_var']);
 	$opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
 
 	//Ternary statements to assign css classes to html tags in output, background styles, sections styles (top or side), and ul styles inline/margins
 	$css_class_var_bkgrnd = $default_bkgrnd_var == 1 ? $css_class_var_bkgrnd = " lm-wps-bkgrnd " : "";
+	$css_class_var_rounded = $rounded_corners_var == 1 ? $css_class_var_rounded = " lm-wps-rounded " : "";
 	$css_class_var_section = $position_var == "top" ? $css_class_var_section = " lm-wps-top " : " lm-wps-side ";
 	$css_class_var_ul = $position_var == "top" ? $css_class_var_ul = " lm-wps-top-ul " : " lm-wps-side-ul ";
 
+	$css_class_holder = $css_class_var_bkgrnd." ".$css_class_var_rounded." ".$css_class_var_section." ".$css_class_var_ul;
+//rounded_corners_var
 	//Icon Variables
 	$facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
 	$facebook_link="'http://facebook.com/".$facebook."'";
@@ -446,9 +464,9 @@ class SocialMediaIcons extends WP_Widget
 
 	// WIDGET BACKEND HTML CODE 
 	echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons $css_class_var_section $css_class_var_bkgrnd " id="social-icons-widget-2" style="margin-top:$margin_top_var;padding-left:$margin_left_var;">
+	<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$margin_top_var;padding-left:$margin_left_var;">
 	<div class="widget-inner" >
-		<ul class="social-icons-list $css_class_var_ul" >
+		<ul class="social-icons-list" >
 EOT;
 if (!empty($instance['facebook'])) {
 		echo <<<EOT

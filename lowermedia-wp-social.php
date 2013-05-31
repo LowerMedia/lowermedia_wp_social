@@ -13,6 +13,118 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 /*############################################################################################
 #
+#   ADD ADMIN MENU
+#   //
+#	//
+*/
+
+class lowermedia_wp_social_admin {
+    public function __construct(){
+        if(is_admin()){
+	    	add_action('admin_menu', array($this, 'lmwps_options_page'));
+	    	add_action('admin_init', array($this, 'page_init'));
+		}
+    }
+	
+    public function lmwps_options_page(){
+        // This page will be under "Settings"
+		add_menu_page('LowerMeida WP Social Options', 'WP Social Options', 'manage_options', 'lmwps-admin-options', array($this, 'lmwps_options'));
+    }
+
+    public function lmwps_options(){
+        ?>
+	<div class="wrap">
+	    <?php screen_icon(); ?>
+	    <h2>Settings</h2>			
+	    <form method="post" action="options.php">
+	        <?php
+                    // This prints out all hidden setting fields
+		    settings_fields('lowermedia_wps_option_group');	
+		    do_settings_sections('lmwps-admin-options');
+		?>
+	        <?php submit_button(); ?>
+	    </form>
+	</div>
+	<?php
+    }
+	
+    public function page_init(){		
+	register_setting('lowermedia_wps_option_group', 'lmwps_enable', array($this, 'check_enable'));
+	//register_setting('lowermedia_wps_option_group', '{NAME HERE}', array($this, 'check_{FUNCTION NAME HERE}'));
+		
+        add_settings_section(
+		    'lmwps_wps_options',
+		    '<!-- Check Box -->',
+		    array($this, 'print_section_info'),
+		    'lmwps-admin-options'
+		);	
+
+		// add_settings_section(
+		//     '{NAME HERE}',
+		//     '<!-- TYPE OF INPUT HERE -->',
+		//     array($this, 'print_section_info'),
+		//     'lmwps-admin-options'
+		// );	
+		
+		add_settings_field(
+		    'lmwps_enable', 
+		    'Check to enable the WP Social Sidebar', 
+		    array($this, 'lmwps_enable'), 
+		    'lmwps-admin-options',
+		    'lmwps_wps_options'			
+		);	
+
+		// add_settings_field(
+		//     'lmopt_test', 
+		//     '{QUESTION HERE}', 
+		//     array($this, 'lmopt_{FUNCTION NAME HERE}'), 
+		//     'lmwps-admin-options',
+		//     '{NAME HERE}'			
+		// );	
+    }
+
+    function check_enable($input){
+
+ 		$output = $input['lmwps_enable'];
+
+ 		//check if the checkbox was checked
+ 		//if it was add or update the option
+    	if(isset($input['lmwps_enable'])) {
+		    if(get_option('lmwps_enable_option') === FALSE){
+				add_option('lmwps_enable_option', $output);
+		    }else{
+				update_option('lmwps_enable_option', $output);
+		    }
+		}else{//if it wasn't delete the option
+				delete_option('lmwps_enable_option');
+		}
+		return $output;
+    }
+	
+    function print_section_info(){//CALLBACK FUNCTION
+		print '<!-- Enter your setting below:-->';
+    }
+
+    function lmwps_enable(){
+        ?>
+	        <input 
+		        type="checkbox" 
+		        id="lmopt_enable" 
+		        name="lmwps_enable_option[lmwps_enable]" 
+		        value="1" 
+		        <?php 
+		        if ( get_option('lmwps_enable') ) {echo 'checked="checked"'; }
+	        ?> 
+        />
+
+        <?php
+    }
+}
+
+$lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
+
+/*############################################################################################
+#
 #   REGISTER PLUGIN STYLES
 #   //These functions enque and registers the plugin stylesheet
 #	 //Register with hook 'wp_enqueue_scripts', which can be used for front end CSS and JavaScript (From Codex)

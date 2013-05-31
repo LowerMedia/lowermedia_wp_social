@@ -53,6 +53,9 @@ class lowermedia_wp_social_admin {
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_rounded', array($this, 'check_rounded'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_bkgrnd', array($this, 'check_bkgrnd'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_martop', array($this, 'check_martop'));
+		register_setting('lowermedia_wps_option_group', 'lmwps_wps_marleft', array($this, 'check_marleft'));
+		register_setting('lowermedia_wps_option_group', 'lmwps_wps_pos', array($this, 'check_pos'));
+		register_setting('lowermedia_wps_option_group', 'lmwps_wps_opac', array($this, 'check_opac'));
 		//register_setting('lowermedia_wps_option_group', '{NAME HERE}', array($this, 'check_{FUNCTION NAME HERE}'));
 		//$rounded_corners_var = $instance['rounded_corners_var'];
 
@@ -81,6 +84,27 @@ class lowermedia_wp_social_admin {
 
 		add_settings_section(
 		    'lmwps_wps_martop',
+		    '<!-- Text Field -->',
+		    array($this, 'print_section_info'),
+		    'lmwps-admin-options'
+		);
+
+		add_settings_section(
+		    'lmwps_wps_marleft',
+		    '<!-- Text Field -->',
+		    array($this, 'print_section_info'),
+		    'lmwps-admin-options'
+		);
+
+		add_settings_section(
+		    'lmwps_wps_pos',
+		    '<!-- Text Field -->',
+		    array($this, 'print_section_info'),
+		    'lmwps-admin-options'
+		);
+
+		add_settings_section(
+		    'lmwps_wps_opac',
 		    '<!-- Text Field -->',
 		    array($this, 'print_section_info'),
 		    'lmwps-admin-options'
@@ -117,7 +141,31 @@ class lowermedia_wp_social_admin {
 		    array($this, 'lmwps_martop'), 
 		    'lmwps-admin-options',
 		    'lmwps_wps_martop'			
+		);
+
+		add_settings_field(
+		    'lmwps_marleft', 
+		    'Enter Margin Left (px % em):', 
+		    array($this, 'lmwps_marleft'), 
+		    'lmwps-admin-options',
+		    'lmwps_wps_marleft'			
 		);	
+
+		add_settings_field(
+		    'lmwps_pos', 
+		    'Position (top or side):', 
+		    array($this, 'lmwps_pos'), 
+		    'lmwps-admin-options',
+		    'lmwps_wps_pos'			
+		);
+
+		add_settings_field(
+		    'lmwps_opac', 
+		    'Enter Opacity (.01-.9):', 
+		    array($this, 'lmwps_opac'), 
+		    'lmwps-admin-options',
+		    'lmwps_wps_opac'			
+		);
 
 		// add_settings_field(
 		//     'lmopt_test', 
@@ -199,6 +247,60 @@ class lowermedia_wp_social_admin {
 		}
 		return $output;
     }
+
+    function check_marleft($input){
+
+ 		$output = $input['lmwps_marleft'];
+
+ 		//check if the checkbox was checked
+ 		//if it was add or update the option
+    	if(isset($input['lmwps_marleft'])) {
+		    if(get_option('lmwps_marleft_option') === FALSE){
+				add_option('lmwps_marleft_option', $output);
+		    }else{
+				update_option('lmwps_marleft_option', $output);
+		    }
+		}else{//if it wasn't delete the option
+				delete_option('lmwps_marleft_option');
+		}
+		return $output;
+    }
+
+    function check_pos($input){
+
+ 		$output = $input['lmwps_pos'];
+
+ 		//check if the checkbox was checked
+ 		//if it was add or update the option
+    	if(isset($input['lmwps_pos'])) {
+		    if(get_option('lmwps_pos_option') === FALSE){
+				add_option('lmwps_pos_option', $output);
+		    }else{
+				update_option('lmwps_pos_option', $output);
+		    }
+		}else{//if it wasn't delete the option
+				delete_option('lmwps_pos_option');
+		}
+		return $output;
+    }
+
+    function check_opac($input){
+
+ 		$output = $input['lmwps_opac'];
+
+ 		//check if the checkbox was checked
+ 		//if it was add or update the option
+    	if(isset($input['lmwps_opac'])) {
+		    if(get_option('lmwps_opac_option') === FALSE){
+				add_option('lmwps_opac_option', $output);
+		    }else{
+				update_option('lmwps_opac_option', $output);
+		    }
+		}else{//if it wasn't delete the option
+				delete_option('lmwps_opac_option');
+		}
+		return $output;
+    }
 	
 
     function lmwps_enable(){
@@ -249,6 +351,42 @@ class lowermedia_wp_social_admin {
 		  		value="<?php echo get_option('lmwps_martop_option'); ?>" 
 	  		/>
 	    <?php
+	}
+
+    function lmwps_marleft(){?>
+  		<input 
+		  		class="" 
+		  		id="lmwps_wps_marleft" 
+		  		name="lmwps_wps_marleft[lmwps_marleft]" 
+		  		type="text" 
+		  		size="5"
+		  		value="<?php echo get_option('lmwps_marleft_option'); ?>" 
+	  		/>
+		<?php
+	}
+
+    function lmwps_pos(){?>
+		Position: <input 
+		  		class="" 
+		  		id="lmwps_wps_pos" 
+		  		name="lmwps_wps_pos[lmwps_pos]" 
+		  		type="text" 
+		  		size="5"
+		  		value="<?php echo get_option('lmwps_pos_option'); ?>" 
+	  		/>
+		<?php
+	}
+
+    function lmwps_opac(){?>
+		Add Opacity (.01 -.9): <input 
+		  		class="" 
+		  		id="lmwps_wps_opac" 
+		  		name="lmwps_wps_opac[lmwps_opac]" 
+		  		type="text" 
+		  		size="5"
+		  		value="<?php echo get_option('lmwps_opac_option'); ?>" 
+	  		/>
+		<?php
 	}
 
     function print_section_info(){//CALLBACK FUNCTION
@@ -302,16 +440,33 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 	function lowermedia_add_wp_social($output) {
 		
 		
-		if (get_option('lmwps_rounded_option')){
-			$GLOBALS['css_class_var_rounded'] = " lm-wps-rounded ";
-		}
-		if (get_option('lmwps_bkgrnd_option')){
-			$GLOBALS['css_class_var_bkgrnd']  == 1 ? $css_class_var_bkgrnd = " lm-wps-bkgrnd " : "";
-		}
-		if (get_option('lmwps_martop_option')){
-			$GLOBALS['css_class_var_rounded'] = get_option('lmwps_martop_option');
-		}
+
 		if ( get_option('lmwps_enable_option')) {
+
+
+			if (get_option('lmwps_rounded_option')){
+				$GLOBALS['css_class_rounded'] = " lm-wps-rounded ";
+			}
+			if (get_option('lmwps_bkgrnd_option')){
+				$GLOBALS['css_class_bkgrnd']  = " lm-wps-bkgrnd ";
+			}
+			if (get_option('lmwps_martop_option')){
+				$GLOBALS['css_class_martop'] = get_option('lmwps_martop_option');
+			}
+			if (get_option('lmwps_marleft_option')){
+				$GLOBALS['css_class_marleft'] = get_option('lmwps_marleft_option');
+			}
+			if (get_option('lmwps_pos_option')){
+				if (get_option('lmwps_pos_option') == "top" ){
+					$GLOBALS['css_class_pos'] = " lm-wps-top-ul lm-wps-top "; 
+				}else{
+					$GLOBALS['css_class_pos'] = " lm-wps-side-ul lm-wps-side ";
+				}
+			}
+			if (get_option('lmwps_opac_option')){
+				$GLOBALS['css_class_opac'] = get_option('lmwps_opac_option');
+			}
+
 			$output = dynamic_sidebar('lowermedia_wp_social_widget_area');
 		}
 		return $output;
@@ -342,12 +497,12 @@ class SocialMediaIcons extends WP_Widget
 		( 
 			(array) $instance, 
 			array( 
-				'margin_top_var' => '',
-				'margin_left_var' => '',
+				//'margin_top_var' => '',
+				//'margin_left_var' => '',
 				//'default_bkgrnd_var' => '',
 				//'rounded_corders_var' => '',
-				'position_var' => '',
-				'opacity_var' => '',
+				//'position_var' => '',
+				//'opacity_var' => '',
 				'facebook' => '',
 				'twitter'=>'',
 				'youtube'=>'',
@@ -367,12 +522,12 @@ class SocialMediaIcons extends WP_Widget
 			)
 		);
     
-	    $margin_top_var = $instance['margin_top_var'];
-	    $margin_left_var = $instance['margin_left_var'];
+	    //$margin_top_var = $instance['margin_top_var'];
+	    //$margin_left_var = $instance['margin_left_var'];
 	    //$default_bkgrnd_var = $instance['default_bkgrnd_var'];
 	    //$rounded_corners_var = $instance['rounded_corners_var'];
-	    $position_var = $instance['position_var'];
-	    $opacity_var = $instance['opacity_var'];
+	    //$position_var = $instance['position_var'];
+	    //$opacity_var = $instance['opacity_var'];
 
 	    $facebook = $instance['facebook'];
 	    $twitter = $instance['twitter'];
@@ -398,7 +553,7 @@ class SocialMediaIcons extends WP_Widget
   <p>
   	<hr /></br><center><strong>ADD STYLE INFO BELOW</strong></center></br><hr />
 	  	
-	  	<label for="<?php echo $this->get_field_id('margin_top_var'); ?>">
+	  <?/*	<label for="<?php echo $this->get_field_id('margin_top_var'); ?>">
 	  		Add Top Margin: 	<br/>(px, em, %)<input 
 					  		class="widefat" 
 					  		id="<?php echo $this->get_field_id('margin_top_var'); ?>" 
@@ -621,12 +776,12 @@ class SocialMediaIcons extends WP_Widget
 		{
 			//strip tags for security
 			$instance = $old_instance;
-			$instance['margin_top_var'] = strip_tags($new_instance['margin_top_var']);
-			$instance['margin_left_var'] = strip_tags($new_instance['margin_left_var']);
-			$instance['default_bkgrnd_var'] = strip_tags($new_instance['default_bkgrnd_var']);
-			$instance['rounded_corners_var'] = strip_tags($new_instance['rounded_corners_var']);
-			$instance['position_var'] = strip_tags($new_instance['position_var']);
-			$instance['opacity_var'] = strip_tags($new_instance['opacity_var']);
+			//$instance['margin_top_var'] = strip_tags($new_instance['margin_top_var']);
+			//$instance['margin_left_var'] = strip_tags($new_instance['margin_left_var']);
+			//$instance['default_bkgrnd_var'] = strip_tags($new_instance['default_bkgrnd_var']);
+			//$instance['rounded_corners_var'] = strip_tags($new_instance['rounded_corners_var']);
+			//$instance['position_var'] = strip_tags($new_instance['position_var']);
+			//$instance['opacity_var'] = strip_tags($new_instance['opacity_var']);
 			$instance['facebook'] = strip_tags($new_instance['facebook']);
 			$instance['twitter'] = strip_tags($new_instance['twitter']);
 			$instance['youtube'] = strip_tags($new_instance['youtube']);
@@ -655,19 +810,19 @@ class SocialMediaIcons extends WP_Widget
 
 	//Format Style Variables
 	//$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
-	$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
+	//$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
 	//$default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
 	//$rounded_corners_var = empty($instance['rounded_corners_var']) ? ' ' : apply_filters('widget_rounded_corners_var', $instance['rounded_corners_var']);
-	$position_var = empty($instance['position_var']) ? ' ' : apply_filters('widget_position_var', $instance['position_var']);
-	$opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
+	//$position_var = empty($instance['position_var']) ? ' ' : apply_filters('widget_position_var', $instance['position_var']);
+	//$opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
 
 	//Ternary statements to assign css classes to html tags in output, background styles, sections styles (top or side), and ul styles inline/margins
 	//$css_class_var_bkgrnd = $default_bkgrnd_var == 1 ? $css_class_var_bkgrnd = " lm-wps-bkgrnd " : "";
 	// $css_class_var_rounded = $rounded_corners_var == 1 ? $css_class_var_rounded = " lm-wps-rounded " : "";
-	$css_class_var_section = $position_var == "top" ? $css_class_var_section = " lm-wps-top " : " lm-wps-side ";
-	$css_class_var_ul = $position_var == "top" ? $css_class_var_ul = " lm-wps-top-ul " : " lm-wps-side-ul ";
+	//$css_class_var_section = $position_var == "top" ? $css_class_var_section = " lm-wps-top " : " lm-wps-side ";
+	//$css_class_var_ul = $position_var == "top" ? $css_class_var_ul = " lm-wps-top-ul " : " lm-wps-side-ul ";
 	
-	$css_class_holder = $GLOBALS['css_class_var_bkgrnd']." ".$GLOBALS['css_class_var_rounded']." ".$css_class_var_section." ".$css_class_var_ul;
+	$css_class_holder = $GLOBALS['css_class_bkgrnd']." ".$GLOBALS['css_class_rounded']." ".$GLOBALS['css_class_section']." ".$GLOBALS['css_class_pos'];
 
 	//Icon Variables
 	$facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
@@ -721,16 +876,19 @@ class SocialMediaIcons extends WP_Widget
 	$bandcamp = empty($instance['bandcamp']) ? ' ' : apply_filters('widget_bandcamp', $instance['bandcamp']);
 	$bandcamp_link="'http://".$bandcamp.".bandcamp.com/'";
 
-	$martop = $GLOBALS['css_class_var_rounded'];
+	$martop = $GLOBALS['css_class_martop'];
+	$marleft = $GLOBALS['css_class_marleft'];
+	//$pos = $GLOBALS['css_class_pos'];
+	//$opac = $GLOBALS['css_class_opac'];
 	// WIDGET BACKEND HTML CODE 
 	echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$martop;padding-left:$margin_left_var;">
+	<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$martop;padding-left:$marleft;">
 	<div class="widget-inner" >
 		<ul class="social-icons-list" >
 EOT;
 if (!empty($instance['facebook'])) {
 		echo <<<EOT
-			<li class="facebook" style="opacity:$opacity_var;">
+			<li class="facebook" style="opacity:$opac;">
 				<a href=$facebook_link >
 					Facebook
 				</a>
@@ -739,7 +897,7 @@ EOT;
 	}
 if (!empty($instance['twitter'])) {
 		echo <<<EOT
-			<li class="twitter" style="opacity:$opacity_var;">
+			<li class="twitter" style="opacity:$opac;">
 				<a href=$twitter_link >
 					Twitter
 				</a>
@@ -748,7 +906,7 @@ EOT;
 	}
 if (!empty($instance['youtube'])) {
 		echo <<<EOT
-			<li class="youtube" style="opacity:$opacity_var;">
+			<li class="youtube" style="opacity:$opac;">
 				<a href=$youtube_link >
 					YouTube
 				</a>
@@ -757,7 +915,7 @@ EOT;
 	}
 if (!empty($instance['linkedin'])) {
 		echo <<<EOT
-		<li class="googleplus" style="opacity:$opacity_var;">
+		<li class="googleplus" style="opacity:$opac;">
 			<a href=$googleplus_link  >
 				Google+
 			</a>
@@ -766,7 +924,7 @@ EOT;
 	}
 if (!empty($instance['googleplus'])) {
 		echo <<<EOT
-		<li class="linkedin" style="opacity:$opacity_var;">
+		<li class="linkedin" style="opacity:$opac;">
 			<a href=$linkedin_link >
 				LinkedIn
 			</a>
@@ -775,7 +933,7 @@ EOT;
 	}
 if (!empty($instance['github'])) {
 		echo <<<EOT
-		<li class="github" style="opacity:$opacity_var;">
+		<li class="github" style="opacity:$opac;">
 			<a href=$github_link >
 				GitHub
 			</a>
@@ -784,7 +942,7 @@ EOT;
 	}
 if (!empty($instance['wordpress'])) {
 		echo <<<EOT
-			<li class="wordpress" style="opacity:$opacity_var;">
+			<li class="wordpress" style="opacity:$opac;">
 				<a href=$wordpress_link >
 					WordPress
 				</a>
@@ -793,7 +951,7 @@ EOT;
 	}
 if (!empty($instance['drupal'])) {
 		echo <<<EOT
-			<li class="drupal" style="opacity:$opacity_var;">
+			<li class="drupal" style="opacity:$opa;">
 				<a href=$drupal_link >
 					Drupal
 				</a>
@@ -802,7 +960,7 @@ EOT;
 	}
 if (!empty($instance['instagram'])) {
 		echo <<<EOT
-		<li class="instagram" style="opacity:$opacity_var;">
+		<li class="instagram" style="opacity:$opac;">
 			<a href=$instagram_link  >
 				Instagram
 			</a>
@@ -811,7 +969,7 @@ EOT;
 	}
 if (!empty($instance['pinterest'])) {
 		echo <<<EOT
-		<li class="pinterest" style="opacity:$opacity_var;">
+		<li class="pinterest" style="opacity:$opac;">
 			<a href=$pinterest_link >
 				Pinterest
 			</a>
@@ -820,7 +978,7 @@ EOT;
 	}
 if (!empty($instance['yelp'])) {
 		echo <<<EOT
-		<li class="yelp" style="opacity:$opacity_var;">
+		<li class="yelp" style="opacity:$opac;">
 			<a href=$yelp_link >
 				Yelp
 			</a>
@@ -829,7 +987,7 @@ EOT;
 	}
 if (!empty($instance['email'])) {
 		echo <<<EOT
-		<li class="email" style="opacity:$opacity_var;">
+		<li class="email" style="opacity:$opac;">
 			<a href=$email_link >
 				Email
 			</a>
@@ -838,7 +996,7 @@ EOT;
 }
 if (!empty($instance['rss'])) {
 		echo <<<EOT
-			<li class="rss" style="opacity:$opacity_var;">
+			<li class="rss" style="opacity:$opac;">
 				<a href=$rss_link >
 					RSS
 				</a>
@@ -847,7 +1005,7 @@ EOT;
 	}
 if (!empty($instance['soundcloud'])) {
 		echo <<<EOT
-			<li class="soundcloud" style="opacity:$opacity_var;">
+			<li class="soundcloud" style="opacity:$opac;">
 				<a href=$soundcloud_link >
 					SoundCloud
 				</a>
@@ -856,7 +1014,7 @@ EOT;
 	}
 if (!empty($instance['blogger'])) {
 		echo <<<EOT
-		<li class="blogger" style="opacity:$opacity_var;">
+		<li class="blogger" style="opacity:$opac;">
 			<a href=$blogger_link  >
 				Blogger
 			</a>
@@ -865,7 +1023,7 @@ EOT;
 	}
 if (!empty($instance['reverbnation'])) {
 		echo <<<EOT
-		<li class="reverbnation" style="opacity:$opacity_var;">
+		<li class="reverbnation" style="opacity:$opac;">
 			<a href=$reverbnation_link >
 				Reverbnation
 			</a>
@@ -874,7 +1032,7 @@ EOT;
 	}
 if (!empty($instance['bandcamp'])) {
 		echo <<<EOT
-		<li class="bandcamp" style="opacity:$opacity_var;">
+		<li class="bandcamp" style="opacity:$opac;">
 			<a href=$bandcamp_link >
 				Bandcamp
 			</a>

@@ -49,29 +49,57 @@ class lowermedia_wp_social_admin {
     }
 	
     public function page_init(){		
-	register_setting('lowermedia_wps_option_group', 'lmwps_wps_options', array($this, 'check_enable'));
-	//register_setting('lowermedia_wps_option_group', '{NAME HERE}', array($this, 'check_{FUNCTION NAME HERE}'));
-		
+		register_setting('lowermedia_wps_option_group', 'lmwps_wps_enable', array($this, 'check_enable'));
+		register_setting('lowermedia_wps_option_group', 'lmwps_wps_rounded', array($this, 'check_rounded'));
+		register_setting('lowermedia_wps_option_group', 'lmwps_wps_bkgrnd', array($this, 'check_bkgrnd'));
+		//register_setting('lowermedia_wps_option_group', '{NAME HERE}', array($this, 'check_{FUNCTION NAME HERE}'));
+		//$rounded_corners_var = $instance['rounded_corners_var'];
+
+
+
         add_settings_section(
-		    'lmwps_wps_options',
+		    'lmwps_wps_enable',
 		    '<!-- Check Box -->',
 		    array($this, 'print_section_info'),
 		    'lmwps-admin-options'
 		);	
 
-		// add_settings_section(
-		//     '{NAME HERE}',
-		//     '<!-- TYPE OF INPUT HERE -->',
-		//     array($this, 'print_section_info'),
-		//     'lmwps-admin-options'
-		// );	
+		add_settings_section(
+		    'lmwps_wps_rounded',
+		    '<!-- Check Box -->',
+		    array($this, 'print_section_info'),
+		    'lmwps-admin-options'
+		);	
+
+		add_settings_section(
+		    'lmwps_wps_bkgrnd',
+		    '<!-- Check Box -->',
+		    array($this, 'print_section_info'),
+		    'lmwps-admin-options'
+		);	
 		
 		add_settings_field(
 		    'lmwps_enable', 
 		    'Check to enable the WP Social Sidebar', 
 		    array($this, 'lmwps_enable'), 
 		    'lmwps-admin-options',
-		    'lmwps_wps_options'			
+		    'lmwps_wps_enable'			
+		);	
+
+		add_settings_field(
+		    'lmwps_rounded', 
+		    'Rounded social media icons?', 
+		    array($this, 'lmwps_rounded'), 
+		    'lmwps-admin-options',
+		    'lmwps_wps_rounded'			
+		);
+
+		add_settings_field(
+		    'lmwps_bkgrnd', 
+		    'Background?', 
+		    array($this, 'lmwps_bkgrnd'), 
+		    'lmwps-admin-options',
+		    'lmwps_wps_bkgrnd'			
 		);	
 
 		// add_settings_field(
@@ -100,24 +128,84 @@ class lowermedia_wp_social_admin {
 		}
 		return $output;
     }
-	
-    function print_section_info(){//CALLBACK FUNCTION
-		print '<!-- Enter your setting below:-->';
+
+    function check_rounded($input){
+
+ 		$output = $input['lmwps_rounded'];
+
+ 		//check if the checkbox was checked
+ 		//if it was add or update the option
+    	if(isset($input['lmwps_rounded'])) {
+		    if(get_option('lmwps_rounded_option') === FALSE){
+				add_option('lmwps_rounded_option', $output);
+		    }else{
+				update_option('lmwps_rounded_option', $output);
+		    }
+		}else{//if it wasn't delete the option
+				delete_option('lmwps_rounded_option');
+		}
+		return $output;
     }
+
+    function check_bkgrnd($input){
+
+ 		$output = $input['lmwps_bkgrnd'];
+
+ 		//check if the checkbox was checked
+ 		//if it was add or update the option
+    	if(isset($input['lmwps_bkgrnd'])) {
+		    if(get_option('lmwps_bkgrnd_option') === FALSE){
+				add_option('lmwps_bkgrnd_option', $output);
+		    }else{
+				update_option('lmwps_bkgrnd_option', $output);
+		    }
+		}else{//if it wasn't delete the option
+				delete_option('lmwps_bkgrnd_option');
+		}
+		return $output;
+    }
+	
 
     function lmwps_enable(){
         ?>
 	        <input 
 		        type="checkbox" 
 		        id="lmwps_enable" 
-		        name="lmwps_wps_options[lmwps_enable]" 
+		        name="lmwps_wps_enable[lmwps_enable]" 
 		        value="1" 
 		        <?php 
 		        if ( get_option('lmwps_enable_option') ) {echo 'checked="checked"'; }
-	        ?> 
-        />
+	    ?> /><?php
+	}
 
-        <?php
+    function lmwps_rounded(){
+        ?>
+	        <input 
+		        type="checkbox" 
+		        id="lmwps_rounded" 
+		        name="lmwps_wps_rounded[lmwps_rounded]" 
+		        value="1" 
+		        <?php if ( get_option('lmwps_rounded_option') ) {echo 'checked="checked"'; } ?> 
+	    	/>
+	    <?php
+
+    }
+
+    function lmwps_bkgrnd(){
+        ?>
+	        <input 
+		        type="checkbox" 
+		        id="lmwps_bkgrnd" 
+		        name="lmwps_wps_bkgrnd[lmwps_bkgrnd]" 
+		        value="1" 
+		        <?php if ( get_option('lmwps_bkgrnd_option') ) {echo 'checked="checked"'; } ?> 
+	    	/>
+	    <?php
+
+    }
+
+    function print_section_info(){//CALLBACK FUNCTION
+		print '<!-- Enter your setting below:-->';
     }
 }
 
@@ -162,11 +250,19 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 #
 #   ADD WIDGET AREA OUTPUT TO THE END OF THE WP_HEAD (BEGINING OF BODY TAG)
 #   //This function adds to the begining of the body tag
-*/
+*/	
 
 	function lowermedia_add_wp_social($output) {
+		
+		
+		if (get_option('lmwps_rounded_option')){
+			$GLOBALS['css_class_var_rounded'] = " lm-wps-rounded ";
+		}
+		if (get_option('lmwps_bkgrnd_option')){
+			$GLOBALS['css_class_var_bkgrnd']  == 1 ? $css_class_var_bkgrnd = " lm-wps-bkgrnd " : "";
+		}
 
-		if ( get_option('lmwps_enable')) {
+		if ( get_option('lmwps_enable_option')) {
 			$output = dynamic_sidebar('lowermedia_wp_social_widget_area');
 		}
 		return $output;
@@ -225,7 +321,7 @@ class SocialMediaIcons extends WP_Widget
 	    $margin_top_var = $instance['margin_top_var'];
 	    $margin_left_var = $instance['margin_left_var'];
 	    $default_bkgrnd_var = $instance['default_bkgrnd_var'];
-	    $default_bkgrnd_var = $instance['rounded_corners_var'];
+	    $rounded_corners_var = $instance['rounded_corners_var'];
 	    $position_var = $instance['position_var'];
 	    $opacity_var = $instance['opacity_var'];
 
@@ -249,7 +345,7 @@ class SocialMediaIcons extends WP_Widget
 	    $bandcamp = $instance['bandcamp'];
 
     //extract($instance);
-?>
+	?>
   <p>
   	<hr /></br><center><strong>ADD STYLE INFO BELOW</strong></center></br><hr />
 	  	
@@ -469,8 +565,8 @@ class SocialMediaIcons extends WP_Widget
 				  		/>
 	  	</label><br/></br>
   </p>
-<?php
-	}
+	<?php
+}
  
 	function update($new_instance, $old_instance)
 		{
@@ -511,19 +607,19 @@ class SocialMediaIcons extends WP_Widget
 	//Format Style Variables
 	$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
 	$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
-	$default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
-	$rounded_corners_var = empty($instance['rounded_corners_var']) ? ' ' : apply_filters('widget_rounded_corners_var', $instance['rounded_corners_var']);
+	//$default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
+	//$rounded_corners_var = empty($instance['rounded_corners_var']) ? ' ' : apply_filters('widget_rounded_corners_var', $instance['rounded_corners_var']);
 	$position_var = empty($instance['position_var']) ? ' ' : apply_filters('widget_position_var', $instance['position_var']);
 	$opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
 
 	//Ternary statements to assign css classes to html tags in output, background styles, sections styles (top or side), and ul styles inline/margins
-	$css_class_var_bkgrnd = $default_bkgrnd_var == 1 ? $css_class_var_bkgrnd = " lm-wps-bkgrnd " : "";
-	$css_class_var_rounded = $rounded_corners_var == 1 ? $css_class_var_rounded = " lm-wps-rounded " : "";
+	//$css_class_var_bkgrnd = $default_bkgrnd_var == 1 ? $css_class_var_bkgrnd = " lm-wps-bkgrnd " : "";
+	// $css_class_var_rounded = $rounded_corners_var == 1 ? $css_class_var_rounded = " lm-wps-rounded " : "";
 	$css_class_var_section = $position_var == "top" ? $css_class_var_section = " lm-wps-top " : " lm-wps-side ";
 	$css_class_var_ul = $position_var == "top" ? $css_class_var_ul = " lm-wps-top-ul " : " lm-wps-side-ul ";
+	
+	$css_class_holder = $GLOBALS['css_class_var_bkgrnd']." ".$GLOBALS['css_class_var_rounded']." ".$css_class_var_section." ".$css_class_var_ul;
 
-	$css_class_holder = $css_class_var_bkgrnd." ".$css_class_var_rounded." ".$css_class_var_section." ".$css_class_var_ul;
-//rounded_corners_var
 	//Icon Variables
 	$facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
 	$facebook_link="'http://facebook.com/".$facebook."'";

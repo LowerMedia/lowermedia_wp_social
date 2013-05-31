@@ -35,7 +35,7 @@ class lowermedia_wp_social_admin {
         ?>
 	<div class="wrap">
 	    <?php screen_icon(); ?>
-	    <h2>Settings</h2>			
+	    <h2><a href="https://lowermedia.net">LowerMedia</a> WP Social</h2>			
 	    <form method="post" action="options.php">
 	        <?php
                     // This prints out all hidden setting fields
@@ -52,11 +52,12 @@ class lowermedia_wp_social_admin {
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_enable', array($this, 'check_enable'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_rounded', array($this, 'check_rounded'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_bkgrnd', array($this, 'check_bkgrnd'));
+		register_setting('lowermedia_wps_option_group', 'lmwps_wps_martop', array($this, 'check_martop'));
 		//register_setting('lowermedia_wps_option_group', '{NAME HERE}', array($this, 'check_{FUNCTION NAME HERE}'));
 		//$rounded_corners_var = $instance['rounded_corners_var'];
 
 
-
+		/*	ADD SETTINGS SECTION 	*/
         add_settings_section(
 		    'lmwps_wps_enable',
 		    '<!-- Check Box -->',
@@ -76,8 +77,16 @@ class lowermedia_wp_social_admin {
 		    '<!-- Check Box -->',
 		    array($this, 'print_section_info'),
 		    'lmwps-admin-options'
+		);
+
+		add_settings_section(
+		    'lmwps_wps_martop',
+		    '<!-- Text Field -->',
+		    array($this, 'print_section_info'),
+		    'lmwps-admin-options'
 		);	
 		
+		/*	ADD SETTING FIELD 	*/
 		add_settings_field(
 		    'lmwps_enable', 
 		    'Check to enable the WP Social Sidebar', 
@@ -100,6 +109,14 @@ class lowermedia_wp_social_admin {
 		    array($this, 'lmwps_bkgrnd'), 
 		    'lmwps-admin-options',
 		    'lmwps_wps_bkgrnd'			
+		);	
+
+		add_settings_field(
+		    'lmwps_martop', 
+		    'Enter Margin Top (px % em):', 
+		    array($this, 'lmwps_martop'), 
+		    'lmwps-admin-options',
+		    'lmwps_wps_martop'			
 		);	
 
 		// add_settings_field(
@@ -164,6 +181,24 @@ class lowermedia_wp_social_admin {
 		}
 		return $output;
     }
+
+    function check_martop($input){
+
+ 		$output = $input['lmwps_martop'];
+
+ 		//check if the checkbox was checked
+ 		//if it was add or update the option
+    	if(isset($input['lmwps_martop'])) {
+		    if(get_option('lmwps_martop_option') === FALSE){
+				add_option('lmwps_martop_option', $output);
+		    }else{
+				update_option('lmwps_martop_option', $output);
+		    }
+		}else{//if it wasn't delete the option
+				delete_option('lmwps_martop_option');
+		}
+		return $output;
+    }
 	
 
     function lmwps_enable(){
@@ -203,6 +238,18 @@ class lowermedia_wp_social_admin {
 	    <?php
 
     }
+
+    function lmwps_martop(){?>
+		    <input 
+		  		class="" 
+		  		id="lmwps_wps_martop" 
+		  		name="lmwps_wps_martop[lmwps_martop]" 
+		  		type="text" 
+		  		size="5"
+		  		value="<?php echo get_option('lmwps_martop_option'); ?>" 
+	  		/>
+	    <?php
+	}
 
     function print_section_info(){//CALLBACK FUNCTION
 		print '<!-- Enter your setting below:-->';
@@ -261,7 +308,9 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 		if (get_option('lmwps_bkgrnd_option')){
 			$GLOBALS['css_class_var_bkgrnd']  == 1 ? $css_class_var_bkgrnd = " lm-wps-bkgrnd " : "";
 		}
-
+		if (get_option('lmwps_martop_option')){
+			$GLOBALS['css_class_var_rounded'] = get_option('lmwps_martop_option');
+		}
 		if ( get_option('lmwps_enable_option')) {
 			$output = dynamic_sidebar('lowermedia_wp_social_widget_area');
 		}
@@ -295,8 +344,8 @@ class SocialMediaIcons extends WP_Widget
 			array( 
 				'margin_top_var' => '',
 				'margin_left_var' => '',
-				'default_bkgrnd_var' => '',
-				'rounded_corders_var' => '',
+				//'default_bkgrnd_var' => '',
+				//'rounded_corders_var' => '',
 				'position_var' => '',
 				'opacity_var' => '',
 				'facebook' => '',
@@ -320,8 +369,8 @@ class SocialMediaIcons extends WP_Widget
     
 	    $margin_top_var = $instance['margin_top_var'];
 	    $margin_left_var = $instance['margin_left_var'];
-	    $default_bkgrnd_var = $instance['default_bkgrnd_var'];
-	    $rounded_corners_var = $instance['rounded_corners_var'];
+	    //$default_bkgrnd_var = $instance['default_bkgrnd_var'];
+	    //$rounded_corners_var = $instance['rounded_corners_var'];
 	    $position_var = $instance['position_var'];
 	    $opacity_var = $instance['opacity_var'];
 
@@ -386,7 +435,7 @@ class SocialMediaIcons extends WP_Widget
 				  		/>
 		</label></br><br/>
 
-	<label for="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>">
+<?php /*	<label for="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>">
 		<?php _e('Check For Background Styling:'); ?>
 		<input 
 			id="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>"
@@ -406,7 +455,7 @@ class SocialMediaIcons extends WP_Widget
 			value="1" 
 			<?php if ( $instance['rounded_corners_var'] ) echo 'checked="checked"'; ?>
 		/>
-	</label>
+	</label> */ ?>
 
 	<hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
   	
@@ -605,7 +654,7 @@ class SocialMediaIcons extends WP_Widget
 	echo $before_widget;
 
 	//Format Style Variables
-	$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
+	//$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
 	$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
 	//$default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
 	//$rounded_corners_var = empty($instance['rounded_corners_var']) ? ' ' : apply_filters('widget_rounded_corners_var', $instance['rounded_corners_var']);
@@ -672,10 +721,10 @@ class SocialMediaIcons extends WP_Widget
 	$bandcamp = empty($instance['bandcamp']) ? ' ' : apply_filters('widget_bandcamp', $instance['bandcamp']);
 	$bandcamp_link="'http://".$bandcamp.".bandcamp.com/'";
 
-
+	$martop = $GLOBALS['css_class_var_rounded'];
 	// WIDGET BACKEND HTML CODE 
 	echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$margin_top_var;padding-left:$margin_left_var;">
+	<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$martop;padding-left:$margin_left_var;">
 	<div class="widget-inner" >
 		<ul class="social-icons-list" >
 EOT;

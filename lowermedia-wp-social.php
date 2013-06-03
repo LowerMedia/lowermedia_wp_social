@@ -27,7 +27,7 @@ class lowermedia_wp_social_admin {
     }
 	
     public function lmwps_options_page(){
-		add_menu_page('LowerMeida WP Social Options', 'WP Social Options', 'manage_options', 'lmwps-admin-options', array($this, 'lmwps_options'), plugins_url('lowermedia_wp_social/icons/favicon.ico', _FILE_));
+		add_menu_page('LowerMedia WP Social Options', 'WP Social Options', 'manage_options', 'lmwps-admin-options', array($this, 'lmwps_options'), plugins_url('lowermedia_wp_social/icons/favicon.ico', _FILE_));
     }
 
     public function lmwps_options(){
@@ -439,22 +439,26 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 	function lowermedia_add_wp_social($output) {
 		
 		
-
+		//check if enabled option is selected
 		if ( get_option('lmwps_enable_option')) {
 
-
+			//check if rounded option is selected
 			if (get_option('lmwps_rounded_option')){
 				$GLOBALS['css_class_rounded'] = " lm-wps-rounded ";
 			}
+			//check if the background option is selected
 			if (get_option('lmwps_bkgrnd_option')){
 				$GLOBALS['css_class_bkgrnd']  = " lm-wps-bkgrnd ";
 			}
+			//check if margin top is set
 			if (get_option('lmwps_martop_option')){
 				$GLOBALS['css_class_martop'] = get_option('lmwps_martop_option');
 			}
+			//check if margin left is set
 			if (get_option('lmwps_marleft_option')){
 				$GLOBALS['css_class_marleft'] = get_option('lmwps_marleft_option');
 			}
+			//check if position is set
 			if (get_option('lmwps_pos_option')){
 				if (get_option('lmwps_pos_option') == "top" ){
 					$GLOBALS['css_class_pos'] = " lm-wps-top-ul lm-wps-top "; 
@@ -462,6 +466,7 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 					$GLOBALS['css_class_pos'] = " lm-wps-side-ul lm-wps-side ";
 				}
 			}
+			//check if opacity is set
 			if (get_option('lmwps_opac_option')){
 				$GLOBALS['css_class_opac'] = get_option('lmwps_opac_option');
 			}

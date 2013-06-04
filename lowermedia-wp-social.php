@@ -15,7 +15,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 #
 #   ADD ADMIN MENU
 #   //
-#	//
+#
 */
 
 class lowermedia_wp_social_admin {
@@ -34,7 +34,8 @@ class lowermedia_wp_social_admin {
         ?>
 	<div class="wrap">
 	    <?php screen_icon(); ?>
-	    <h2><a href="https://lowermedia.net">LowerMedia</a> WP Social</h2>			
+	    <h2><a href="https://lowermedia.net">LowerMedia</a> WP Social</h2>	
+	    <br/><br/><center><strong>ADD STYLE INFO BELOW</strong></center></br><hr />		
 	    <form method="post" action="options.php">
 	        <?php
                     // This prints out all hidden setting fields
@@ -429,7 +430,6 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 	}
 	add_action('widgets_init', 'lowermedia_wp_social_init');
 
-
 /*############################################################################################
 #
 #   ADD WIDGET AREA OUTPUT TO THE END OF THE WP_HEAD (BEGINING OF BODY TAG)
@@ -555,7 +555,7 @@ class SocialMediaIcons extends WP_Widget
     //extract($instance);
 	?>
   <p>
-  	<hr /></br><center><strong>ADD STYLE INFO BELOW</strong></center></br><hr />
+  	
 	  	
 	  <?/*	<label for="<?php echo $this->get_field_id('margin_top_var'); ?>">
 	  		Add Top Margin: 	<br/>(px, em, %)<input 

@@ -31,20 +31,20 @@ class lowermedia_wp_social_admin {
     }
 
     public function lmwps_options(){
-        ?>
-	<div class="wrap">
-	    <?php screen_icon(); ?>
-	    <h2><a href="https://lowermedia.net">LowerMedia</a> WP Social</h2>	
-	    <br/><br/><center><strong>ADD STYLE INFO BELOW</strong></center></br><hr />		
-	    <form method="post" action="options.php">
-	        <?php
-                    // This prints out all hidden setting fields
-		    settings_fields('lowermedia_wps_option_group');	
-		    do_settings_sections('lmwps-admin-options');
-		?>
-	        <?php submit_button(); ?>
-	    </form>
-	</div>
+    ?>
+		<div class="wrap">
+		    <?php screen_icon(); ?>
+		    <h2><a href="https://lowermedia.net">LowerMedia</a> WP Social</h2>	
+		    <br/><br/><center><strong>ADD STYLE INFO BELOW</strong></center></br><hr />		
+		    <form method="post" action="options.php">
+		        <?php
+		            // This prints out all hidden setting fields
+				    settings_fields('lowermedia_wps_option_group');	
+				    do_settings_sections('lmwps-admin-options');
+				    submit_button();
+				?>
+		    </form>
+		</div>
 	<?php
     }
 	
@@ -57,8 +57,6 @@ class lowermedia_wp_social_admin {
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_pos', array($this, 'check_pos'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_opac', array($this, 'check_opac'));
 		//register_setting('lowermedia_wps_option_group', '{NAME HERE}', array($this, 'check_{FUNCTION NAME HERE}'));
-		//$rounded_corners_var = $instance['rounded_corners_var'];
-
 
 		/*	ADD SETTINGS SECTION 	*/
         add_settings_section(
@@ -310,9 +308,9 @@ class lowermedia_wp_social_admin {
 		        id="lmwps_enable" 
 		        name="lmwps_wps_enable[lmwps_enable]" 
 		        value="1" 
-		        <?php 
-		        if ( get_option('lmwps_enable_option') ) {echo 'checked="checked"'; }
-	    ?> /><?php
+		        <?php if ( get_option('lmwps_enable_option') ) {echo 'checked="checked"'; } ?> 
+	    	/>
+	    <?php
 	}
 
     function lmwps_rounded(){
@@ -341,7 +339,8 @@ class lowermedia_wp_social_admin {
 
     }
 
-    function lmwps_martop(){?>
+    function lmwps_martop(){
+    	?>
 		    <input 
 		  		class="" 
 		  		id="lmwps_wps_martop" 
@@ -353,8 +352,9 @@ class lowermedia_wp_social_admin {
 	    <?php
 	}
 
-    function lmwps_marleft(){?>
-  		<input 
+    function lmwps_marleft(){
+    	?>
+  			<input 
 		  		class="" 
 		  		id="lmwps_wps_marleft" 
 		  		name="lmwps_wps_marleft[lmwps_marleft]" 
@@ -365,8 +365,9 @@ class lowermedia_wp_social_admin {
 		<?php
 	}
 
-    function lmwps_pos(){?>
-		Position: <input 
+    function lmwps_pos(){
+    	?>
+			Position: <input 
 		  		class="" 
 		  		id="lmwps_wps_pos" 
 		  		name="lmwps_wps_pos[lmwps_pos]" 
@@ -377,8 +378,9 @@ class lowermedia_wp_social_admin {
 		<?php
 	}
 
-    function lmwps_opac(){?>
-		Add Opacity (.01 -.9): <input 
+    function lmwps_opac(){
+    	?>
+			Add Opacity (.01 -.9): <input 
 		  		class="" 
 		  		id="lmwps_wps_opac" 
 		  		name="lmwps_wps_opac[lmwps_opac]" 
@@ -400,7 +402,7 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 #
 #   REGISTER PLUGIN STYLES
 #   //These functions enque and registers the plugin stylesheet
-#	 //Register with hook 'wp_enqueue_scripts', which can be used for front end CSS and JavaScript (From Codex)
+#	//Register with hook 'wp_enqueue_scripts', which can be used for front end CSS and JavaScript (From Codex)
 */
 	add_action( 'wp_enqueue_scripts', 'lowermedia_add_my_stylesheet' );
 	
@@ -437,8 +439,6 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 */	
 
 	function lowermedia_add_wp_social($output) {
-		
-		
 		//check if enabled option is selected
 		if ( get_option('lmwps_enable_option')) {
 
@@ -500,13 +500,7 @@ class SocialMediaIcons extends WP_Widget
 		$instance = wp_parse_args
 		( 
 			(array) $instance, 
-			array( 
-				//'margin_top_var' => '',
-				//'margin_left_var' => '',
-				//'default_bkgrnd_var' => '',
-				//'rounded_corders_var' => '',
-				//'position_var' => '',
-				//'opacity_var' => '',
+			array(
 				'facebook' => '',
 				'twitter'=>'',
 				'youtube'=>'',
@@ -525,13 +519,6 @@ class SocialMediaIcons extends WP_Widget
 				'bandcamp'=>''
 			)
 		);
-    
-	    //$margin_top_var = $instance['margin_top_var'];
-	    //$margin_left_var = $instance['margin_left_var'];
-	    //$default_bkgrnd_var = $instance['default_bkgrnd_var'];
-	    //$rounded_corners_var = $instance['rounded_corners_var'];
-	    //$position_var = $instance['position_var'];
-	    //$opacity_var = $instance['opacity_var'];
 
 	    $facebook = $instance['facebook'];
 	    $twitter = $instance['twitter'];
@@ -544,79 +531,14 @@ class SocialMediaIcons extends WP_Widget
 	    $instagram = $instance['instagram'];
 	    $pinterest = $instance['pinterest'];
 	    $yelp = $instance['yelp'];
-	    
 	    $email = $instance['email'];
 	    $rss = $instance['rss'];
 	    $soundcloud = $instance['soundcloud'];
 	    $blogger = $instance['blogger'];
 	    $reverbnation = $instance['reverbnation'];
 	    $bandcamp = $instance['bandcamp'];
-
-    //extract($instance);
 	?>
-  <p>
-  	
-	  	
-	  <?/*	<label for="<?php echo $this->get_field_id('margin_top_var'); ?>">
-	  		Add Top Margin: 	<br/>(px, em, %)<input 
-					  		class="widefat" 
-					  		id="<?php echo $this->get_field_id('margin_top_var'); ?>" 
-					  		name="<?php echo $this->get_field_name('margin_top_var'); ?>" 
-					  		type="text" 
-					  		value="<?php echo esc_attr($margin_top_var); ?>" 
-				  		/>
-		</label></br></br>
-		<label for="<?php echo $this->get_field_id('margin_left_var'); ?>">
-	  		Add Left Padding: 	<br/>(px, em, %)<input 
-					  		class="widefat" 
-					  		id="<?php echo $this->get_field_id('margin_left_var'); ?>" 
-					  		name="<?php echo $this->get_field_name('margin_left_var'); ?>" 
-					  		type="text" 
-					  		value="<?php echo esc_attr($margin_left_var); ?>" 
-				  		/>
-		</label></br></br>
-		<label for="<?php echo $this->get_field_id('position_var'); ?>">
-	  		Position: 	<br/>(top or side)<input 
-					  		class="widefat" 
-					  		id="<?php echo $this->get_field_id('position_var'); ?>" 
-					  		name="<?php echo $this->get_field_name('position_var'); ?>" 
-					  		type="text" 
-					  		value="<?php echo esc_attr($position_var); ?>" 
-				  		/>
-		</label></br></br>
-		<label for="<?php echo $this->get_field_id('opacity_var'); ?>">
-	  		Add Opacity: 	<br/>(.01-.9)<input 
-					  		class="widefat" 
-					  		id="<?php echo $this->get_field_id('opacity_var'); ?>" 
-					  		name="<?php echo $this->get_field_name('opacity_var'); ?>" 
-					  		type="text" 
-					  		value="<?php echo esc_attr($opacity_var); ?>" 
-				  		/>
-		</label></br><br/>
-
-<?php /*	<label for="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>">
-		<?php _e('Check For Background Styling:'); ?>
-		<input 
-			id="<?php echo $this->get_field_id('default_bkgrnd_var'); ?>"
-			name="<?php echo $this->get_field_name('default_bkgrnd_var'); ?>"
-			type="checkbox" 
-			value="1" 
-			<?php if ( $instance['default_bkgrnd_var'] ) echo 'checked="checked"'; ?>
-		/>
-	</label>
-
-	<label for="<?php echo $this->get_field_id('rounded_corners_var'); ?>">
-		<?php _e('Check For Rounded Corners:'); ?>
-		<input 
-			id="<?php echo $this->get_field_id('rounded_corners_var'); ?>"
-			name="<?php echo $this->get_field_name('rounded_corners_var'); ?>"
-			type="checkbox" 
-			value="1" 
-			<?php if ( $instance['rounded_corners_var'] ) echo 'checked="checked"'; ?>
-		/>
-	</label> */ ?>
-
-	<hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
+  <p><hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
   	
 	  	<label for="<?php echo $this->get_field_id('facebook'); ?>">
 	  		Facebook Link: 	<br/>http://facebook.com/<input 
@@ -780,12 +702,6 @@ class SocialMediaIcons extends WP_Widget
 		{
 			//strip tags for security
 			$instance = $old_instance;
-			//$instance['margin_top_var'] = strip_tags($new_instance['margin_top_var']);
-			//$instance['margin_left_var'] = strip_tags($new_instance['margin_left_var']);
-			//$instance['default_bkgrnd_var'] = strip_tags($new_instance['default_bkgrnd_var']);
-			//$instance['rounded_corners_var'] = strip_tags($new_instance['rounded_corners_var']);
-			//$instance['position_var'] = strip_tags($new_instance['position_var']);
-			//$instance['opacity_var'] = strip_tags($new_instance['opacity_var']);
 			$instance['facebook'] = strip_tags($new_instance['facebook']);
 			$instance['twitter'] = strip_tags($new_instance['twitter']);
 			$instance['youtube'] = strip_tags($new_instance['youtube']);
@@ -808,87 +724,69 @@ class SocialMediaIcons extends WP_Widget
  
   function widget($args, $instance)
 	{
-	extract($args, EXTR_SKIP);
+		extract($args, EXTR_SKIP);
+		echo $before_widget;
+		$css_class_holder = $GLOBALS['css_class_bkgrnd']." ".$GLOBALS['css_class_rounded']." ".$GLOBALS['css_class_section']." ".$GLOBALS['css_class_pos'];
 
-	echo $before_widget;
+		//Icon Variables
+		$facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
+		$facebook_link="'http://facebook.com/".$facebook."'";
 
-	//Format Style Variables
-	//$margin_top_var = empty($instance['margin_top_var']) ? ' ' : apply_filters('widget_margin_top_var', $instance['margin_top_var']);
-	//$margin_left_var = empty($instance['margin_left_var']) ? ' ' : apply_filters('widget_margin_left_var', $instance['margin_left_var']);
-	//$default_bkgrnd_var = empty($instance['default_bkgrnd_var']) ? ' ' : apply_filters('widget_default_bkgrnd_var', $instance['default_bkgrnd_var']);
-	//$rounded_corners_var = empty($instance['rounded_corners_var']) ? ' ' : apply_filters('widget_rounded_corners_var', $instance['rounded_corners_var']);
-	//$position_var = empty($instance['position_var']) ? ' ' : apply_filters('widget_position_var', $instance['position_var']);
-	//$opacity_var = empty($instance['opacity_var']) ? ' ' : apply_filters('widget_opacity_var', $instance['opacity_var']);
+		$twitter = empty($instance['twitter']) ? ' ' : apply_filters('widget_twitter', $instance['twitter']);
+		$twitter_link="'http://twitter.com/".$twitter."'";
 
-	//Ternary statements to assign css classes to html tags in output, background styles, sections styles (top or side), and ul styles inline/margins
-	//$css_class_var_bkgrnd = $default_bkgrnd_var == 1 ? $css_class_var_bkgrnd = " lm-wps-bkgrnd " : "";
-	// $css_class_var_rounded = $rounded_corners_var == 1 ? $css_class_var_rounded = " lm-wps-rounded " : "";
-	//$css_class_var_section = $position_var == "top" ? $css_class_var_section = " lm-wps-top " : " lm-wps-side ";
-	//$css_class_var_ul = $position_var == "top" ? $css_class_var_ul = " lm-wps-top-ul " : " lm-wps-side-ul ";
-	
-	$css_class_holder = $GLOBALS['css_class_bkgrnd']." ".$GLOBALS['css_class_rounded']." ".$GLOBALS['css_class_section']." ".$GLOBALS['css_class_pos'];
+		$youtube = empty($instance['youtube']) ? ' ' : apply_filters('widget_youtube', $instance['youtube']);
+		$youtube_link="'http://youtube.com/".$youtube."'";
 
-	//Icon Variables
-	$facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
-	$facebook_link="'http://facebook.com/".$facebook."'";
+		$linkedin = empty($instance['linkedin']) ? ' ' : apply_filters('widget_linkedin', $instance['linkedin']);
+		$linkedin_link="'http://linkedin.com/".$linkedin."'";
 
-	$twitter = empty($instance['twitter']) ? ' ' : apply_filters('widget_twitter', $instance['twitter']);
-	$twitter_link="'http://twitter.com/".$twitter."'";
+		$googleplus = empty($instance['googleplus']) ? ' ' : apply_filters('widget_googleplus', $instance['googleplus']);
+		$googleplus_link="'http://plus.google.com/".$googleplus."'";
 
-	$youtube = empty($instance['youtube']) ? ' ' : apply_filters('widget_youtube', $instance['youtube']);
-	$youtube_link="'http://youtube.com/".$youtube."'";
+		$github = empty($instance['github']) ? ' ' : apply_filters('widget_github', $instance['github']);
+		$github_link="'https://github.com/".$github."'";
 
-	$linkedin = empty($instance['linkedin']) ? ' ' : apply_filters('widget_linkedin', $instance['linkedin']);
-	$linkedin_link="'http://linkedin.com/".$linkedin."'";
+		$wordpress = empty($instance['wordpress']) ? ' ' : apply_filters('widget_wordpress', $instance['wordpress']);
+		$wordpress_link="'http://profiles.wordpress.org/".$wordpress."'";
 
-	$googleplus = empty($instance['googleplus']) ? ' ' : apply_filters('widget_googleplus', $instance['googleplus']);
-	$googleplus_link="'http://plus.google.com/".$googleplus."'";
+		$drupal = empty($instance['drupal']) ? ' ' : apply_filters('widget_drupal', $instance['drupal']);
+		$drupal_link="'http://drupal.org/".$drupal."'";
 
-	$github = empty($instance['github']) ? ' ' : apply_filters('widget_github', $instance['github']);
-	$github_link="'https://github.com/".$github."'";
+		$instagram = empty($instance['instagram']) ? ' ' : apply_filters('widget_instagram', $instance['instagram']);
+		$instagram_link="'http://instagram.com/".$instagram."'";
 
-	$wordpress = empty($instance['wordpress']) ? ' ' : apply_filters('widget_wordpress', $instance['wordpress']);
-	$wordpress_link="'http://profiles.wordpress.org/".$wordpress."'";
+		$pinterest = empty($instance['pinterest']) ? ' ' : apply_filters('widget_pinterest', $instance['pinterest']);
+		$pinterest_link="'http://pinterest.com/".$pinterest."'";
 
-	$drupal = empty($instance['drupal']) ? ' ' : apply_filters('widget_drupal', $instance['drupal']);
-	$drupal_link="'http://drupal.org/".$drupal."'";
+		$yelp = empty($instance['yelp']) ? ' ' : apply_filters('widget_yelp', $instance['yelp']);
+		$yelp_link="'http://yelp.com/".$yelp."'";
 
-	$instagram = empty($instance['instagram']) ? ' ' : apply_filters('widget_instagram', $instance['instagram']);
-	$instagram_link="'http://instagram.com/".$instagram."'";
+		$email = empty($instance['email']) ? ' ' : apply_filters('widget_email', $instance['email']);
+		$email_link="'mailto:".$email."'";
 
-	$pinterest = empty($instance['pinterest']) ? ' ' : apply_filters('widget_pinterest', $instance['pinterest']);
-	$pinterest_link="'http://pinterest.com/".$pinterest."'";
+		$rss = empty($instance['rss']) ? ' ' : apply_filters('widget_rss', $instance['rss']);
+		$rss_link="'".$rss."'";
 
-	$yelp = empty($instance['yelp']) ? ' ' : apply_filters('widget_yelp', $instance['yelp']);
-	$yelp_link="'http://yelp.com/".$yelp."'";
+		$soundcloud = empty($instance['soundcloud']) ? ' ' : apply_filters('widget_soundcloud', $instance['soundcloud']);
+		$soundcloud_link="'http://soundcloud.com/".$soundcloud."'";
 
-	$email = empty($instance['email']) ? ' ' : apply_filters('widget_email', $instance['email']);
-	$email_link="'mailto:".$email."'";
+		$blogger = empty($instance['blogger']) ? ' ' : apply_filters('widget_blogger', $instance['blogger']);
+		$blogger_link="'http://".$blogger.".blogspot.com/'";
 
-	$rss = empty($instance['rss']) ? ' ' : apply_filters('widget_rss', $instance['rss']);
-	$rss_link="'".$rss."'";
+		$reverbnation = empty($instance['reverbnation']) ? ' ' : apply_filters('widget_reverbnation', $instance['reverbnation']);
+		$reverbnation_link="'http://reverbnation.com/".$reverbnation."'";
 
-	$soundcloud = empty($instance['soundcloud']) ? ' ' : apply_filters('widget_soundcloud', $instance['soundcloud']);
-	$soundcloud_link="'http://soundcloud.com/".$soundcloud."'";
+		$bandcamp = empty($instance['bandcamp']) ? ' ' : apply_filters('widget_bandcamp', $instance['bandcamp']);
+		$bandcamp_link="'http://".$bandcamp.".bandcamp.com/'";
 
-	$blogger = empty($instance['blogger']) ? ' ' : apply_filters('widget_blogger', $instance['blogger']);
-	$blogger_link="'http://".$blogger.".blogspot.com/'";
-
-	$reverbnation = empty($instance['reverbnation']) ? ' ' : apply_filters('widget_reverbnation', $instance['reverbnation']);
-	$reverbnation_link="'http://reverbnation.com/".$reverbnation."'";
-
-	$bandcamp = empty($instance['bandcamp']) ? ' ' : apply_filters('widget_bandcamp', $instance['bandcamp']);
-	$bandcamp_link="'http://".$bandcamp.".bandcamp.com/'";
-
-	$martop = $GLOBALS['css_class_martop'];
-	$marleft = $GLOBALS['css_class_marleft'];
-	//$pos = $GLOBALS['css_class_pos'];
-	//$opac = $GLOBALS['css_class_opac'];
-	// WIDGET BACKEND HTML CODE 
-	echo <<<EOT
-	<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$martop;padding-left:$marleft;">
-	<div class="widget-inner" >
-		<ul class="social-icons-list" >
+		$martop = $GLOBALS['css_class_martop'];
+		$marleft = $GLOBALS['css_class_marleft'];
+// WIDGET BACKEND HTML CODE 
+		echo <<<EOT
+		<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$martop;padding-left:$marleft;">
+		<div class="widget-inner" >
+			<ul class="social-icons-list" >
 EOT;
 if (!empty($instance['facebook'])) {
 		echo <<<EOT
@@ -1043,7 +941,6 @@ if (!empty($instance['bandcamp'])) {
 		</li>
 EOT;
 	}
-	
 	echo "</ul></div></section>".$after_widget;
   }
 }

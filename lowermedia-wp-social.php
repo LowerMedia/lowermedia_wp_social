@@ -27,7 +27,7 @@ class lowermedia_wp_social_admin {
     }
 	
     public function lmwps_options_page(){
-		add_menu_page('LowerMedia WP Social Options', 'WP Social Options', 'manage_options', 'lmwps-admin-options', array($this, 'lmwps_options'), plugins_url('lowermedia_wp_social/icons/favicon.ico', _FILE_));
+		add_menu_page('LowerMedia WP Social Options', 'WP Social Options', 'manage_options', 'lmwps-admin-options', array($this, 'lmwps_options'), plugins_url('lowermedia_wp_social/icons/favicon.ico'));//, _FILE_
     }
 
     public function lmwps_options(){

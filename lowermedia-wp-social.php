@@ -956,6 +956,8 @@ class SocialMediaIcons extends WP_Widget
 
 		$flaticons=$GLOBALS['link_flaticons'];
 		$disable = $GLOBALS['disable'] ;
+
+		$opac = $GLOBALS['css_class_opac'] ;
 // WIDGET BACKEND HTML CODE 
 		echo <<<EOT
 		<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$martop;padding-left:$marleft;">
@@ -1110,7 +1112,7 @@ EOT;
 	}
 if (!empty($instance['drupal'])) {
 		echo <<<EOT
-			<li class="drupal" style="opacity:$opa;">
+			<li class="drupal" style="opacity:$opac;">
 				<a $link_offsite href=$drupal_link >
 					<span>Drupal</span>
 				</a>

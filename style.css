@@ -1,6 +1,6 @@
 #container, #page, #wrapper, #page-wrap {
-	z-index: 2;
-	position: relative;
+	/*z-index: 2;
+	position: relative;*/
 }
 
 #lowermedia-wp-social-wrap {
@@ -38,7 +38,7 @@
 
 .lm-wps-side {
 	position:fixed;
-	width: 6%;
+	/*width: 6%;*/
 	z-index:1;
 	border-radius: 0px 20px 20px 0px;
 	border-left: none;

@@ -503,15 +503,39 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 	 * Enqueue plugin style-file
 	 */
 	function lowermedia_add_my_stylesheet() {
-	    // Respects SSL, Style.css is relative to the current file
-	    wp_register_style( 'lowermedia-style', plugins_url('style.css', __FILE__) );
-	    wp_register_style( 'twitter-bootstrap-style', 'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css');
-	    wp_register_style( 'font-awesome-style', 'http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css');
+	    //Only enque the style if the plugin is enabled in the plugins admin section
+	    if ( get_option('lmwps_enable_option')) {
+	    	// Respects SSL, Style.css is relative to the current file
+		    wp_register_style( 'lowermedia-style', plugins_url('style.css', __FILE__) );
+		    wp_register_style( 'twitter-bootstrap-style', 'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css');
+		    wp_register_style( 'font-awesome-style', 'http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css');
 
-	    wp_enqueue_style( 'twitter-bootstrap-style' );
-	    wp_enqueue_style( 'lowermedia-style' );
-	    wp_enqueue_style( 'font-awesome-style' );
+		    wp_enqueue_style( 'twitter-bootstrap-style' );
+		    wp_enqueue_style( 'lowermedia-style' );
+		    wp_enqueue_style( 'font-awesome-style' );
+		}
 	}
+
+/*############################################################################################
+#
+#    Add Admin Area Links to Plugin Area
+#   //This function creates and registers the social media icon holder widget
+*/
+
+//$plugin = plugin_basename(__FILE__); 
+
+// Add settings link on plugin page
+function lowermedia_add_plugin_links($links) { 
+	$settings_link = '<a href="/wp-admin/widgets.php">Set Widget</a>'; 
+	array_unshift($links, $settings_link); 
+
+	$settings_link = '<a href="/wp-admin/admin.php?page=lmwps-admin-options">Enable/Config</a>'; 
+	array_unshift($links, $settings_link); 				
+
+	return $links; 
+}
+add_filter("plugin_action_links_".plugin_basename(__FILE__), 'lowermedia_add_plugin_links');
+
 
 /*############################################################################################
 #
@@ -544,16 +568,18 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 			if (get_option('lmwps_rounded_option')){
 				$GLOBALS['css_class_rounded'] = " lm-wps-rounded ";
 			}
+
 			//check if the background option is selected
 			if (get_option('lmwps_bkgrnd_option')){
 				$GLOBALS['css_class_bkgrnd']  = " lm-wps-bkgrnd ";
 			}
+
 			//check if the links open in new tab option is selected
 			if (get_option('lmwps_offsite_option')){
 				$GLOBALS['link_offsite']  = " target='_blank' ";
 			} 
 			else 
-				{$GLOBALS['link_offsite'] ='';}
+			{$GLOBALS['link_offsite'] ='';}
 
 			//If the user checks the box to use flat icons
 			if (get_option('lmwps_flaticons_option')){
@@ -562,14 +588,17 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 			}  else  {
 				$GLOBALS['link_flaticons'] =' ';
 			}
+
 			//check if margin top is set
 			if (get_option('lmwps_martop_option')){
 				$GLOBALS['css_class_martop'] = get_option('lmwps_martop_option');
 			}
+
 			//check if margin left is set
 			if (get_option('lmwps_marleft_option')){
 				$GLOBALS['css_class_marleft'] = get_option('lmwps_marleft_option');
 			}
+			
 			//check if position is set
 			if (get_option('lmwps_pos_option')){
 				if (get_option('lmwps_pos_option') == "top" ){
@@ -578,12 +607,13 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 					$GLOBALS['css_class_pos'] = " lm-wps-side-ul lm-wps-side ";
 				}
 			}
+			
 			//check if opacity is set
 			if (get_option('lmwps_opac_option')){
 				$GLOBALS['css_class_opac'] = get_option('lmwps_opac_option');
 			}
-
 			$output = dynamic_sidebar('lowermedia_wp_social_widget_area');
+			
 		}
 		return $output;
 	}

@@ -334,7 +334,6 @@ class lowermedia_wp_social_admin {
 		return $output;
     }
 	
-
     function lmwps_enable(){
         ?>
 	        <input 
@@ -567,7 +566,11 @@ class SocialMediaIcons extends WP_Widget
 				'soundcloud' => '',
 				'blogger'=>'',
 				'reverbnation' => '',
-				'bandcamp'=>''
+				'bandcamp'=>'',
+				'custom_one'=>'',
+				'custom_two'=>'',
+				'custom_three'=>'',
+				'custom_four'=>'',
 			)
 		);
 
@@ -588,6 +591,10 @@ class SocialMediaIcons extends WP_Widget
 	    $blogger = $instance['blogger'];
 	    $reverbnation = $instance['reverbnation'];
 	    $bandcamp = $instance['bandcamp'];
+	    $custom_one = $instance['custom_one'];
+	    $custom_two = $instance['custom_two'];
+	    $custom_three = $instance['custom_three'];
+	    $custom_four = $instance['custom_four'];
 	?>
   <p><hr /></br><strong><center>ADD LINK INFO BELOW</strong></center></br><hr /></br>
   	
@@ -745,6 +752,42 @@ class SocialMediaIcons extends WP_Widget
 					  		value="<?php echo esc_attr($bandcamp); ?>" 
 				  		/>
 	  	</label><br/></br>
+	  	<label for="<?php echo $this->get_field_id('custom_one'); ?>">
+			Custom Link: 	<br/>INCLUDE FULL LINK:<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('custom_one'); ?>" 
+					  		name="<?php echo $this->get_field_name('custom_one'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($custom_one); ?>" 
+				  		/>
+	  	</label><br/></br>
+	  	<label for="<?php echo $this->get_field_id('custom_two'); ?>">
+			Custom Link: 	<br/>INCLUDE FULL LINK:<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('custom_two'); ?>" 
+					  		name="<?php echo $this->get_field_name('custom_two'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($custom_two); ?>" 
+				  		/>
+	  	</label><br/></br>
+	  	<label for="<?php echo $this->get_field_id('custom_three'); ?>">
+			Custom Link: 	<br/>INCLUDE FULL LINK:<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('custom_three'); ?>" 
+					  		name="<?php echo $this->get_field_name('custom_three'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($custom_three); ?>" 
+				  		/>
+	  	</label><br/></br>
+	  	<label for="<?php echo $this->get_field_id('custom_four'); ?>">
+			Custom Link: 	<br/>INCLUDE FULL LINK:<input 
+					  		class="widefat" 
+					  		id="<?php echo $this->get_field_id('custom_four'); ?>" 
+					  		name="<?php echo $this->get_field_name('custom_four'); ?>" 
+					  		type="text" 
+					  		value="<?php echo esc_attr($custom_four); ?>" 
+				  		/>
+	  	</label><br/></br>
   </p>
 	<?php
 }
@@ -770,6 +813,10 @@ class SocialMediaIcons extends WP_Widget
 			$instance['blogger'] = strip_tags($new_instance['blogger']);
 			$instance['reverbnation'] = strip_tags($new_instance['reverbnation']);
 			$instance['bandcamp'] = strip_tags($new_instance['bandcamp']);
+			$instance['custom_one'] = strip_tags($new_instance['custom_one']);
+			$instance['custom_two'] = strip_tags($new_instance['custom_two']);
+			$instance['custom_three'] = strip_tags($new_instance['custom_three']);
+			$instance['custom_four'] = strip_tags($new_instance['custom_four']);
 			return $instance;
 		}
  
@@ -830,6 +877,15 @@ class SocialMediaIcons extends WP_Widget
 
 		$bandcamp = empty($instance['bandcamp']) ? ' ' : apply_filters('widget_bandcamp', $instance['bandcamp']);
 		$bandcamp_link="'http://".$bandcamp.".bandcamp.com/'";
+
+		$custom_one = empty($instance['custom_one']) ? ' ' : apply_filters('widget_custom_one', $instance['custom_one']);
+		$custom_one_link="'$custom_one'";
+		$custom_two = empty($instance['custom_two']) ? ' ' : apply_filters('widget_custom_two', $instance['custom_two']);
+		$custom_two_link="'$custom_two'";
+		$custom_three = empty($instance['custom_three']) ? ' ' : apply_filters('widget_custom_three', $instance['custom_three']);
+		$custom_three_link="'$custom_three'";
+		$custom_four = empty($instance['custom_four']) ? ' ' : apply_filters('widget_custom_four', $instance['custom_four']);
+		$custom_four_link="'$custom_four'";
 
 		$martop = $GLOBALS['css_class_martop'];
 		$marleft = $GLOBALS['css_class_marleft'];
@@ -990,6 +1046,42 @@ if (!empty($instance['bandcamp'])) {
 		<li class="bandcamp" style="opacity:$opac;">
 			<a $link_offsite href=$bandcamp_link >
 				Bandcamp
+			</a>
+		</li>
+EOT;
+	}
+if (!empty($instance['custom_one'])) {
+		echo <<<EOT
+		<li class="custom_one" style="opacity:$opac;">
+			<a $link_offsite href=$custom_one_link >
+				Custom Link
+			</a>
+		</li>
+EOT;
+	}
+if (!empty($instance['custom_two'])) {
+		echo <<<EOT
+		<li class="custom_two" style="opacity:$opac;">
+			<a $link_offsite href=$custom_two_link >
+				Custom Link
+			</a>
+		</li>
+EOT;
+	}
+if (!empty($instance['custom_three'])) {
+		echo <<<EOT
+		<li class="custom_three" style="opacity:$opac;">
+			<a $link_offsite href=$custom_three_link >
+				Custom Link
+			</a>
+		</li>
+EOT;
+	}
+if (!empty($instance['custom_four'])) {
+		echo <<<EOT
+		<li class="custom_four" style="opacity:$opac;">
+			<a $link_offsite href=$custom_four_link >
+				Custom Link
 			</a>
 		</li>
 EOT;

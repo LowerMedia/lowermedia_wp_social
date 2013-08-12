@@ -26,7 +26,6 @@
 
 .lm-wps-top {
 	position: fixed;
-	height: 40px;
 	border-radius: 0px 0px 20px 20px;
 	border-top:none;
 	z-index: 10;
@@ -39,7 +38,7 @@
 
 .lm-wps-side {
 	position:fixed;
-	width: 45px;
+	width: 6%;
 	z-index:1;
 	border-radius: 0px 20px 20px 0px;
 	border-left: none;
@@ -61,7 +60,7 @@
 }
 
 .social-icons-list li a i {
-	font-size:35px;
+	font-size:30px;
 }
 
 .social-icons-list li a {

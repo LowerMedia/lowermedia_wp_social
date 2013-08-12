@@ -52,6 +52,7 @@ class lowermedia_wp_social_admin {
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_enable', array($this, 'check_enable'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_rounded', array($this, 'check_rounded'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_bkgrnd', array($this, 'check_bkgrnd'));
+		register_setting('lowermedia_wps_option_group', 'lmwps_wps_offsite', array($this, 'check_offsite'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_martop', array($this, 'check_martop'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_marleft', array($this, 'check_marleft'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_pos', array($this, 'check_pos'));
@@ -75,6 +76,13 @@ class lowermedia_wp_social_admin {
 
 		add_settings_section(
 		    'lmwps_wps_bkgrnd',
+		    '<!-- Check Box -->',
+		    array($this, 'print_section_info'),
+		    'lmwps-admin-options'
+		);
+
+		add_settings_section(
+		    'lmwps_wps_offsite',
 		    '<!-- Check Box -->',
 		    array($this, 'print_section_info'),
 		    'lmwps-admin-options'
@@ -131,6 +139,14 @@ class lowermedia_wp_social_admin {
 		    array($this, 'lmwps_bkgrnd'), 
 		    'lmwps-admin-options',
 		    'lmwps_wps_bkgrnd'			
+		);
+
+		add_settings_field(
+		    'lmwps_offsite', 
+		    'Open links in new tab?', 
+		    array($this, 'lmwps_offsite'), 
+		    'lmwps-admin-options',
+		    'lmwps_wps_offsite'			
 		);	
 
 		add_settings_field(
@@ -224,6 +240,24 @@ class lowermedia_wp_social_admin {
 		    }
 		}else{//if it wasn't delete the option
 				delete_option('lmwps_bkgrnd_option');
+		}
+		return $output;
+    }
+
+    function check_offsite($input){
+
+ 		$output = $input['lmwps_offsite'];
+
+ 		//check if the checkbox was checked
+ 		//if it was add or update the option
+    	if(isset($input['lmwps_offsite'])) {
+		    if(get_option('lmwps_offsite_option') === FALSE){
+				add_option('lmwps_offsite_option', $output);
+		    }else{
+				update_option('lmwps_offsite_option', $output);
+		    }
+		}else{//if it wasn't delete the option
+				delete_option('lmwps_offsite_option');
 		}
 		return $output;
     }
@@ -334,6 +368,19 @@ class lowermedia_wp_social_admin {
 		        name="lmwps_wps_bkgrnd[lmwps_bkgrnd]" 
 		        value="1" 
 		        <?php if ( get_option('lmwps_bkgrnd_option') ) {echo 'checked="checked"'; } ?> 
+	    	/>
+	    <?php
+
+    }
+
+    function lmwps_offsite(){
+        ?>
+	        <input 
+		        type="checkbox" 
+		        id="lmwps_offsite" 
+		        name="lmwps_wps_offsite[lmwps_offsite]" 
+		        value="1" 
+		        <?php if ( get_option('lmwps_offsite_option') ) {echo 'checked="checked"'; } ?> 
 	    	/>
 	    <?php
 
@@ -450,6 +497,10 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 			if (get_option('lmwps_bkgrnd_option')){
 				$GLOBALS['css_class_bkgrnd']  = " lm-wps-bkgrnd ";
 			}
+			//check if the links open in new tab option is selected
+			if (get_option('lmwps_offsite_option')){
+				$GLOBALS['link_offsite']  = " target='_blank' ";
+			} else {$GLOBALS['link_offsite'] ='';}
 			//check if margin top is set
 			if (get_option('lmwps_martop_option')){
 				$GLOBALS['css_class_martop'] = get_option('lmwps_martop_option');
@@ -782,6 +833,8 @@ class SocialMediaIcons extends WP_Widget
 
 		$martop = $GLOBALS['css_class_martop'];
 		$marleft = $GLOBALS['css_class_marleft'];
+
+		$link_offsite = $GLOBALS['link_offsite'];
 // WIDGET BACKEND HTML CODE 
 		echo <<<EOT
 		<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$martop;padding-left:$marleft;">
@@ -791,7 +844,7 @@ EOT;
 if (!empty($instance['facebook'])) {
 		echo <<<EOT
 			<li class="facebook" style="opacity:$opac;">
-				<a href=$facebook_link >
+				<a $link_offsite href=$facebook_link >
 					Facebook
 				</a>
 			</li>
@@ -800,7 +853,7 @@ EOT;
 if (!empty($instance['twitter'])) {
 		echo <<<EOT
 			<li class="twitter" style="opacity:$opac;">
-				<a href=$twitter_link >
+				<a $link_offsite href=$twitter_link >
 					Twitter
 				</a>
 			</li>
@@ -809,7 +862,7 @@ EOT;
 if (!empty($instance['youtube'])) {
 		echo <<<EOT
 			<li class="youtube" style="opacity:$opac;">
-				<a href=$youtube_link >
+				<a $link_offsite href=$youtube_link >
 					YouTube
 				</a>
 			</li>
@@ -818,7 +871,7 @@ EOT;
 if (!empty($instance['linkedin'])) {
 		echo <<<EOT
 		<li class="googleplus" style="opacity:$opac;">
-			<a href=$googleplus_link  >
+			<a $link_offsite href=$googleplus_link  >
 				Google+
 			</a>
 		</li>
@@ -827,7 +880,7 @@ EOT;
 if (!empty($instance['googleplus'])) {
 		echo <<<EOT
 		<li class="linkedin" style="opacity:$opac;">
-			<a href=$linkedin_link >
+			<a $link_offsite href=$linkedin_link >
 				LinkedIn
 			</a>
 		</li>
@@ -836,7 +889,7 @@ EOT;
 if (!empty($instance['github'])) {
 		echo <<<EOT
 		<li class="github" style="opacity:$opac;">
-			<a href=$github_link >
+			<a $link_offsite href=$github_link >
 				GitHub
 			</a>
 		</li>
@@ -845,7 +898,7 @@ EOT;
 if (!empty($instance['wordpress'])) {
 		echo <<<EOT
 			<li class="wordpress" style="opacity:$opac;">
-				<a href=$wordpress_link >
+				<a $link_offsite href=$wordpress_link >
 					WordPress
 				</a>
 			</li>
@@ -854,7 +907,7 @@ EOT;
 if (!empty($instance['drupal'])) {
 		echo <<<EOT
 			<li class="drupal" style="opacity:$opa;">
-				<a href=$drupal_link >
+				<a $link_offsite href=$drupal_link >
 					Drupal
 				</a>
 			</li>
@@ -863,7 +916,7 @@ EOT;
 if (!empty($instance['instagram'])) {
 		echo <<<EOT
 		<li class="instagram" style="opacity:$opac;">
-			<a href=$instagram_link  >
+			<a $link_offsite href=$instagram_link  >
 				Instagram
 			</a>
 		</li>
@@ -872,7 +925,7 @@ EOT;
 if (!empty($instance['pinterest'])) {
 		echo <<<EOT
 		<li class="pinterest" style="opacity:$opac;">
-			<a href=$pinterest_link >
+			<a $link_offsite href=$pinterest_link >
 				Pinterest
 			</a>
 		</li>
@@ -881,7 +934,7 @@ EOT;
 if (!empty($instance['yelp'])) {
 		echo <<<EOT
 		<li class="yelp" style="opacity:$opac;">
-			<a href=$yelp_link >
+			<a $link_offsite href=$yelp_link >
 				Yelp
 			</a>
 		</li>
@@ -890,7 +943,7 @@ EOT;
 if (!empty($instance['email'])) {
 		echo <<<EOT
 		<li class="email" style="opacity:$opac;">
-			<a href=$email_link >
+			<a $link_offsite href=$email_link >
 				Email
 			</a>
 		</li>
@@ -899,7 +952,7 @@ EOT;
 if (!empty($instance['rss'])) {
 		echo <<<EOT
 			<li class="rss" style="opacity:$opac;">
-				<a href=$rss_link >
+				<a $link_offsite href=$rss_link >
 					RSS
 				</a>
 			</li>
@@ -908,7 +961,7 @@ EOT;
 if (!empty($instance['soundcloud'])) {
 		echo <<<EOT
 			<li class="soundcloud" style="opacity:$opac;">
-				<a href=$soundcloud_link >
+				<a $link_offsite href=$soundcloud_link >
 					SoundCloud
 				</a>
 			</li>
@@ -917,7 +970,7 @@ EOT;
 if (!empty($instance['blogger'])) {
 		echo <<<EOT
 		<li class="blogger" style="opacity:$opac;">
-			<a href=$blogger_link  >
+			<a $link_offsite href=$blogger_link  >
 				Blogger
 			</a>
 		</li>
@@ -926,7 +979,7 @@ EOT;
 if (!empty($instance['reverbnation'])) {
 		echo <<<EOT
 		<li class="reverbnation" style="opacity:$opac;">
-			<a href=$reverbnation_link >
+			<a $link_offsite href=$reverbnation_link >
 				Reverbnation
 			</a>
 		</li>
@@ -935,7 +988,7 @@ EOT;
 if (!empty($instance['bandcamp'])) {
 		echo <<<EOT
 		<li class="bandcamp" style="opacity:$opac;">
-			<a href=$bandcamp_link >
+			<a $link_offsite href=$bandcamp_link >
 				Bandcamp
 			</a>
 		</li>

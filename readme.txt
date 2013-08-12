@@ -10,9 +10,11 @@ WordPress plugin that, when activated, creates a new widget area and new text wi
 
 == Description ==
 
-This plugin creates a widget area and a social media icon widget.
-A user can enter their social media profile URL's into the widget and have a link to them displayed with the sites favicon.
-A user can also specify a top and left margin.
+This plugin creates a widget area (placed right after the opening body tag), a social media icon widget (with link information and URLs), and a dashboard admin section to configure the style and other options (including top/left position, background, rounded corners, opacity, flat icons, open links in new tabs, and more).
+
+A user can enter their social media profile URL's into the widget and have a link to them displayed with the sites favicon and or font awesome'd logo.
+
+Now using font awesome!
 
 
 == Installation ==

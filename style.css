@@ -1,7 +1,7 @@
-/*#container, #page, #wrapper, #page-wrap {
+#container, #page, #wrapper, #page-wrap {
 	z-index: 2;
 	position: relative;
-}*/
+}
 
 #lowermedia-wp-social-wrap {
 	z-index:100;
@@ -38,7 +38,6 @@
 
 .lm-wps-side {
 	position:fixed;
-	/*width: 6%;*/
 	z-index:1;
 	border-radius: 0px 20px 20px 0px;
 	border-left: none;
@@ -49,6 +48,9 @@
 	height: 30px; 
 	width: 30px;
 	padding:0;
+}
+
+.lm-wps-side-ul li {
 	margin: 20% 10%;
 }
 
@@ -64,13 +66,6 @@
 	text-decoration:none;
 	margin:0;
 	padding:0;
-}
-.social-icons-list li a:hover {
-	opacity:1;
-}
-
-.social-icons-list li i:hover {
-	opacity:1;
 }
 
 .social-icons-list .facebook {

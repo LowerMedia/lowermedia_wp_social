@@ -541,7 +541,7 @@ add_filter("plugin_action_links_".plugin_basename(__FILE__), 'lowermedia_add_plu
 	    register_sidebar( array(
 			'name' => 'Social Media Area',
 			'id' => 'lowermedia_wp_social_widget_area',
-			'before_widget' => '<div id="lowermedia-wp-social-wrap">',
+			'before_widget' => '<div id="lowermedia-wp-social-wrap" class="lowermedia-wp-social-wrap">',
 			'after_widget' => '</div>',
 			'before_title' => '<h2 class="rounded">',
 			'after_title' => '</h2>',

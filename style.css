@@ -44,15 +44,12 @@
 	border-left: none;
 }
 
-.lm-wps-side-ul li {
-	margin: 20% 10%;
-}
-
 .social-icons-list li {
 	background-size: 30px auto; 
 	height: 30px; 
 	width: 30px;
 	padding:0;
+	margin: 20% 10%;
 }
 
 .social-icons-list li a i {

@@ -14,7 +14,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 /*############################################################################################
 #
 #   ADD ADMIN MENU
-#   //
 #
 */
 
@@ -507,10 +506,8 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 	    if ( get_option('lmwps_enable_option')) {
 	    	// Respects SSL, Style.css is relative to the current file
 		    wp_register_style( 'lowermedia-style', plugins_url('style.css', __FILE__) );
-		    wp_register_style( 'twitter-bootstrap-style', 'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css');
 		    wp_register_style( 'font-awesome-style', 'http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css');
 
-		    wp_enqueue_style( 'twitter-bootstrap-style' );
 		    wp_enqueue_style( 'lowermedia-style' );
 		    wp_enqueue_style( 'font-awesome-style' );
 		}
@@ -519,10 +516,8 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 /*############################################################################################
 #
 #    Add Admin Area Links to Plugin Area
-#   //This function creates and registers the social media icon holder widget
+#   //This function displays links in the plugin by the deactivate link
 */
-
-//$plugin = plugin_basename(__FILE__); 
 
 // Add settings link on plugin page
 function lowermedia_add_plugin_links($links) { 
@@ -635,8 +630,6 @@ class SocialMediaIcons extends WP_Widget
 		$this->WP_Widget('SocialMediaIcons', 'Social Media Icons', $widget_ops);
 	}
  
-
-
 	function form($instance)
 	{
 		$instance = wp_parse_args

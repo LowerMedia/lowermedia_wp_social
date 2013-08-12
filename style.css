@@ -1,7 +1,7 @@
-#container, #page, #wrapper, #page-wrap {
-	/*z-index: 2;
-	position: relative;*/
-}
+/*#container, #page, #wrapper, #page-wrap {
+	z-index: 2;
+	position: relative;
+}*/
 
 #lowermedia-wp-social-wrap {
 	z-index:100;
@@ -48,10 +48,6 @@
 	margin: 20% 10%;
 }
 
-.social-icons-list:hover {
-	opacity: 1;
-}
-
 .social-icons-list li {
 	background-size: 30px auto; 
 	height: 30px; 
@@ -71,6 +67,13 @@
 	text-decoration:none;
 	margin:0;
 	padding:0;
+}
+.social-icons-list li a:hover {
+	opacity:1;
+}
+
+.social-icons-list li i:hover {
+	opacity:1;
 }
 
 .social-icons-list .facebook {

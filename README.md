@@ -30,4 +30,5 @@ e.g.
 
 1. Upload `lowermedia-wp-social.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Move Social Media Icons widget into the new widget area Social Media Area
+3. Enable the plugin in the plugins admin section
+4. Move Social Media Icons widget into the new widget area Social Media Area

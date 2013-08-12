@@ -84,7 +84,7 @@
 	background-size: 36px auto;
 }
 
-.social-icons-list .googleplus {
+.social-icons-list .google-plus {
 	background-image: url("icons/googleplus.png");
 }
 
@@ -116,7 +116,7 @@
 .social-icons-list .yelp {
 	background-image: url("icons/yelp.png");
 }
-.social-icons-list .email {
+.social-icons-list .envelope {
 	background-image: url("icons/email.png");
 }
 .social-icons-list .rss {

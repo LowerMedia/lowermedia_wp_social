@@ -53,6 +53,7 @@ class lowermedia_wp_social_admin {
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_rounded', array($this, 'check_rounded'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_bkgrnd', array($this, 'check_bkgrnd'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_offsite', array($this, 'check_offsite'));
+		register_setting('lowermedia_wps_option_group', 'lmwps_wps_flaticons', array($this, 'check_flaticons'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_martop', array($this, 'check_martop'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_marleft', array($this, 'check_marleft'));
 		register_setting('lowermedia_wps_option_group', 'lmwps_wps_pos', array($this, 'check_pos'));
@@ -83,6 +84,13 @@ class lowermedia_wp_social_admin {
 
 		add_settings_section(
 		    'lmwps_wps_offsite',
+		    '<!-- Check Box -->',
+		    array($this, 'print_section_info'),
+		    'lmwps-admin-options'
+		);
+
+		add_settings_section(
+		    'lmwps_wps_flaticons',
 		    '<!-- Check Box -->',
 		    array($this, 'print_section_info'),
 		    'lmwps-admin-options'
@@ -148,6 +156,14 @@ class lowermedia_wp_social_admin {
 		    'lmwps-admin-options',
 		    'lmwps_wps_offsite'			
 		);	
+
+		add_settings_field(
+		    'lmwps_flaticons', 
+		    'Use Flat Icons (Thanks FontAwesome!)?', 
+		    array($this, 'lmwps_flaticons'), 
+		    'lmwps-admin-options',
+		    'lmwps_wps_flaticons'			
+		);
 
 		add_settings_field(
 		    'lmwps_martop', 
@@ -258,6 +274,24 @@ class lowermedia_wp_social_admin {
 		    }
 		}else{//if it wasn't delete the option
 				delete_option('lmwps_offsite_option');
+		}
+		return $output;
+    }
+
+    function check_flaticons($input){
+
+ 		$output = $input['lmwps_flaticons'];
+
+ 		//check if the checkbox was checked
+ 		//if it was add or update the option
+    	if(isset($input['lmwps_flaticons'])) {
+		    if(get_option('lmwps_flaticons_option') === FALSE){
+				add_option('lmwps_flaticons_option', $output);
+		    }else{
+				update_option('lmwps_flaticons_option', $output);
+		    }
+		}else{//if it wasn't delete the option
+				delete_option('lmwps_flaticons_option');
 		}
 		return $output;
     }
@@ -385,6 +419,19 @@ class lowermedia_wp_social_admin {
 
     }
 
+    function lmwps_flaticons(){
+        ?>
+	        <input 
+		        type="checkbox" 
+		        id="lmwps_flaticons" 
+		        name="lmwps_wps_flaticons[lmwps_flaticons]" 
+		        value="1" 
+		        <?php if ( get_option('lmwps_flaticons_option') ) {echo 'checked="checked"'; } ?> 
+	    	/>
+	    <?php
+
+    }
+
     function lmwps_martop(){
     	?>
 		    <input 
@@ -458,7 +505,12 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 	function lowermedia_add_my_stylesheet() {
 	    // Respects SSL, Style.css is relative to the current file
 	    wp_register_style( 'lowermedia-style', plugins_url('style.css', __FILE__) );
+	    wp_register_style( 'twitter-bootstrap-style', 'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css');
+	    wp_register_style( 'font-awesome-style', 'http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css');
+
+	    wp_enqueue_style( 'twitter-bootstrap-style' );
 	    wp_enqueue_style( 'lowermedia-style' );
+	    wp_enqueue_style( 'font-awesome-style' );
 	}
 
 /*############################################################################################
@@ -499,7 +551,16 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 			//check if the links open in new tab option is selected
 			if (get_option('lmwps_offsite_option')){
 				$GLOBALS['link_offsite']  = " target='_blank' ";
-			} else {$GLOBALS['link_offsite'] ='';}
+			} 
+			else 
+				{$GLOBALS['link_offsite'] ='';}
+
+			//If the user checks the box to use flat icons
+			if (get_option('lmwps_flaticons_option')){
+				$GLOBALS['link_flaticons']  = 'icon-2x icon-';
+			}  else  {
+				$GLOBALS['link_flaticons'] =' ';
+			}
 			//check if margin top is set
 			if (get_option('lmwps_martop_option')){
 				$GLOBALS['css_class_martop'] = get_option('lmwps_martop_option');
@@ -891,6 +952,8 @@ class SocialMediaIcons extends WP_Widget
 		$marleft = $GLOBALS['css_class_marleft'];
 
 		$link_offsite = $GLOBALS['link_offsite'];
+
+		$flaticons=$GLOBALS['link_flaticons'];
 // WIDGET BACKEND HTML CODE 
 		echo <<<EOT
 		<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$martop;padding-left:$marleft;">
@@ -899,7 +962,7 @@ class SocialMediaIcons extends WP_Widget
 EOT;
 if (!empty($instance['facebook'])) {
 		echo <<<EOT
-			<li class="facebook" style="opacity:$opac;">
+			<li class="{$flaticons}facebook" style="opacity:$opac;">
 				<a $link_offsite href=$facebook_link >
 					Facebook
 				</a>
@@ -908,7 +971,7 @@ EOT;
 	}
 if (!empty($instance['twitter'])) {
 		echo <<<EOT
-			<li class="twitter" style="opacity:$opac;">
+			<li class="{$flaticons}twitter" style="opacity:$opac;">
 				<a $link_offsite href=$twitter_link >
 					Twitter
 				</a>
@@ -917,25 +980,25 @@ EOT;
 	}
 if (!empty($instance['youtube'])) {
 		echo <<<EOT
-			<li class="youtube" style="opacity:$opac;">
+			<li class="{$flaticons}youtube" style="opacity:$opac;">
 				<a $link_offsite href=$youtube_link >
 					YouTube
 				</a>
 			</li>
 EOT;
 	}
-if (!empty($instance['linkedin'])) {
+if (!empty($instance['googleplus'])) {
 		echo <<<EOT
-		<li class="googleplus" style="opacity:$opac;">
+		<li class="{$flaticons}google-plus" style="opacity:$opac;">
 			<a $link_offsite href=$googleplus_link  >
 				Google+
 			</a>
 		</li>
 EOT;
 	}
-if (!empty($instance['googleplus'])) {
+if (!empty($instance['linkedin'])) {
 		echo <<<EOT
-		<li class="linkedin" style="opacity:$opac;">
+		<li class="{$flaticons}linkedin" style="opacity:$opac;">
 			<a $link_offsite href=$linkedin_link >
 				LinkedIn
 			</a>
@@ -944,34 +1007,17 @@ EOT;
 	}
 if (!empty($instance['github'])) {
 		echo <<<EOT
-		<li class="github" style="opacity:$opac;">
+		<li class="{$flaticons}github" style="opacity:$opac;">
 			<a $link_offsite href=$github_link >
 				GitHub
 			</a>
 		</li>
 EOT;
 	}
-if (!empty($instance['wordpress'])) {
-		echo <<<EOT
-			<li class="wordpress" style="opacity:$opac;">
-				<a $link_offsite href=$wordpress_link >
-					WordPress
-				</a>
-			</li>
-EOT;
-	}
-if (!empty($instance['drupal'])) {
-		echo <<<EOT
-			<li class="drupal" style="opacity:$opa;">
-				<a $link_offsite href=$drupal_link >
-					Drupal
-				</a>
-			</li>
-EOT;
-	}
+
 if (!empty($instance['instagram'])) {
 		echo <<<EOT
-		<li class="instagram" style="opacity:$opac;">
+		<li class="{$flaticons}instagram" style="opacity:$opac;">
 			<a $link_offsite href=$instagram_link  >
 				Instagram
 			</a>
@@ -980,43 +1026,35 @@ EOT;
 	}
 if (!empty($instance['pinterest'])) {
 		echo <<<EOT
-		<li class="pinterest" style="opacity:$opac;">
+		<li class="{$flaticons}pinterest" style="opacity:$opac;">
 			<a $link_offsite href=$pinterest_link >
 				Pinterest
 			</a>
 		</li>
 EOT;
 	}
-if (!empty($instance['yelp'])) {
+if (!empty($instance['rss'])) {
 		echo <<<EOT
-		<li class="yelp" style="opacity:$opac;">
-			<a $link_offsite href=$yelp_link >
-				Yelp
-			</a>
-		</li>
+			<li class="{$flaticons}rss" style="opacity:$opac;">
+				<a $link_offsite href=$rss_link >
+					RSS
+				</a>
+			</li>
 EOT;
-	}
+}
 if (!empty($instance['email'])) {
 		echo <<<EOT
-		<li class="email" style="opacity:$opac;">
+		<li class="{$flaticons}envelope" style="opacity:$opac;">
 			<a $link_offsite href=$email_link >
 				Email
 			</a>
 		</li>
 EOT;
 }
-if (!empty($instance['rss'])) {
-		echo <<<EOT
-			<li class="rss" style="opacity:$opac;">
-				<a $link_offsite href=$rss_link >
-					RSS
-				</a>
-			</li>
-EOT;
-	}
+
 if (!empty($instance['soundcloud'])) {
 		echo <<<EOT
-			<li class="soundcloud" style="opacity:$opac;">
+			<li class="{$flaticons}soundcloud" style="opacity:$opac;">
 				<a $link_offsite href=$soundcloud_link >
 					SoundCloud
 				</a>
@@ -1025,7 +1063,7 @@ EOT;
 	}
 if (!empty($instance['blogger'])) {
 		echo <<<EOT
-		<li class="blogger" style="opacity:$opac;">
+		<li class="{$flaticons}blogger" style="opacity:$opac;">
 			<a $link_offsite href=$blogger_link  >
 				Blogger
 			</a>
@@ -1034,7 +1072,7 @@ EOT;
 	}
 if (!empty($instance['reverbnation'])) {
 		echo <<<EOT
-		<li class="reverbnation" style="opacity:$opac;">
+		<li class="{$flaticons}reverbnation" style="opacity:$opac;">
 			<a $link_offsite href=$reverbnation_link >
 				Reverbnation
 			</a>
@@ -1043,13 +1081,41 @@ EOT;
 	}
 if (!empty($instance['bandcamp'])) {
 		echo <<<EOT
-		<li class="bandcamp" style="opacity:$opac;">
+		<li class="{$flaticons}bandcamp" style="opacity:$opac;">
 			<a $link_offsite href=$bandcamp_link >
 				Bandcamp
 			</a>
 		</li>
 EOT;
 	}
+if (!empty($instance['yelp'])) {
+		echo <<<EOT
+		<li class="{$flaticons}yelp" style="opacity:$opac;">
+			<a $link_offsite href=$yelp_link >
+				Yelp
+			</a>
+		</li>
+EOT;
+	}
+if (!empty($instance['wordpress'])) {
+		echo <<<EOT
+			<li class="{$flaticons}wordpress" style="opacity:$opac;">
+				<a $link_offsite href=$wordpress_link >
+					WordPress
+				</a>
+			</li>
+EOT;
+	}
+if (!empty($instance['drupal'])) {
+		echo <<<EOT
+			<li class="{$flaticons}drupal" style="opacity:$opa;">
+				<a $link_offsite href=$drupal_link >
+					Drupal
+				</a>
+			</li>
+EOT;
+	}
+
 if (!empty($instance['custom_one'])) {
 		echo <<<EOT
 		<li class="custom_one" style="opacity:$opac;">

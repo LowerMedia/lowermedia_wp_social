@@ -558,6 +558,7 @@ $lowermedia_wp_social_admin = new lowermedia_wp_social_admin();
 			//If the user checks the box to use flat icons
 			if (get_option('lmwps_flaticons_option')){
 				$GLOBALS['link_flaticons']  = 'icon-2x icon-';
+				$GLOBALS['disable']  = 'disable';
 			}  else  {
 				$GLOBALS['link_flaticons'] =' ';
 			}
@@ -954,6 +955,7 @@ class SocialMediaIcons extends WP_Widget
 		$link_offsite = $GLOBALS['link_offsite'];
 
 		$flaticons=$GLOBALS['link_flaticons'];
+		$disable = $GLOBALS['disable'] ;
 // WIDGET BACKEND HTML CODE 
 		echo <<<EOT
 		<section class="widget-1 widget-first widget social-icons $css_class_holder " id="social-icons-widget-2" style="margin-top:$martop;padding-left:$marleft;">
@@ -962,54 +964,54 @@ class SocialMediaIcons extends WP_Widget
 EOT;
 if (!empty($instance['facebook'])) {
 		echo <<<EOT
-			<li class="{$flaticons}facebook" style="opacity:$opac;">
+			<li class="{$disable}facebook" style="opacity:$opac;">
 				<a $link_offsite href=$facebook_link >
-					Facebook
+					<i class="{$flaticons}facebook"></i> Facebook
 				</a>
 			</li>
 EOT;
 	}
 if (!empty($instance['twitter'])) {
 		echo <<<EOT
-			<li class="{$flaticons}twitter" style="opacity:$opac;">
+			<li class="{$disable}twitter" style="opacity:$opac;">
 				<a $link_offsite href=$twitter_link >
-					Twitter
+					<i class="{$flaticons}twitter"></i> <span>Twitter</span>
 				</a>
 			</li>
 EOT;
 	}
 if (!empty($instance['youtube'])) {
 		echo <<<EOT
-			<li class="{$flaticons}youtube" style="opacity:$opac;">
+			<li class="{$disable}youtube" style="opacity:$opac;">
 				<a $link_offsite href=$youtube_link >
-					YouTube
+					<i class="{$flaticons}youtube"></i><span>YouTube</span>
 				</a>
 			</li>
 EOT;
 	}
 if (!empty($instance['googleplus'])) {
 		echo <<<EOT
-		<li class="{$flaticons}google-plus" style="opacity:$opac;">
+		<li class="{$disable}google-plus" style="opacity:$opac;">
 			<a $link_offsite href=$googleplus_link  >
-				Google+
+				<i class="{$flaticons}google-plus"></i><span>Google+</span>
 			</a>
 		</li>
 EOT;
 	}
 if (!empty($instance['linkedin'])) {
 		echo <<<EOT
-		<li class="{$flaticons}linkedin" style="opacity:$opac;">
+		<li class="{$disable}linkedin" style="opacity:$opac;">
 			<a $link_offsite href=$linkedin_link >
-				LinkedIn
+				<i class="{$flaticons}linkedin"></i><span>LinkedIn</span>
 			</a>
 		</li>
 EOT;
 	}
 if (!empty($instance['github'])) {
 		echo <<<EOT
-		<li class="{$flaticons}github" style="opacity:$opac;">
+		<li class="{$disable}github" style="opacity:$opac;">
 			<a $link_offsite href=$github_link >
-				GitHub
+				<i class="{$flaticons}github"></i><span>GitHub</span>
 			</a>
 		</li>
 EOT;
@@ -1017,36 +1019,36 @@ EOT;
 
 if (!empty($instance['instagram'])) {
 		echo <<<EOT
-		<li class="{$flaticons}instagram" style="opacity:$opac;">
+		<li class="{$disable}instagram" style="opacity:$opac;">
 			<a $link_offsite href=$instagram_link  >
-				Instagram
+				<i class="{$flaticons}instagram"></i><span>Instagram</span>
 			</a>
 		</li>
 EOT;
 	}
 if (!empty($instance['pinterest'])) {
 		echo <<<EOT
-		<li class="{$flaticons}pinterest" style="opacity:$opac;">
+		<li class="{$disable}pinterest" style="opacity:$opac;">
 			<a $link_offsite href=$pinterest_link >
-				Pinterest
+				<i class="{$flaticons}pinterest"></i><span>Pinterest</span>
 			</a>
 		</li>
 EOT;
 	}
 if (!empty($instance['rss'])) {
 		echo <<<EOT
-			<li class="{$flaticons}rss" style="opacity:$opac;">
+			<li class="{$disable}rss" style="opacity:$opac;">
 				<a $link_offsite href=$rss_link >
-					RSS
+					<i class="{$flaticons}rss"></i><span>RSS</span>
 				</a>
 			</li>
 EOT;
 }
 if (!empty($instance['email'])) {
 		echo <<<EOT
-		<li class="{$flaticons}envelope" style="opacity:$opac;">
+		<li class="{$disable}envelope" style="opacity:$opac;">
 			<a $link_offsite href=$email_link >
-				Email
+				<i class="{$flaticons}envelope"></i><span>Email</span>
 			</a>
 		</li>
 EOT;
@@ -1054,63 +1056,63 @@ EOT;
 
 if (!empty($instance['soundcloud'])) {
 		echo <<<EOT
-			<li class="{$flaticons}soundcloud" style="opacity:$opac;">
+			<li class="soundcloud" style="opacity:$opac;">
 				<a $link_offsite href=$soundcloud_link >
-					SoundCloud
+					<span>SoundCloud</span>
 				</a>
 			</li>
 EOT;
 	}
 if (!empty($instance['blogger'])) {
 		echo <<<EOT
-		<li class="{$flaticons}blogger" style="opacity:$opac;">
+		<li class="blogger" style="opacity:$opac;">
 			<a $link_offsite href=$blogger_link  >
-				Blogger
+				<span>Blogger</span>
 			</a>
 		</li>
 EOT;
 	}
 if (!empty($instance['reverbnation'])) {
 		echo <<<EOT
-		<li class="{$flaticons}reverbnation" style="opacity:$opac;">
+		<li class="reverbnation" style="opacity:$opac;">
 			<a $link_offsite href=$reverbnation_link >
-				Reverbnation
+				<span>Reverbnation</span>
 			</a>
 		</li>
 EOT;
 	}
 if (!empty($instance['bandcamp'])) {
 		echo <<<EOT
-		<li class="{$flaticons}bandcamp" style="opacity:$opac;">
+		<li class="bandcamp" style="opacity:$opac;">
 			<a $link_offsite href=$bandcamp_link >
-				Bandcamp
+				<span>Bandcamp</span>
 			</a>
 		</li>
 EOT;
 	}
 if (!empty($instance['yelp'])) {
 		echo <<<EOT
-		<li class="{$flaticons}yelp" style="opacity:$opac;">
+		<li class="yelp" style="opacity:$opac;">
 			<a $link_offsite href=$yelp_link >
-				Yelp
+				<span>Yelp</span>
 			</a>
 		</li>
 EOT;
 	}
 if (!empty($instance['wordpress'])) {
 		echo <<<EOT
-			<li class="{$flaticons}wordpress" style="opacity:$opac;">
+			<li class="wordpress" style="opacity:$opac;">
 				<a $link_offsite href=$wordpress_link >
-					WordPress
+					<span>WordPress</span>
 				</a>
 			</li>
 EOT;
 	}
 if (!empty($instance['drupal'])) {
 		echo <<<EOT
-			<li class="{$flaticons}drupal" style="opacity:$opa;">
+			<li class="drupal" style="opacity:$opa;">
 				<a $link_offsite href=$drupal_link >
-					Drupal
+					<span>Drupal</span>
 				</a>
 			</li>
 EOT;
@@ -1120,7 +1122,7 @@ if (!empty($instance['custom_one'])) {
 		echo <<<EOT
 		<li class="custom_one" style="opacity:$opac;">
 			<a $link_offsite href=$custom_one_link >
-				Custom Link
+				<span>Custom Link</span>
 			</a>
 		</li>
 EOT;
@@ -1129,7 +1131,7 @@ if (!empty($instance['custom_two'])) {
 		echo <<<EOT
 		<li class="custom_two" style="opacity:$opac;">
 			<a $link_offsite href=$custom_two_link >
-				Custom Link
+				<span>Custom Link</span>
 			</a>
 		</li>
 EOT;
@@ -1138,7 +1140,7 @@ if (!empty($instance['custom_three'])) {
 		echo <<<EOT
 		<li class="custom_three" style="opacity:$opac;">
 			<a $link_offsite href=$custom_three_link >
-				Custom Link
+				<span>Custom Link</span>
 			</a>
 		</li>
 EOT;
@@ -1147,7 +1149,7 @@ if (!empty($instance['custom_four'])) {
 		echo <<<EOT
 		<li class="custom_four" style="opacity:$opac;">
 			<a $link_offsite href=$custom_four_link >
-				Custom Link
+				<span>Custom Link</span>
 			</a>
 		</li>
 EOT;

@@ -3,6 +3,10 @@
 	position: relative;
 }
 
+#lowermedia-wp-social-wrap {
+	z-index:100;
+	position: absolute
+}
 .social-icons-list {
 	list-style:none;
 	padding:0;
@@ -54,6 +58,10 @@
 	height: 30px; 
 	width: 30px;
 	padding:0;
+}
+
+.social-icons-list li a i {
+	font-size:35px;
 }
 
 .social-icons-list li a {

@@ -7,7 +7,7 @@ WordPress plugin that, when activated, creates a new widget area and new text wi
 Contributors: hawkeye126
 Donate link: 
 Tags: social media, multisite
-Tested to: 3.5.1
+Tested to: 3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,3 +32,21 @@ e.g.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Enable the plugin in the plugins admin section
 4. Move Social Media Icons widget into the new widget area Social Media Area
+
+== Frequently Asked Questions ==
+
+= What is the name of the widget? =
+
+Social Media Widget
+
+= I clicked activate but it is not working... =
+
+Enable the plugin in the plugins admin section, Move Social Media Icons widget into the new widget area Social Media Area.
+
+= My custom social media icons do not have styles, how do I enter them? =
+
+You must add the CSS manually for custom background icons.
+
+= I have changed my theme but cannot see the social media icons?! =
+
+Don't worry; go into the widget section, put your social media icons widget back into place, add links, admin options will not be changed.

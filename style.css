@@ -9,7 +9,7 @@ Thanks for sharing. i9mh.com
 
 #lowermedia-wp-social-wrap {
 	z-index:100;
-	position: absolute
+	position: fixed;
 }
 .social-icons-list {
 	list-style:none;
@@ -52,6 +52,7 @@ Thanks for sharing. i9mh.com
 	height: 30px; 
 	width: 30px;
 	padding:0;
+	margin: 10px 0;
 }
 
 .lm-wps-side-ul li {

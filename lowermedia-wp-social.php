@@ -562,19 +562,17 @@ add_filter("plugin_action_links_".plugin_basename(__FILE__), 'lowermedia_add_plu
 			//check if rounded option is selected
 			if (get_option('lmwps_rounded_option')){
 				$GLOBALS['css_class_rounded'] = " lm-wps-rounded ";
-			}
+			}else {$GLOBALS['css_class_rounded'] ='';}
 
 			//check if the background option is selected
 			if (get_option('lmwps_bkgrnd_option')){
 				$GLOBALS['css_class_bkgrnd']  = " lm-wps-bkgrnd ";
-			}
+			}else {$GLOBALS['css_class_bkgrnd'] ='';}
 
 			//check if the links open in new tab option is selected
 			if (get_option('lmwps_offsite_option')){
 				$GLOBALS['link_offsite']  = " target='_blank' ";
-			} 
-			else 
-			{$GLOBALS['link_offsite'] ='';}
+			} else {$GLOBALS['link_offsite'] ='';}
 
 			//If the user checks the box to use flat icons
 			if (get_option('lmwps_flaticons_option')){
@@ -582,23 +580,24 @@ add_filter("plugin_action_links_".plugin_basename(__FILE__), 'lowermedia_add_plu
 				$GLOBALS['disable']  = 'disable';
 			}  else  {
 				$GLOBALS['link_flaticons'] =' ';
+				$GLOBALS['disable']  = '';
 			}
 
 			//check if margin top is set
 			if (get_option('lmwps_martop_option')){
 				$GLOBALS['css_class_martop'] = get_option('lmwps_martop_option');
-			}
+			} else {$GLOBALS['css_class_martop'] ='';}
 
 			//check if margin left is set
 			if (get_option('lmwps_marleft_option')){
 				$GLOBALS['css_class_marleft'] = get_option('lmwps_marleft_option');
-			}
+			} else {$GLOBALS['css_class_marleft'] ='';}
 			
 			//check if position is set
 			if (get_option('lmwps_pos_option')){
 				if (get_option('lmwps_pos_option') == "top" ){
 					$GLOBALS['css_class_pos'] = " lm-wps-top-ul lm-wps-top "; 
-				}else{
+				} else {
 					$GLOBALS['css_class_pos'] = " lm-wps-side-ul lm-wps-side ";
 				}
 			}
@@ -606,7 +605,8 @@ add_filter("plugin_action_links_".plugin_basename(__FILE__), 'lowermedia_add_plu
 			//check if opacity is set
 			if (get_option('lmwps_opac_option')){
 				$GLOBALS['css_class_opac'] = get_option('lmwps_opac_option');
-			}
+			} else {$GLOBALS['css_class_opac'] ='';}
+			
 			$output = dynamic_sidebar('lowermedia_wp_social_widget_area');
 			
 		}
@@ -646,6 +646,7 @@ class SocialMediaIcons extends WP_Widget
 				'drupal'=>'',
 				'instagram' => '',
 				'pinterest'=>'',
+				'yelp'=>'',
 				'email'=>'',
 				'rss'=>'',
 				'soundcloud' => '',

@@ -3,25 +3,25 @@ Thanks for sharing. i9mh.com
 */
 
 #container, #page, #wrapper, #page-wrap {
-	z-index: 2;
 	position: relative;
+	z-index: 2;
 }
 
 #lowermedia-wp-social-wrap {
-	z-index:100;
 	position: fixed;
+	z-index:100;
 }
 .social-icons-list {
-	list-style:none;
-	padding:0;
 	margin:0;
+	padding:0;
 	padding-right:5%;
+	list-style:none;
 }
 
 .lm-wps-bkgrnd {
-	background: grey;
-	border: 2px solid darkgray;
 	padding:10px;
+	border: 2px solid darkgray;
+	background: grey;
 }
 
 .lm-wps-rounded li{
@@ -30,9 +30,9 @@ Thanks for sharing. i9mh.com
 
 .lm-wps-top {
 	position: fixed;
-	border-radius: 0px 0px 20px 20px;
-	border-top:none;
 	z-index: 10;
+	border-top:none;
+	border-radius: 0px 0px 20px 20px;
 }
 
 .lm-wps-top-ul li{
@@ -43,16 +43,16 @@ Thanks for sharing. i9mh.com
 .lm-wps-side {
 	position:fixed;
 	z-index:1;
-	border-radius: 0px 20px 20px 0px;
 	border-left: none;
+	border-radius: 0px 20px 20px 0px;
 }
 
 .social-icons-list li {
-	background-size: 30px auto; 
-	height: 30px; 
-	width: 30px;
-	padding:0;
 	margin: 10px 0;
+	padding:0; 
+	width: 30px; 
+	height: 30px;
+	background-size: 30px auto;
 }
 
 .lm-wps-side-ul li {
@@ -63,14 +63,14 @@ Thanks for sharing. i9mh.com
 	font-size:30px;
 }
 
-.social-icons-list li a {
-	width: 30px; 
-	position: absolute; 
-	font-size: 0px; 
-	height: 30px;
-	text-decoration:none;
+.social-icons-list li a { 
+	position: absolute;
 	margin:0;
 	padding:0;
+	width: 30px; 
+	height: 30px;
+	text-decoration:none; 
+	font-size: 0px;
 }
 
 .social-icons-list .facebook {
@@ -82,8 +82,8 @@ Thanks for sharing. i9mh.com
 }
 
 .social-icons-list .youtube {
-	background-image: url("icons/youtube.png");
     height: 32px;
+	background-image: url("icons/youtube.png");
 }
 
 .social-icons-list .linkedin {
@@ -104,16 +104,16 @@ Thanks for sharing. i9mh.com
 }
 
 .social-icons-list .drupal {
+    width: 28px;
+    height: 32px;
 	background-image: url("icons/drupal.png");
 	background-size: 28px auto;
-    height: 32px;
-    width: 28px;
 }
 
 .social-icons-list .instagram {
+    height: 31px;
 	background-image: url("icons/instagram.png");
 	background-size: 130px auto;
-    height: 31px;
 }
 
 .social-icons-list .pinterest {

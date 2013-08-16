@@ -600,7 +600,7 @@ add_filter("plugin_action_links_".plugin_basename(__FILE__), 'lowermedia_add_plu
 				} else {
 					$GLOBALS['css_class_pos'] = " lm-wps-side-ul lm-wps-side ";
 				}
-			}
+			}else {$GLOBALS['css_class_pos'] ='';}
 			
 			//check if opacity is set
 			if (get_option('lmwps_opac_option')){
@@ -910,7 +910,7 @@ class SocialMediaIcons extends WP_Widget
 	{
 		extract($args, EXTR_SKIP);
 		echo $before_widget;
-		$css_class_holder = $GLOBALS['css_class_bkgrnd']." ".$GLOBALS['css_class_rounded']." ".$GLOBALS['css_class_section']." ".$GLOBALS['css_class_pos'];
+		$css_class_holder = $GLOBALS['css_class_bkgrnd']." ".$GLOBALS['css_class_rounded']." ".$GLOBALS['css_class_pos'];//".$GLOBALS['css_class_section']."
 
 		//Icon Variables
 		$facebook = empty($instance['facebook']) ? ' ' : apply_filters('widget_facebook', $instance['facebook']);
